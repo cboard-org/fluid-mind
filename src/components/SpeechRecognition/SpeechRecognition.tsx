@@ -20,8 +20,12 @@ export default function SpeechRecognition() {
   }, []);
 
   const startListening = async () => {
-    if(!(process.env.NEXT_PUBLIC_AZURE_SPEECH_KEY && process.env.NEXT_PUBLIC_AZURE_SPEECH_REGION)) return
-    const speechConfig = sdk.SpeechConfig.fromSubscription(process.env.NEXT_PUBLIC_AZURE_SPEECH_KEY, process.env.NEXT_PUBLIC_AZURE_SPEECH_REGION);
+    if (!(process.env.NEXT_PUBLIC_AZURE_SPEECH_KEY && process.env.NEXT_PUBLIC_AZURE_SPEECH_REGION))
+      return;
+    const speechConfig = sdk.SpeechConfig.fromSubscription(
+      process.env.NEXT_PUBLIC_AZURE_SPEECH_KEY,
+      process.env.NEXT_PUBLIC_AZURE_SPEECH_REGION,
+    );
     const audioConfig = sdk.AudioConfig.fromDefaultMicrophoneInput();
     const recognizer = new sdk.SpeechRecognizer(speechConfig, audioConfig);
 
@@ -44,13 +48,13 @@ export default function SpeechRecognition() {
       if (e.reason === sdk.CancellationReason.Error) {
         console.log(`"CANCELED: ErrorCode=${e.errorCode}`);
         console.log(`"CANCELED: ErrorDetails=${e.errorDetails}`);
-        console.log("CANCELED: Did you update the subscription info?");
+        console.log('CANCELED: Did you update the subscription info?');
       }
       stopListening();
     };
 
-    recognizer.sessionStopped = (s, e) => {
-      console.log("\n    Session stopped event.");
+    recognizer.sessionStopped = () => {
+      console.log('\n    Session stopped event.');
       stopListening();
     };
 
