@@ -6,3 +6,27 @@
   width: 100%;
   height: 100%;
 }
+
+.recognizedTextContainer {
+  padding: 2rem;
+  padding-bottom: 0;
+  width: 100%;
+}
+
+.recognizedText {
+  text-align: center;
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid white;
+}
+
+.recognizedText p {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.controlContainer {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+}

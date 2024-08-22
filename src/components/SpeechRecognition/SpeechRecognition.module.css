@@ -5,21 +5,5 @@
   justify-content: center;
   padding: 2rem;
   width: 100%;
-}
-
-.recognizedText {
-  margin-top: 2rem;
-  text-align: center;
-  width: 100%;
-  padding: 1rem;
-  border:2px solid white ;
-}
-
-.recognizedText h2 {
-  margin-bottom: 1rem;
-}
-
-.recognizedText p {
-  white-space: pre-wrap;
-  word-wrap: break-word;
+  flex-grow: 1;
 }

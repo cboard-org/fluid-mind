@@ -1,13 +1,21 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
 import { Button } from '@fluentui/react-components';
 import MicAnimation from './MicAnimation';
 import styles from './SpeechRecognition.module.css';
 
-export default function SpeechRecognition() {
-  const [isListening, setIsListening] = useState(false);
-  const [recognizedText, setRecognizedText] = useState('');
+type Props = {
+  setRecognizedText: (text: string) => void;
+  setIsListening: (isListening: boolean) => void;
+  isListening: boolean;
+};
+
+export default function SpeechRecognition({
+  setIsListening,
+  isListening,
+  setRecognizedText,
+}: Props) {
   const recognizerRef = useRef<sdk.SpeechRecognizer | null>(null);
 
   useEffect(() => {
@@ -40,6 +48,7 @@ export default function SpeechRecognition() {
       if (e.result.reason === sdk.ResultReason.RecognizedSpeech) {
         console.log(`RECOGNIZED: Text=${e.result.text}`);
         setRecognizedText(e.result.text);
+        setIsListening(false);
       }
     };
 
@@ -81,9 +90,6 @@ export default function SpeechRecognition() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.recognizedText}>
-        <p>{recognizedText}</p>
-      </div>
       <MicAnimation isActive={isListening} />
       <Button onClick={handleListenButton} size="large">
         {isListening ? 'Stop Listening' : 'Start Listening'}
