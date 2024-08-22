@@ -1,22 +1,40 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
 import { Button } from '@fluentui/react-components';
 import MicAnimation from './MicAnimation';
 import styles from './SpeechRecognition.module.css';
 
 type Props = {
+  show: boolean;
   setRecognizedText: (text: string) => void;
-  setIsListening: (isListening: boolean) => void;
-  isListening: boolean;
+  onRecognizeText: (text: string) => void;
 };
 
-export default function SpeechRecognition({
-  setIsListening,
-  isListening,
-  setRecognizedText,
-}: Props) {
+export default function SpeechRecognition({ show, setRecognizedText, onRecognizeText }: Props) {
   const recognizerRef = useRef<sdk.SpeechRecognizer | null>(null);
+  const [isListening, setIsListening] = useState(false);
+
+  useEffect(() => {
+    const recognizer = recognizerRef.current;
+    if (!recognizer) return;
+    recognizer.recognizing = (s, e) => {
+      console.log(`RECOGNIZING: Text=${e.result.text}`);
+      if (!show) return;
+      setRecognizedText(e.result.text);
+    };
+
+    recognizer.recognized = (s, e) => {
+      if (e.result.reason === sdk.ResultReason.RecognizedSpeech) {
+        console.log(`RECOGNIZED: Text=${e.result.text}`);
+        if (!show) return;
+        onRecognizeText(e.result.text);
+        setIsListening(false);
+        // if (recognizer) recognizer.stopContinuousRecognitionAsync();
+      }
+    };
+    // recognizer.startContinuousRecognitionAsync();
+  }, [show, setRecognizedText, onRecognizeText, setIsListening]);
 
   useEffect(() => {
     // Clean up the recognizer when the component unmounts
@@ -41,13 +59,15 @@ export default function SpeechRecognition({
 
     recognizer.recognizing = (s, e) => {
       console.log(`RECOGNIZING: Text=${e.result.text}`);
+      if (!show) return;
       setRecognizedText(e.result.text);
     };
 
     recognizer.recognized = (s, e) => {
       if (e.result.reason === sdk.ResultReason.RecognizedSpeech) {
         console.log(`RECOGNIZED: Text=${e.result.text}`);
-        setRecognizedText(e.result.text);
+        if (!show) return;
+        onRecognizeText(e.result.text);
         setIsListening(false);
       }
     };
@@ -87,6 +107,8 @@ export default function SpeechRecognition({
       startListening();
     }
   };
+
+  if (!show) return;
 
   return (
     <div className={styles.container}>
