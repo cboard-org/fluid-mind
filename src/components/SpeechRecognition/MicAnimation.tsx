@@ -8,7 +8,11 @@ const resolveAsset = (asset: string) => {
   return `${ASSET_URL}${asset}`;
 };
 
-const MicAnimation = () => (
+type Props = {
+  isActive: boolean
+};
+
+const MicAnimation = ({isActive}:Props) => (
   <CardPreview>
     <Image height={250} width={250} src={resolveAsset('voiceIcon.png')} alt="Preview of mic" />
   </CardPreview>

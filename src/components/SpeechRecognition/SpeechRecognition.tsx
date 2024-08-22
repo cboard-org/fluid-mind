@@ -8,7 +8,7 @@ import styles from './SpeechRecognition.module.css';
 export default function SpeechRecognition() {
   const [isListening, setIsListening] = useState(false);
   const [recognizedText, setRecognizedText] = useState('');
-  const recognizerRef = useRef(null);
+  const recognizerRef = useRef<sdk.SpeechRecognizer | null>(null);
 
   useEffect(() => {
     // Clean up the recognizer when the component unmounts
@@ -20,6 +20,7 @@ export default function SpeechRecognition() {
   }, []);
 
   const startListening = async () => {
+    if(!(process.env.NEXT_PUBLIC_AZURE_SPEECH_KEY && process.env.NEXT_PUBLIC_AZURE_SPEECH_REGION)) return
     const speechConfig = sdk.SpeechConfig.fromSubscription(process.env.NEXT_PUBLIC_AZURE_SPEECH_KEY, process.env.NEXT_PUBLIC_AZURE_SPEECH_REGION);
     const audioConfig = sdk.AudioConfig.fromDefaultMicrophoneInput();
     const recognizer = new sdk.SpeechRecognizer(speechConfig, audioConfig);
@@ -53,13 +54,13 @@ export default function SpeechRecognition() {
       stopListening();
     };
 
-    await recognizer.startContinuousRecognitionAsync();
+    recognizer.startContinuousRecognitionAsync();
     setIsListening(true);
   };
 
   const stopListening = async () => {
     if (recognizerRef.current) {
-      await recognizerRef.current.stopContinuousRecognitionAsync();
+      recognizerRef.current.stopContinuousRecognitionAsync();
       recognizerRef.current.close();
       recognizerRef.current = null;
     }
