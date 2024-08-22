@@ -36,7 +36,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <RendererProvider renderer={renderer || createDOMRenderer()}>
       <SSRProvider>
-        <FluentProvider theme={webDarkTheme}>{children}</FluentProvider>
+        <FluentProvider theme={webDarkTheme} style={{ width: '100%', height: '100%' }}>
+          {children}
+        </FluentProvider>
       </SSRProvider>
     </RendererProvider>
   );
