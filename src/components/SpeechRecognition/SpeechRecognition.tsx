@@ -35,7 +35,7 @@ export default function SpeechRecognition() {
     recognizer.recognized = (s, e) => {
       if (e.result.reason === sdk.ResultReason.RecognizedSpeech) {
         console.log(`RECOGNIZED: Text=${e.result.text}`);
-        setRecognizedText((prevText) => prevText + ' ' + e.result.text);
+        setRecognizedText(e.result.text);
       }
     };
 
@@ -77,14 +77,13 @@ export default function SpeechRecognition() {
 
   return (
     <div className={styles.container}>
+      <div className={styles.recognizedText}>
+        <p>{recognizedText}</p>
+      </div>
       <MicAnimation isActive={isListening} />
       <Button onClick={handleListenButton} size="large">
         {isListening ? 'Stop Listening' : 'Start Listening'}
       </Button>
-      <div className={styles.recognizedText}>
-        <h2>Recognized Text:</h2>
-        <p>{recognizedText}</p>
-      </div>
     </div>
   );
 }

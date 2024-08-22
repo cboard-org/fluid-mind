@@ -4,12 +4,15 @@
   align-items: center;
   justify-content: center;
   padding: 2rem;
+  width: 100%;
 }
 
 .recognizedText {
   margin-top: 2rem;
   text-align: center;
-  max-width: 600px;
+  width: 100%;
+  padding: 1rem;
+  border:2px solid white ;
 }
 
 .recognizedText h2 {
