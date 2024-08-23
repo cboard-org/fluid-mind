@@ -1,28 +1,34 @@
-import React, { useState } from 'react';
+import React, { type Dispatch, type SetStateAction, useState } from 'react';
 import styles from './ResponseDashboard.module.css';
+import type { HowToReply, ReplyOptions, Tone } from '@/src/commonTypes/replyOptions';
 
-const ResponseDashboard: React.FC = () => {
-  const [predeterminedTone, setPredeterminedTone] = useState('FUNNY');
+type Props = {
+  setReplyOptions: Dispatch<SetStateAction<ReplyOptions>>;
+  replyOptions: ReplyOptions;
+  onHowToReplyClick: (howToReply: HowToReply) => void;
+};
+
+const ResponseDashboard: React.FC<Props> = ({
+  setReplyOptions,
+  replyOptions,
+  onHowToReplyClick,
+}: Props) => {
   const [keyword, setKeyword] = useState('');
 
-  const handleToneChange = () => {
-    // Logic to change the tone
+  const handleToneChange = (tone: Tone) => {
+    setReplyOptions((currentValue) => {
+      return { ...currentValue, tone };
+    });
   };
 
-  const handleAgree = () => {
-    // Logic for agree action
-  };
-
-  const handleDisagree = () => {
-    // Logic for disagree action
-  };
-
-  const handleChangeTopic = () => {
-    // Logic to change the topic
-  };
-
-  const handleMoreInfo = () => {
-    // Logic to show more info
+  const handleSetHowToReply = (how_to_reply: HowToReply) => {
+    setReplyOptions((replyOptions) => {
+      return {
+        ...replyOptions,
+        how_to_reply,
+      };
+    });
+    onHowToReplyClick(how_to_reply);
   };
 
   const handleClose = () => {
@@ -33,32 +39,34 @@ const ResponseDashboard: React.FC = () => {
     // Logic to play
   };
 
-  const handleAddKeyword = () => {
-    // Logic to add keyword
-  };
-
   return (
     <div className={styles.dashboard}>
       <div className={styles.bottomSection}>
         <div className={styles.toneSection}>
           <div className={styles.toneLabel}>Tono predeterminado</div>
-          <div className={styles.toneValue}>{predeterminedTone}</div>
-          <button onClick={handleToneChange} className={styles.changeButton}>
+          <div className={styles.toneValue}>{replyOptions.tone}</div>
+          <button onClick={() => handleToneChange('Critical')} className={styles.changeButton}>
             Cambiar
           </button>
         </div>
         <div className={styles.mainOptionsContainer}>
-          <button onClick={handleAgree} className={styles.actionButton}>
+          <button onClick={() => handleSetHowToReply('Agree')} className={styles.actionButton}>
             Agree
           </button>
-          <button onClick={handleDisagree} className={styles.actionButton}>
+          <button onClick={() => handleSetHowToReply('Disagree')} className={styles.actionButton}>
             Disagree
           </button>
-          <button onClick={handleChangeTopic} className={styles.actionButton}>
+          <button
+            onClick={() => handleSetHowToReply('Change topic')}
+            className={styles.actionButton}
+          >
             Change topic
           </button>
-          <button onClick={handleMoreInfo} className={styles.actionButton}>
-            More info
+          <button
+            onClick={() => handleSetHowToReply('Ask More info')}
+            className={styles.actionButton}
+          >
+            Ask More info
           </button>
         </div>
         <div className={styles.bottomOptionsContainer}>
