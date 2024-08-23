@@ -41,7 +41,7 @@ const ResponseDashboard: React.FC<Props> = ({
 
   return (
     <div className={styles.dashboard}>
-      <div className={styles.bottomSection}>
+      <div className={styles.topOptionsContainer}>
         <div className={styles.toneSection}>
           <div className={styles.toneLabel}>Tono predeterminado</div>
           <div className={styles.toneValue}>{replyOptions.tone}</div>
@@ -69,23 +69,23 @@ const ResponseDashboard: React.FC<Props> = ({
             Ask More info
           </button>
         </div>
-        <div className={styles.bottomOptionsContainer}>
-          <button onClick={handleClose} className={styles.actionButton}>
-            Close
-          </button>
-          <div className={styles.keywordSection}>
-            <input
-              type="text"
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
-              placeholder="Add Keyword"
-              className={styles.keywordInput}
-            />
-          </div>
-          <button onClick={handlePlay} className={styles.actionButton}>
-            Play
-          </button>
+      </div>
+      <div className={styles.bottomOptionsContainer}>
+        <button onClick={handleClose} className={styles.actionButton}>
+          Close
+        </button>
+        <div className={styles.keywordSection}>
+          <input
+            type="text"
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
+            placeholder="Add Keyword"
+            className={styles.keywordInput}
+          />
         </div>
+        <button onClick={handlePlay} className={styles.actionButton}>
+          Play
+        </button>
       </div>
     </div>
   );
