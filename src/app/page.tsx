@@ -4,8 +4,8 @@ import SpeechRecognition from '@/src/components/SpeechRecognition/SpeechRecognit
 import ResponseDashboard from '@/src/components/ResponseDashboard/ResponseDashboard';
 import { useState } from 'react';
 import { Button } from '@fluentui/react-components';
-import type { ReplyOptions, ReplyRequestBody } from '@/src/commonTypes/replyOptions';
-import { ReplySuggestion, ReplySuggestions } from '@/src/commonTypes/replySuggestions';
+import type { ReplyOptions, ReplyRequestBody, ChatHistory } from '@/src/commonTypes/replyOptions';
+import type { ReplySuggestion, ReplySuggestions } from '@/src/commonTypes/replySuggestions';
 
 export default function Home() {
   const [isListeningView, setIsListeningView] = useState(true);
@@ -19,6 +19,7 @@ export default function Home() {
     is_finish: false,
     requested_change: '-',
   });
+  const [chatHistory, setChatHistory] = useState<ChatHistory>([]);
 
   const [repliesSuggestions, setRepliesSuggestions] = useState<ReplySuggestions | null[]>([
     null,
@@ -36,7 +37,7 @@ export default function Home() {
     const requestBody: ReplyRequestBody = {
       ...replyOptions,
       sentence: recognizedText,
-      chat_history: [],
+      chat_history: chatHistory,
     };
     const requestHeaders = new Headers({ 'Content-Type': 'application/json' });
 
@@ -59,8 +60,17 @@ export default function Home() {
 
   const handleSuggestionPlayClick = (suggestion: ReplySuggestion) => {
     console.log(suggestion.text);
+    setChatHistory((prevChatHistory) =>
+      prevChatHistory.concat([
+        {
+          inputs: { sentence: recognizedText },
+          outputs: { answer: suggestion.text, changed: null },
+        },
+      ]),
+    );
     setRecognizedText('');
     setIsListeningView(true);
+    console.debug(chatHistory);
   };
 
   return (
