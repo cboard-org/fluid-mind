@@ -1,13 +1,14 @@
 import React, { type Dispatch, type SetStateAction, useState } from 'react';
 import styles from './ResponseDashboard.module.css';
 import type { HowToReply, ReplyOptions, Tone } from '@/src/commonTypes/replyOptions';
-import { ReplySuggestions } from '@/src/commonTypes/replySuggestions';
+import type { ReplySuggestions, ReplySuggestion } from '@/src/commonTypes/replySuggestions';
 
 type Props = {
   setReplyOptions: Dispatch<SetStateAction<ReplyOptions>>;
   replyOptions: ReplyOptions;
   onHowToReplyClick: (howToReply: HowToReply) => void;
   suggestions: ReplySuggestions | null[];
+  onSuggestionPlayClick: (suggestion: ReplySuggestion) => void;
 };
 
 const ResponseDashboard: React.FC<Props> = ({
@@ -15,8 +16,10 @@ const ResponseDashboard: React.FC<Props> = ({
   replyOptions,
   onHowToReplyClick,
   suggestions,
+  onSuggestionPlayClick,
 }: Props) => {
   const [isSuggestionView, setIsSuggestionView] = useState(false);
+  const [selectedSuggestion, setSelectedSuggestion] = useState<null | ReplySuggestion>(null);
   const [keyword, setKeyword] = useState('');
 
   const handleToneChange = (tone: Tone) => {
@@ -77,7 +80,11 @@ const ResponseDashboard: React.FC<Props> = ({
     <div className={styles.topOptionsContainer}>
       <div className={styles.suggestions}>
         {suggestions.map((suggestion, index) => (
-          <button key={suggestion?.id || index} className={styles.actionButton}>
+          <button
+            onClick={() => setSelectedSuggestion(suggestion)}
+            key={suggestion?.id || index}
+            className={styles.actionButton}
+          >
             {suggestion?.text || '...'}
           </button>
         ))}
@@ -85,9 +92,36 @@ const ResponseDashboard: React.FC<Props> = ({
     </div>
   );
 
+  const SelectedSuggestionView = () => (
+    <div className={styles.topOptionsContainer}>
+      <div className={styles.suggestions}>
+        <button className={styles.actionButton}>{selectedSuggestion?.text}</button>
+        <div className={styles.playOrEditContainer}>
+          <button
+            onClick={() => {
+              if (selectedSuggestion) onSuggestionPlayClick(selectedSuggestion);
+            }}
+            className={styles.actionButton}
+          >
+            Play
+          </button>
+          <button className={styles.actionButton}>Edit</button>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <div className={styles.dashboard}>
-      {isSuggestionView ? <SuggestionsView /> : <HowToReplyView />}
+      {isSuggestionView ? (
+        selectedSuggestion ? (
+          <SelectedSuggestionView />
+        ) : (
+          <SuggestionsView />
+        )
+      ) : (
+        <HowToReplyView />
+      )}
       <div className={styles.bottomOptionsContainer}>
         <button onClick={handleClose} className={styles.actionButton}>
           Close

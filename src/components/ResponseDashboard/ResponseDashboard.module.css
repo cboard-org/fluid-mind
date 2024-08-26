@@ -110,3 +110,9 @@
   grid-template-rows: 1fr 1fr;
   gap: 1rem;
 }
+
+.playOrEditContainer {
+  gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+}

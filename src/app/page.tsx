@@ -5,7 +5,7 @@ import ResponseDashboard from '@/src/components/ResponseDashboard/ResponseDashbo
 import { useState } from 'react';
 import { Button } from '@fluentui/react-components';
 import type { ReplyOptions, ReplyRequestBody } from '@/src/commonTypes/replyOptions';
-import { ReplySuggestions } from '@/src/commonTypes/replySuggestions';
+import { ReplySuggestion, ReplySuggestions } from '@/src/commonTypes/replySuggestions';
 
 export default function Home() {
   const [isListeningView, setIsListeningView] = useState(true);
@@ -57,6 +57,12 @@ export default function Home() {
     }
   };
 
+  const handleSuggestionPlayClick = (suggestion: ReplySuggestion) => {
+    console.log(suggestion.text);
+    setRecognizedText('');
+    setIsListeningView(true);
+  };
+
   return (
     <main className={styles.main}>
       <div className={styles.recognizedTextContainer}>
@@ -78,6 +84,7 @@ export default function Home() {
             replyOptions={replyOptions}
             onHowToReplyClick={handleHowToReplyClick}
             suggestions={repliesSuggestions}
+            onSuggestionPlayClick={handleSuggestionPlayClick}
           />
         )}
       </div>
