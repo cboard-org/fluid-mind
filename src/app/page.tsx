@@ -20,7 +20,12 @@ export default function Home() {
     requested_change: '-',
   });
 
-  const [repliesSuggestions, setRepliesSuggestions] = useState<ReplySuggestions | null>(null);
+  const [repliesSuggestions, setRepliesSuggestions] = useState<ReplySuggestions | null[]>([
+    null,
+    null,
+    null,
+    null,
+  ]);
 
   const handleOnRecognizeText = (text: string) => {
     setRecognizedText(text);
@@ -72,6 +77,7 @@ export default function Home() {
             setReplyOptions={setReplyOptions}
             replyOptions={replyOptions}
             onHowToReplyClick={handleHowToReplyClick}
+            suggestions={repliesSuggestions}
           />
         )}
       </div>
