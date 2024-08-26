@@ -21,12 +21,10 @@ export default function Home() {
   });
   const [chatHistory, setChatHistory] = useState<ChatHistory>([]);
 
-  const [repliesSuggestions, setRepliesSuggestions] = useState<ReplySuggestions | null[]>([
-    null,
-    null,
-    null,
-    null,
-  ]);
+  const nullRepliesSuggestions = [null, null, null, null];
+  const [repliesSuggestions, setRepliesSuggestions] = useState<ReplySuggestions | null[]>(
+    nullRepliesSuggestions,
+  );
 
   const handleOnRecognizeText = (text: string) => {
     setRecognizedText(text);
@@ -69,6 +67,7 @@ export default function Home() {
       ]),
     );
     setRecognizedText('');
+    setRepliesSuggestions(nullRepliesSuggestions);
     setIsListeningView(true);
   };
 
