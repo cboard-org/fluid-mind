@@ -56,6 +56,12 @@ export default function Home() {
     }
   };
 
+  const changeToListening = () => {
+    setRecognizedText('');
+    setRepliesSuggestions(nullRepliesSuggestions);
+    setIsListeningView(true);
+  };
+
   const handleSuggestionPlayClick = (suggestion: ReplySuggestion) => {
     console.log(`SPEAK: ${suggestion.text}`);
     setChatHistory((prevChatHistory) =>
@@ -66,9 +72,7 @@ export default function Home() {
         },
       ]),
     );
-    setRecognizedText('');
-    setRepliesSuggestions(nullRepliesSuggestions);
-    setIsListeningView(true);
+    changeToListening();
   };
 
   return (
