@@ -19,7 +19,6 @@ export default function SpeechRecognition({ show, setRecognizedText, onRecognize
     const recognizer = recognizerRef.current;
     if (!recognizer) return;
     recognizer.recognizing = (s, e) => {
-      console.log(`RECOGNIZING: Text=${e.result.text}`);
       if (!show) return;
       setRecognizedText(e.result.text);
     };
@@ -58,14 +57,13 @@ export default function SpeechRecognition({ show, setRecognizedText, onRecognize
     recognizerRef.current = recognizer;
 
     recognizer.recognizing = (s, e) => {
-      console.log(`RECOGNIZING: Text=${e.result.text}`);
       if (!show) return;
       setRecognizedText(e.result.text);
     };
 
     recognizer.recognized = (s, e) => {
       if (e.result.reason === sdk.ResultReason.RecognizedSpeech) {
-        console.log(`RECOGNIZED: Text=${e.result.text}`);
+        console.log(`RECOGNIZED: ${e.result.text}`);
         if (!show) return;
         onRecognizeText(e.result.text);
         setIsListening(false);
@@ -83,7 +81,7 @@ export default function SpeechRecognition({ show, setRecognizedText, onRecognize
     };
 
     recognizer.sessionStopped = () => {
-      console.log('\n    Session stopped event.');
+      console.log('Microphone stopped');
       stopListening();
     };
 

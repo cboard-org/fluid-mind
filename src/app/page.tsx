@@ -59,7 +59,7 @@ export default function Home() {
   };
 
   const handleSuggestionPlayClick = (suggestion: ReplySuggestion) => {
-    console.log(suggestion.text);
+    console.log(`SPEAK: ${suggestion.text}`);
     setChatHistory((prevChatHistory) =>
       prevChatHistory.concat([
         {
@@ -70,7 +70,6 @@ export default function Home() {
     );
     setRecognizedText('');
     setIsListeningView(true);
-    console.debug(chatHistory);
   };
 
   return (
