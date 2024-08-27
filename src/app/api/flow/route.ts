@@ -4,7 +4,6 @@ export async function POST(req: Request) {
   myHeaders.append('Content-Type', 'application/json');
 
   const requestBody = JSON.stringify(body);
-  console.log(requestBody);
   const requestHeaders = new Headers({ 'Content-Type': 'application/json' });
 
   const apiKey = process.env.AZURE_FLOW_KEY;
