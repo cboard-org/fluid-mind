@@ -18,6 +18,7 @@ export default function SpeechRecognition({ show, setRecognizedText, onRecognize
   useEffect(() => {
     const recognizer = recognizerRef.current;
     if (!recognizer) return;
+    setIsListening(true);
     recognizer.recognizing = (s, e) => {
       if (!show) return;
       setRecognizedText(e.result.text);
@@ -25,7 +26,7 @@ export default function SpeechRecognition({ show, setRecognizedText, onRecognize
 
     recognizer.recognized = (s, e) => {
       if (e.result.reason === sdk.ResultReason.RecognizedSpeech) {
-        console.log(`RECOGNIZED: Text=${e.result.text}`);
+        console.log(`${show ? 'RECOGNIZED' : 'Ignored'}: ${e.result.text}`);
         if (!show) return;
         onRecognizeText(e.result.text);
         setIsListening(false);
