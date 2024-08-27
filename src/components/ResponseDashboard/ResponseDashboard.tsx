@@ -11,6 +11,8 @@ type Props = {
   onSuggestionPlayClick: (suggestion: ReplySuggestion) => void;
 };
 
+const tones: Tone[] = ['Confident', 'Empathetic', 'Direct', 'Witty', 'Critical'];
+
 const ResponseDashboard: React.FC<Props> = ({
   setReplyOptions,
   replyOptions,
@@ -51,10 +53,25 @@ const ResponseDashboard: React.FC<Props> = ({
     <div className={styles.topOptionsContainer}>
       <div className={styles.toneSection}>
         <div className={styles.toneLabel}>Tono predeterminado</div>
-        <div className={styles.toneValue}>{replyOptions.tone}</div>
-        <button onClick={() => handleToneChange('Critical')} className={styles.changeButton}>
-          Cambiar
-        </button>
+        <div className={styles.toneValue}>
+          {tones.map((tone) => {
+            if (tone === replyOptions.tone)
+              return (
+                <div className={styles.selectedTone} key={tone}>
+                  {tone}
+                </div>
+              );
+            return (
+              <button
+                onClick={() => handleToneChange(tone)}
+                className={styles.toneButton}
+                key={tone}
+              >
+                {tone}
+              </button>
+            );
+          })}
+        </div>
       </div>
       <div className={styles.mainOptionsContainer}>
         <button onClick={() => handleSetHowToReply('Agree')} className={styles.actionButton}>
