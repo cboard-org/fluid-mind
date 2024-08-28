@@ -9,6 +9,13 @@ type Props = {
   onHowToReplyClick: (howToReply: HowToReply) => void;
   suggestions: ReplySuggestions | null[];
   onSuggestionPlayClick: (suggestion: ReplySuggestion) => void;
+  onSuggestionEditClick: ({
+    selected_sentence,
+    requested_change,
+  }: {
+    selected_sentence: string;
+    requested_change: string;
+  }) => void;
 };
 
 const tones: Tone[] = ['Confident', 'Empathetic', 'Direct', 'Witty', 'Critical'];
@@ -19,9 +26,11 @@ const ResponseDashboard: React.FC<Props> = ({
   onHowToReplyClick,
   suggestions,
   onSuggestionPlayClick,
+  onSuggestionEditClick,
 }: Props) => {
   const [isSuggestionView, setIsSuggestionView] = useState(false);
   const [selectedSuggestion, setSelectedSuggestion] = useState<null | ReplySuggestion>(null);
+  const [isEditView, setIsEditView] = useState(false);
   const [keyword, setKeyword] = useState('');
 
   const handleToneChange = (tone: Tone) => {
@@ -122,7 +131,64 @@ const ResponseDashboard: React.FC<Props> = ({
           >
             Play
           </button>
-          <button className={styles.actionButton}>Edit</button>
+          <button onClick={() => setIsEditView(true)} className={styles.actionButton}>
+            Edit
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
+  const handleEditSuggestionOptionClick = (requested_change: string) => {
+    setIsEditView(false);
+    if (!selectedSuggestion) return;
+    onSuggestionEditClick({ selected_sentence: selectedSuggestion.text, requested_change });
+    setSelectedSuggestion(null);
+  };
+
+  const EditSuggestionView = () => (
+    <div className={styles.topOptionsContainer}>
+      <div className={styles.suggestions}>
+        <button className={styles.actionButton}>{selectedSuggestion?.text}</button>
+        <div className={styles.playOrEditContainer}>
+          <button
+            onClick={() => {
+              if (selectedSuggestion) onSuggestionPlayClick(selectedSuggestion);
+            }}
+            className={styles.actionButton}
+          >
+            Play
+          </button>
+          <div className={styles.editInputContainer}>
+            <input type="text" className={styles.keywordInput} placeholder="Write your intention" />
+            <button style={{ paddingLeft: '1rem', paddingRight: '1rem' }}>Apply</button>
+          </div>
+        </div>
+        <div className={styles.fastEditOptions}>
+          <button
+            onClick={() => {
+              handleEditSuggestionOptionClick('Confident');
+            }}
+            className={styles.actionButton}
+          >
+            Confident
+          </button>
+          <button
+            onClick={() => {
+              handleEditSuggestionOptionClick('Funny');
+            }}
+            className={styles.actionButton}
+          >
+            Funny
+          </button>
+          <button
+            onClick={() => {
+              handleEditSuggestionOptionClick('Sarcastic');
+            }}
+            className={styles.actionButton}
+          >
+            Sarcastic
+          </button>
         </div>
       </div>
     </div>
@@ -132,30 +198,36 @@ const ResponseDashboard: React.FC<Props> = ({
     <div className={styles.dashboard}>
       {isSuggestionView ? (
         selectedSuggestion ? (
-          <SelectedSuggestionView />
+          !isEditView ? (
+            <SelectedSuggestionView />
+          ) : (
+            <EditSuggestionView />
+          )
         ) : (
           <SuggestionsView />
         )
       ) : (
         <HowToReplyView />
       )}
-      <div className={styles.bottomOptionsContainer}>
-        <button onClick={handleClose} className={styles.actionButton}>
-          Close
-        </button>
-        <div className={styles.keywordSection}>
-          <input
-            type="text"
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-            placeholder="Add Keyword"
-            className={styles.keywordInput}
-          />
+      {!isEditView && (
+        <div className={styles.bottomOptionsContainer}>
+          <button onClick={handleClose} className={styles.actionButton}>
+            Close
+          </button>
+          <div className={styles.keywordSection}>
+            <input
+              type="text"
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              placeholder="Add Keyword"
+              className={styles.keywordInput}
+            />
+          </div>
+          <button onClick={handlePlay} className={styles.actionButton}>
+            Play
+          </button>
         </div>
-        <button onClick={handlePlay} className={styles.actionButton}>
-          Play
-        </button>
-      </div>
+      )}
     </div>
   );
 };

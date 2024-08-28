@@ -103,7 +103,8 @@
 
 .keywordInput {
   flex-grow: 1;
-  padding: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -133,4 +134,16 @@
   gap: 1rem;
   display: flex;
   flex-wrap: wrap;
+}
+
+.editInputContainer {
+  display: flex;
+  flex-grow: 1;
+  gap: 1rem;
+}
+
+.fastEditOptions {
+  grid-column: 1/-1;
+  display: flex;
+  gap: 1rem;
 }
