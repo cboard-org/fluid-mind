@@ -146,53 +146,68 @@ const ResponseDashboard: React.FC<Props> = ({
     setSelectedSuggestion(null);
   };
 
-  const EditSuggestionView = () => (
-    <div className={styles.topOptionsContainer}>
-      <div className={styles.suggestions}>
-        <button className={styles.actionButton}>{selectedSuggestion?.text}</button>
-        <div className={styles.playOrEditContainer}>
-          <button
-            onClick={() => {
-              if (selectedSuggestion) onSuggestionPlayClick(selectedSuggestion);
-            }}
-            className={styles.actionButton}
-          >
-            Play
-          </button>
-          <div className={styles.editInputContainer}>
-            <input type="text" className={styles.keywordInput} placeholder="Write your intention" />
-            <button style={{ paddingLeft: '1rem', paddingRight: '1rem' }}>Apply</button>
+  const EditSuggestionView = () => {
+    const [editIntention, setEditIntention] = useState('');
+
+    return (
+      <div className={styles.topOptionsContainer}>
+        <div className={styles.suggestions}>
+          <button className={styles.actionButton}>{selectedSuggestion?.text}</button>
+          <div className={styles.playOrEditContainer}>
+            <button
+              onClick={() => {
+                if (selectedSuggestion) onSuggestionPlayClick(selectedSuggestion);
+              }}
+              className={styles.actionButton}
+            >
+              Play
+            </button>
+            <div className={styles.editInputContainer}>
+              <input
+                type="text"
+                className={styles.keywordInput}
+                placeholder="Write your intention"
+                value={editIntention}
+                onChange={(e) => setEditIntention(e.target.value)}
+              />
+              <button
+                onClick={() => handleEditSuggestionOptionClick(editIntention)}
+                style={{ paddingLeft: '1rem', paddingRight: '1rem' }}
+              >
+                Apply
+              </button>
+            </div>
+          </div>
+          <div className={styles.fastEditOptions}>
+            <button
+              onClick={() => {
+                handleEditSuggestionOptionClick('Confident');
+              }}
+              className={styles.actionButton}
+            >
+              Confident
+            </button>
+            <button
+              onClick={() => {
+                handleEditSuggestionOptionClick('Funny');
+              }}
+              className={styles.actionButton}
+            >
+              Funny
+            </button>
+            <button
+              onClick={() => {
+                handleEditSuggestionOptionClick('Sarcastic');
+              }}
+              className={styles.actionButton}
+            >
+              Sarcastic
+            </button>
           </div>
         </div>
-        <div className={styles.fastEditOptions}>
-          <button
-            onClick={() => {
-              handleEditSuggestionOptionClick('Confident');
-            }}
-            className={styles.actionButton}
-          >
-            Confident
-          </button>
-          <button
-            onClick={() => {
-              handleEditSuggestionOptionClick('Funny');
-            }}
-            className={styles.actionButton}
-          >
-            Funny
-          </button>
-          <button
-            onClick={() => {
-              handleEditSuggestionOptionClick('Sarcastic');
-            }}
-            className={styles.actionButton}
-          >
-            Sarcastic
-          </button>
-        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <div className={styles.dashboard}>
