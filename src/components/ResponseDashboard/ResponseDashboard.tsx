@@ -19,7 +19,7 @@ type Props = {
   }) => void;
 };
 
-const tones: Tone[] = ['Confident', 'Empathetic', 'Direct', 'Witty', 'Critical'];
+const tones: Tone[] = ['Friendly' , 'Professional' , 'Empathetic' , 'Sarcastic' , 'Inquisitive'  ];
 
 const ResponseDashboard: React.FC<Props> = ({
   howToReplySuggestions,
@@ -165,7 +165,7 @@ const ResponseDashboard: React.FC<Props> = ({
               <input
                 type="text"
                 className={styles.keywordInput}
-                placeholder="Write your intention"
+                placeholder="Make the sentence..."
                 value={editIntention}
                 onChange={(e) => setEditIntention(e.target.value)}
               />
