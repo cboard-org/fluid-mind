@@ -4,7 +4,12 @@ import SpeechRecognition from '@/src/components/SpeechRecognition/SpeechRecognit
 import ResponseDashboard from '@/src/components/ResponseDashboard/ResponseDashboard';
 import { useState } from 'react';
 import { Button } from '@fluentui/react-components';
-import type { ReplyOptions, ReplyRequestBody, ChatHistory } from '@/src/commonTypes/replyOptions';
+import type {
+  ReplyOptions,
+  ReplyRequestBody,
+  ChatHistory,
+  HowToReply,
+} from '@/src/commonTypes/replyOptions';
 import type { ReplySuggestion, ReplySuggestions } from '@/src/commonTypes/replySuggestions';
 import { speak } from '../textToSpeech/synthesizeSpeech';
 
@@ -17,6 +22,7 @@ export default function Home() {
       and I live in Carlos Paz. `,
     selected_sentence: '',
     how_to_respond: null,
+    keywords: '',
     is_rag: false,
     is_suggest: false,
     is_finish: false,
@@ -63,9 +69,11 @@ export default function Home() {
     return await response.json();
   };
 
-  const handleHowToReplyClick = async () => {
+  const handleHowToReplyClick = async (how_to_respond: HowToReply, keywords: string) => {
     const requestBody: ReplyRequestBody = {
       ...replyOptions,
+      how_to_respond,
+      keywords,
       sentence: recognizedText,
       chat_history: chatHistory,
       is_rag: true,

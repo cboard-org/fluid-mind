@@ -7,7 +7,7 @@ type Props = {
   howToReplySuggestions: ReplySuggestions | null[];
   setReplyOptions: Dispatch<SetStateAction<ReplyOptions>>;
   replyOptions: ReplyOptions;
-  onHowToReplyClick: (howToReply: HowToReply) => void;
+  onHowToReplyClick: (howToReply: HowToReply, keywords: string) => void;
   suggestions: ReplySuggestions | null[];
   onSuggestionPlayClick: (suggestion: ReplySuggestion) => void;
   onSuggestionEditClick: ({
@@ -33,7 +33,7 @@ const ResponseDashboard: React.FC<Props> = ({
   const [isSuggestionView, setIsSuggestionView] = useState(false);
   const [selectedSuggestion, setSelectedSuggestion] = useState<null | ReplySuggestion>(null);
   const [isEditView, setIsEditView] = useState(false);
-  const [keyword, setKeyword] = useState('');
+  const [keywords, setKeywords] = useState('');
 
   const handleToneChange = (tone: Tone) => {
     setReplyOptions((currentValue) => {
@@ -46,9 +46,10 @@ const ResponseDashboard: React.FC<Props> = ({
       return {
         ...replyOptions,
         how_to_respond,
+        keywords,
       };
     });
-    onHowToReplyClick(how_to_respond);
+    onHowToReplyClick(how_to_respond, keywords);
     setIsSuggestionView(true);
   };
 
@@ -230,8 +231,8 @@ const ResponseDashboard: React.FC<Props> = ({
           <div className={styles.keywordSection}>
             <input
               type="text"
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
+              value={keywords}
+              onChange={(e) => setKeywords(e.target.value)}
               placeholder="Add Keyword"
               className={styles.keywordInput}
             />

@@ -24,6 +24,7 @@ export type ReplyOptions = {
   user_pref: string;
   selected_sentence: string;
   how_to_respond: HowToReply;
+  keywords: string;
   requested_change: string;
 } & ModelOptions;
 
