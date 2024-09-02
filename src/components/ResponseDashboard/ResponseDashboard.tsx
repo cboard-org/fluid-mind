@@ -94,7 +94,7 @@ const ResponseDashboard: React.FC<Props> = ({
             }}
             className={styles.actionButton}
           >
-            {suggestion?.text}
+            {suggestion?.text || '...'}
           </button>
         ))}
       </div>
