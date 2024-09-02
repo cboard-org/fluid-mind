@@ -1,5 +1,5 @@
 export type Tone = 'Confident' | 'Empathetic' | 'Direct' | 'Witty' | 'Critical' | '';
-export type HowToReply = null | 'Agree' | 'Disagree' | 'Ask More info' | 'Change topic' | '';
+export type HowToReply = null | string;
 
 export type HistoryItem = {
   inputs: {
@@ -23,7 +23,7 @@ export type ReplyOptions = {
   tone: Tone;
   user_pref: string;
   selected_sentence: string;
-  how_to_reply: HowToReply;
+  how_to_respond: HowToReply;
   requested_change: string;
 } & ModelOptions;
 

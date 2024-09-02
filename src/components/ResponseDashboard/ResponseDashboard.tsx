@@ -4,6 +4,7 @@ import type { HowToReply, ReplyOptions, Tone } from '@/src/commonTypes/replyOpti
 import type { ReplySuggestions, ReplySuggestion } from '@/src/commonTypes/replySuggestions';
 
 type Props = {
+  howToReplySuggestions: ReplySuggestions | null[];
   setReplyOptions: Dispatch<SetStateAction<ReplyOptions>>;
   replyOptions: ReplyOptions;
   onHowToReplyClick: (howToReply: HowToReply) => void;
@@ -21,6 +22,7 @@ type Props = {
 const tones: Tone[] = ['Confident', 'Empathetic', 'Direct', 'Witty', 'Critical'];
 
 const ResponseDashboard: React.FC<Props> = ({
+  howToReplySuggestions,
   setReplyOptions,
   replyOptions,
   onHowToReplyClick,
@@ -39,14 +41,14 @@ const ResponseDashboard: React.FC<Props> = ({
     });
   };
 
-  const handleSetHowToReply = (how_to_reply: HowToReply) => {
+  const handleSetHowToReply = (how_to_respond: string) => {
     setReplyOptions((replyOptions) => {
       return {
         ...replyOptions,
-        how_to_reply,
+        how_to_respond,
       };
     });
-    onHowToReplyClick(how_to_reply);
+    onHowToReplyClick(how_to_respond);
     setIsSuggestionView(true);
   };
 
@@ -83,21 +85,17 @@ const ResponseDashboard: React.FC<Props> = ({
         </div>
       </div>
       <div className={styles.mainOptionsContainer}>
-        <button onClick={() => handleSetHowToReply('Agree')} className={styles.actionButton}>
-          Agree
-        </button>
-        <button onClick={() => handleSetHowToReply('Disagree')} className={styles.actionButton}>
-          Disagree
-        </button>
-        <button onClick={() => handleSetHowToReply('Change topic')} className={styles.actionButton}>
-          Change topic
-        </button>
-        <button
-          onClick={() => handleSetHowToReply('Ask More info')}
-          className={styles.actionButton}
-        >
-          Ask More info
-        </button>
+        {howToReplySuggestions.map((suggestion, index) => (
+          <button
+            key={suggestion?.id || index}
+            onClick={() => {
+              if (suggestion?.text) handleSetHowToReply(suggestion?.text);
+            }}
+            className={styles.actionButton}
+          >
+            {suggestion?.text}
+          </button>
+        ))}
       </div>
     </div>
   );
