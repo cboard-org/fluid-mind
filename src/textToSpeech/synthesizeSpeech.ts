@@ -17,7 +17,7 @@ const initAzureSynthesizer = () => {
   azureSynthesizer = new SpeechSynthesizer(speechConfig, audioConfig);
   azureSynthesizer.properties.setProperty(
     'SpeechServiceConnection_SynthVoice',
-    'en-GB-SoniaNeural',
+    'en-US-BrianNeural',
   );
 };
 
