@@ -12,13 +12,15 @@ export default function Home() {
   const [isListeningView, setIsListeningView] = useState(true);
   const [recognizedText, setRecognizedText] = useState('');
   const [replyOptions, setReplyOptions] = useState<ReplyOptions>({
-    tone: 'Direct',
+    tone: '',
     user_pref: `Im Hector and I have one 8-month old little girl. Im Biomedical engineer
       and I live in Carlos Paz. `,
-    selected_sentence: '-',
+    selected_sentence: '',
     how_to_reply: null,
+    is_rag: false,
+    is_suggest: false,
     is_finish: false,
-    requested_change: '-',
+    requested_change: '',
   });
   const [chatHistory, setChatHistory] = useState<ChatHistory>([]);
 
