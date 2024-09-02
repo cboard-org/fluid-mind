@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { Button } from '@fluentui/react-components';
 import type { ReplyOptions, ReplyRequestBody, ChatHistory } from '@/src/commonTypes/replyOptions';
 import type { ReplySuggestion, ReplySuggestions } from '@/src/commonTypes/replySuggestions';
+import { speak } from '../textToSpeech/synthesizeSpeech';
 
 export default function Home() {
   const [isListeningView, setIsListeningView] = useState(true);
@@ -98,6 +99,7 @@ export default function Home() {
 
   const handleSuggestionPlayClick = (suggestion: ReplySuggestion) => {
     console.log(`SPEAK: ${suggestion.text}`);
+    speak(suggestion.text);
     setChatHistory((prevChatHistory) =>
       prevChatHistory.concat([
         {
