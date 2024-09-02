@@ -1,4 +1,4 @@
-export type Tone = 'Confident' | 'Empathetic' | 'Direct' | 'Witty' | 'Critical' | '';
+export type Tone = 'Confident' | 'Empathetic' | 'Direct' | 'Witty' | 'Critical';
 export type HowToReply = null | string;
 
 export type HistoryItem = {

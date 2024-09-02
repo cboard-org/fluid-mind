@@ -17,7 +17,7 @@ export default function Home() {
   const [isListeningView, setIsListeningView] = useState(true);
   const [recognizedText, setRecognizedText] = useState('');
   const [replyOptions, setReplyOptions] = useState<ReplyOptions>({
-    tone: '',
+    tone: 'Direct',
     user_pref: `Im Hector and I have one 8-month old little girl. Im Biomedical engineer
       and I live in Carlos Paz. `,
     selected_sentence: '',
@@ -49,6 +49,7 @@ export default function Home() {
       chat_history: [],
       is_suggest: true,
     };
+    setHowToReplySuggestions(nullHowToReplySuggestions);
     const response = await fetchSuggestions(requestBody);
     const answer = JSON.parse(response.answer);
     const howToReplySuggestions = answer.replies;
