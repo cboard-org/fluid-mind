@@ -19,7 +19,7 @@ type Props = {
   }) => void;
 };
 
-const tones: Tone[] = ['Friendly' , 'Professional' , 'Empathetic' , 'Sarcastic' , 'Inquisitive'  ];
+const tones: Tone[] = ['Friendly', 'Professional', 'Empathetic', 'Sarcastic', 'Inquisitive'];
 
 const ResponseDashboard: React.FC<Props> = ({
   howToReplySuggestions,
