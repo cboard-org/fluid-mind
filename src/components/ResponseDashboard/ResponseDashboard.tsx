@@ -64,7 +64,7 @@ const ResponseDashboard: React.FC<Props> = ({
   const HowToReplyView = () => (
     <div className={styles.topOptionsContainer}>
       <div className={styles.toneSection}>
-        <div className={styles.toneLabel}>Tono predeterminado</div>
+        <div className={styles.toneLabel}>Tone</div>
         <div className={styles.toneValue}>
           {tones.map((tone) => {
             if (tone === replyOptions.tone)
