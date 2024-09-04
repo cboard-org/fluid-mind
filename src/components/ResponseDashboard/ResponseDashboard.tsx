@@ -92,7 +92,7 @@ const ResponseDashboard: React.FC<Props> = ({
             onClick={() => {
               if (suggestion?.text) handleSetHowToReply(suggestion?.text);
             }}
-            className={styles.actionButton}
+            className={`${styles.actionButton} ${styles.suggestionButton}`}
           >
             {suggestion?.text || '...'}
           </button>
@@ -108,7 +108,7 @@ const ResponseDashboard: React.FC<Props> = ({
           <button
             onClick={() => setSelectedSuggestion(suggestion)}
             key={suggestion?.id || index}
-            className={styles.actionButton}
+            className={`${styles.actionButton} ${styles.suggestionButton}`}
           >
             {suggestion?.text || '...'}
           </button>
@@ -152,30 +152,20 @@ const ResponseDashboard: React.FC<Props> = ({
       <div className={styles.topOptionsContainer}>
         <div className={styles.suggestions}>
           <button className={styles.actionButton}>{selectedSuggestion?.text}</button>
-          <div className={styles.playOrEditContainer}>
+          <div className={styles.editInputContainer}>
+            <input
+              type="text"
+              className={styles.keywordInput}
+              placeholder="Make the sentence..."
+              value={editIntention}
+              onChange={(e) => setEditIntention(e.target.value)}
+            />
             <button
-              onClick={() => {
-                if (selectedSuggestion) onSuggestionPlayClick(selectedSuggestion);
-              }}
-              className={styles.actionButton}
+              onClick={() => handleEditSuggestionOptionClick(editIntention)}
+              style={{ paddingLeft: '1rem', paddingRight: '1rem' }}
             >
-              Play
+              Apply
             </button>
-            <div className={styles.editInputContainer}>
-              <input
-                type="text"
-                className={styles.keywordInput}
-                placeholder="Make the sentence..."
-                value={editIntention}
-                onChange={(e) => setEditIntention(e.target.value)}
-              />
-              <button
-                onClick={() => handleEditSuggestionOptionClick(editIntention)}
-                style={{ paddingLeft: '1rem', paddingRight: '1rem' }}
-              >
-                Apply
-              </button>
-            </div>
           </div>
           <div className={styles.fastEditOptions}>
             <button
@@ -203,6 +193,14 @@ const ResponseDashboard: React.FC<Props> = ({
               Sarcastic
             </button>
           </div>
+          <button
+            onClick={() => {
+              if (selectedSuggestion) onSuggestionPlayClick(selectedSuggestion);
+            }}
+            className={styles.actionButton}
+          >
+            Play
+          </button>
         </div>
       </div>
     );
