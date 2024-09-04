@@ -4,9 +4,10 @@ import type { HowToReply, ReplyOptions, Tone } from '@/src/commonTypes/replyOpti
 import type { ReplySuggestions, ReplySuggestion } from '@/src/commonTypes/replySuggestions';
 
 type Props = {
+  howToReplySuggestions: ReplySuggestions | null[];
   setReplyOptions: Dispatch<SetStateAction<ReplyOptions>>;
   replyOptions: ReplyOptions;
-  onHowToReplyClick: (howToReply: HowToReply) => void;
+  onHowToReplyClick: (howToReply: HowToReply, keywords: string) => void;
   suggestions: ReplySuggestions | null[];
   onSuggestionPlayClick: (suggestion: ReplySuggestion) => void;
   onSuggestionEditClick: ({
@@ -18,9 +19,10 @@ type Props = {
   }) => void;
 };
 
-const tones: Tone[] = ['Confident', 'Empathetic', 'Direct', 'Witty', 'Critical'];
+const tones: Tone[] = ['Friendly', 'Professional', 'Empathetic', 'Sarcastic', 'Inquisitive'];
 
 const ResponseDashboard: React.FC<Props> = ({
+  howToReplySuggestions,
   setReplyOptions,
   replyOptions,
   onHowToReplyClick,
@@ -31,7 +33,7 @@ const ResponseDashboard: React.FC<Props> = ({
   const [isSuggestionView, setIsSuggestionView] = useState(false);
   const [selectedSuggestion, setSelectedSuggestion] = useState<null | ReplySuggestion>(null);
   const [isEditView, setIsEditView] = useState(false);
-  const [keyword, setKeyword] = useState('');
+  const [keywords, setKeywords] = useState('');
 
   const handleToneChange = (tone: Tone) => {
     setReplyOptions((currentValue) => {
@@ -39,14 +41,15 @@ const ResponseDashboard: React.FC<Props> = ({
     });
   };
 
-  const handleSetHowToReply = (how_to_reply: HowToReply) => {
+  const handleSetHowToReply = (how_to_respond: string) => {
     setReplyOptions((replyOptions) => {
       return {
         ...replyOptions,
-        how_to_reply,
+        how_to_respond,
+        keywords,
       };
     });
-    onHowToReplyClick(how_to_reply);
+    onHowToReplyClick(how_to_respond, keywords);
     setIsSuggestionView(true);
   };
 
@@ -61,7 +64,7 @@ const ResponseDashboard: React.FC<Props> = ({
   const HowToReplyView = () => (
     <div className={styles.topOptionsContainer}>
       <div className={styles.toneSection}>
-        <div className={styles.toneLabel}>Tono predeterminado</div>
+        <div className={styles.toneLabel}>Tone</div>
         <div className={styles.toneValue}>
           {tones.map((tone) => {
             if (tone === replyOptions.tone)
@@ -83,21 +86,17 @@ const ResponseDashboard: React.FC<Props> = ({
         </div>
       </div>
       <div className={styles.mainOptionsContainer}>
-        <button onClick={() => handleSetHowToReply('Agree')} className={styles.actionButton}>
-          Agree
-        </button>
-        <button onClick={() => handleSetHowToReply('Disagree')} className={styles.actionButton}>
-          Disagree
-        </button>
-        <button onClick={() => handleSetHowToReply('Change topic')} className={styles.actionButton}>
-          Change topic
-        </button>
-        <button
-          onClick={() => handleSetHowToReply('Ask More info')}
-          className={styles.actionButton}
-        >
-          Ask More info
-        </button>
+        {howToReplySuggestions.map((suggestion, index) => (
+          <button
+            key={suggestion?.id || index}
+            onClick={() => {
+              if (suggestion?.text) handleSetHowToReply(suggestion?.text);
+            }}
+            className={styles.actionButton}
+          >
+            {suggestion?.text || '...'}
+          </button>
+        ))}
       </div>
     </div>
   );
@@ -166,7 +165,7 @@ const ResponseDashboard: React.FC<Props> = ({
               <input
                 type="text"
                 className={styles.keywordInput}
-                placeholder="Write your intention"
+                placeholder="Make the sentence..."
                 value={editIntention}
                 onChange={(e) => setEditIntention(e.target.value)}
               />
@@ -232,8 +231,8 @@ const ResponseDashboard: React.FC<Props> = ({
           <div className={styles.keywordSection}>
             <input
               type="text"
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
+              value={keywords}
+              onChange={(e) => setKeywords(e.target.value)}
               placeholder="Add Keyword"
               className={styles.keywordInput}
             />

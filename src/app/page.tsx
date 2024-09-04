@@ -4,7 +4,12 @@ import SpeechRecognition from '@/src/components/SpeechRecognition/SpeechRecognit
 import ResponseDashboard from '@/src/components/ResponseDashboard/ResponseDashboard';
 import { useState } from 'react';
 import { Button } from '@fluentui/react-components';
-import type { ReplyOptions, ReplyRequestBody, ChatHistory } from '@/src/commonTypes/replyOptions';
+import type {
+  ReplyOptions,
+  ReplyRequestBody,
+  ChatHistory,
+  HowToReply,
+} from '@/src/commonTypes/replyOptions';
 import type { ReplySuggestion, ReplySuggestions } from '@/src/commonTypes/replySuggestions';
 import { speak } from '../textToSpeech/synthesizeSpeech';
 
@@ -12,24 +17,43 @@ export default function Home() {
   const [isListeningView, setIsListeningView] = useState(true);
   const [recognizedText, setRecognizedText] = useState('');
   const [replyOptions, setReplyOptions] = useState<ReplyOptions>({
-    tone: 'Direct',
+    tone: 'Friendly',
     user_pref: `Im Hector and I have one 8-month old little girl. Im Biomedical engineer
       and I live in Carlos Paz. `,
-    selected_sentence: '-',
-    how_to_reply: null,
+    selected_sentence: '',
+    how_to_respond: null,
+    keywords: '',
+    is_rag: false,
+    is_suggest: false,
     is_finish: false,
-    requested_change: '-',
+    requested_change: '',
   });
   const [chatHistory, setChatHistory] = useState<ChatHistory>([]);
+
+  const nullHowToReplySuggestions = [null, null, null, null];
+  const [howToReplySuggestions, setHowToReplySuggestions] = useState<ReplySuggestions | null[]>(
+    nullHowToReplySuggestions,
+  );
 
   const nullRepliesSuggestions = [null, null, null, null];
   const [repliesSuggestions, setRepliesSuggestions] = useState<ReplySuggestions | null[]>(
     nullRepliesSuggestions,
   );
 
-  const handleOnRecognizeText = (text: string) => {
+  const handleOnRecognizeText = async (text: string) => {
     setRecognizedText(text);
     setIsListeningView(false);
+    const requestBody = {
+      ...replyOptions,
+      sentence: text,
+      chat_history: [],
+      is_suggest: true,
+    };
+    setHowToReplySuggestions(nullHowToReplySuggestions);
+    const response = await fetchSuggestions(requestBody);
+    const answer = JSON.parse(response.answer);
+    const howToReplySuggestions = answer.replies;
+    setHowToReplySuggestions(howToReplySuggestions);
   };
 
   const fetchSuggestions = async (requestBody: ReplyRequestBody) => {
@@ -46,16 +70,19 @@ export default function Home() {
     return await response.json();
   };
 
-  const handleHowToReplyClick = async () => {
+  const handleHowToReplyClick = async (how_to_respond: HowToReply, keywords: string) => {
     const requestBody: ReplyRequestBody = {
       ...replyOptions,
+      how_to_respond,
+      keywords,
       sentence: recognizedText,
       chat_history: chatHistory,
+      is_rag: true,
     };
 
     try {
       const response = await fetchSuggestions(requestBody);
-      const answer = JSON.parse(response.answer);
+      const answer = JSON.parse(response.replies);
       const replies = answer.replies;
       if (!replies) throw Error('empty suggestions returned');
       setRepliesSuggestions(replies);
@@ -128,6 +155,7 @@ export default function Home() {
 
         {!isListeningView && (
           <ResponseDashboard
+            howToReplySuggestions={howToReplySuggestions}
             setReplyOptions={setReplyOptions}
             replyOptions={replyOptions}
             onHowToReplyClick={handleHowToReplyClick}

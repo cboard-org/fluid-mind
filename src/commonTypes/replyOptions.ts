@@ -1,5 +1,5 @@
-export type Tone = 'Confident' | 'Empathetic' | 'Direct' | 'Witty' | 'Critical';
-export type HowToReply = null | 'Agree' | 'Disagree' | 'Ask More info' | 'Change topic';
+export type Tone = 'Friendly' | 'Professional' | 'Empathetic' | 'Sarcastic' | 'Inquisitive' | '';
+export type HowToReply = null | string;
 
 export type HistoryItem = {
   inputs: {
@@ -13,22 +13,22 @@ export type HistoryItem = {
 
 export type ChatHistory = HistoryItem[];
 
+type ModelOptions = {
+  is_finish: boolean;
+  is_suggest: boolean;
+  is_rag: boolean;
+};
+
 export type ReplyOptions = {
   tone: Tone;
   user_pref: string;
   selected_sentence: string;
-  how_to_reply: HowToReply;
-  is_finish: boolean;
+  how_to_respond: HowToReply;
+  keywords: string;
   requested_change: string;
-};
+} & ModelOptions;
 
 export type ReplyRequestBody = {
   chat_history: ChatHistory;
   sentence: string;
-  tone: Tone;
-  user_pref: string;
-  selected_sentence: string;
-  how_to_reply: HowToReply;
-  is_finish: boolean;
-  requested_change: string;
-};
+} & ReplyOptions;

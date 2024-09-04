@@ -12,9 +12,8 @@ export async function POST(req: Request) {
   }
   requestHeaders.append('Authorization', 'Bearer ' + apiKey);
 
-  requestHeaders.append('azureml-model-deployment', 'fluidmind-dnyzk-1');
-
-  const url = 'https://fluidmind-dnyzk.eastus2.inference.ml.azure.com/score';
+  requestHeaders.append('azureml-model-deployment', 'fluidmind-cyznv-1');
+  const url = 'https://fluidmind-cyznv.eastus2.inference.ml.azure.com/score';
   const response = await fetch(url, {
     method: 'POST',
     body: requestBody,
@@ -25,7 +24,7 @@ export async function POST(req: Request) {
       const data = await response.json();
       return Response.json(data);
     } else {
-      throw new Error('Request failed with status code' + response.status);
+      throw new Error('Request failed with status code ' + response.status);
     }
   } catch (error) {
     console.error(error);
