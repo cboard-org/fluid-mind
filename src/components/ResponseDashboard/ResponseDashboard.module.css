@@ -87,9 +87,9 @@
   transition: background-color 0.3s;
 }
 
-.suggestionButton {
+button.suggestionButton {
   flex-grow: 1;
-  text-align: start;
+  justify-content: start;
 }
 
 .changeButton {

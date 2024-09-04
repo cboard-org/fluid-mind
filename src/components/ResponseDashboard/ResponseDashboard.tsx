@@ -2,6 +2,7 @@ import React, { type Dispatch, type SetStateAction, useState } from 'react';
 import styles from './ResponseDashboard.module.css';
 import type { HowToReply, ReplyOptions, Tone } from '@/src/commonTypes/replyOptions';
 import type { ReplySuggestions, ReplySuggestion } from '@/src/commonTypes/replySuggestions';
+import { Button, DrawerBody } from '@fluentui/react-components';
 
 type Props = {
   howToReplySuggestions: ReplySuggestions | null[];
@@ -64,30 +65,29 @@ const ResponseDashboard: React.FC<Props> = ({
   const HowToReplyView = () => (
     <div className={styles.topOptionsContainer}>
       <div className={styles.toneSection}>
-        <div className={styles.toneLabel}>Tone</div>
-        <div className={styles.toneValue}>
+        <DrawerBody className={styles.toneValue}>
           {tones.map((tone) => {
             if (tone === replyOptions.tone)
               return (
-                <div className={styles.selectedTone} key={tone}>
+                <Button appearance="primary" className={styles.toneButton} key={tone}>
                   {tone}
-                </div>
+                </Button>
               );
             return (
-              <button
+              <Button
                 onClick={() => handleToneChange(tone)}
                 className={styles.toneButton}
                 key={tone}
               >
                 {tone}
-              </button>
+              </Button>
             );
           })}
-        </div>
+        </DrawerBody>
       </div>
       <div className={styles.mainOptionsContainer}>
         {howToReplySuggestions.map((suggestion, index) => (
-          <button
+          <Button
             key={suggestion?.id || index}
             onClick={() => {
               if (suggestion?.text) handleSetHowToReply(suggestion?.text);
@@ -95,7 +95,7 @@ const ResponseDashboard: React.FC<Props> = ({
             className={`${styles.actionButton} ${styles.suggestionButton}`}
           >
             {suggestion?.text || '...'}
-          </button>
+          </Button>
         ))}
       </div>
     </div>
