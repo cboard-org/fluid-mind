@@ -3,6 +3,7 @@ import styles from './ResponseDashboard.module.css';
 import type { HowToReply, ReplyOptions, Tone } from '@/src/commonTypes/replyOptions';
 import type { ReplySuggestions, ReplySuggestion } from '@/src/commonTypes/replySuggestions';
 import { Button, DrawerBody } from '@fluentui/react-components';
+import { CodeTextEditRegular } from '@fluentui/react-icons';
 
 type Props = {
   howToReplySuggestions: ReplySuggestions | null[];
@@ -21,6 +22,7 @@ type Props = {
 };
 
 const tones: Tone[] = ['Friendly', 'Professional', 'Empathetic', 'Sarcastic', 'Inquisitive'];
+type SelectedSuggestionType = null | ReplySuggestion;
 
 const ResponseDashboard: React.FC<Props> = ({
   howToReplySuggestions,
@@ -32,8 +34,7 @@ const ResponseDashboard: React.FC<Props> = ({
   onSuggestionEditClick,
 }: Props) => {
   const [isSuggestionView, setIsSuggestionView] = useState(false);
-  const [selectedSuggestion, setSelectedSuggestion] = useState<null | ReplySuggestion>(null);
-  const [isEditView, setIsEditView] = useState(false);
+  const [selectedSuggestion, setSelectedSuggestion] = useState<SelectedSuggestionType>(null);
   const [keywords, setKeywords] = useState('');
 
   const handleToneChange = (tone: Tone) => {
@@ -42,7 +43,9 @@ const ResponseDashboard: React.FC<Props> = ({
     });
   };
 
+  const [showKeywordField, setShowKeywordField] = useState(true);
   const handleSetHowToReply = (how_to_respond: string) => {
+    setShowKeywordField(false);
     setReplyOptions((replyOptions) => {
       return {
         ...replyOptions,
@@ -98,12 +101,34 @@ const ResponseDashboard: React.FC<Props> = ({
     </div>
   );
 
+  const handleEditSuggestionClick = (suggestion: SelectedSuggestionType) => {
+    setSelectedSuggestion(suggestion);
+  };
+
   const SuggestionsView = () => (
     <div className={styles.topOptionsContainer}>
+      <div className={styles.editSuggestionsButtonsContainer}>
+        {suggestions.map((suggestion, index) => {
+          return (
+            <Button
+              appearance="transparent"
+              onClick={() => handleEditSuggestionClick(suggestion)}
+              key={suggestion?.id || index}
+              className={`${styles.actionButton} ${styles.editSuggestionButton}`}
+            >
+              <CodeTextEditRegular fontSize={'1.5rem'} />
+            </Button>
+          );
+        })}
+      </div>
       <div className={styles.suggestions}>
         {suggestions.map((suggestion, index) => (
           <Button
-            onClick={() => setSelectedSuggestion(suggestion)}
+            onClick={() => {
+              if (!suggestion) return;
+              setSelectedSuggestion(suggestion);
+              onSuggestionPlayClick(suggestion);
+            }}
             key={suggestion?.id || index}
             className={`${styles.actionButton} ${styles.suggestionButton}`}
           >
@@ -114,29 +139,7 @@ const ResponseDashboard: React.FC<Props> = ({
     </div>
   );
 
-  const SelectedSuggestionView = () => (
-    <div className={styles.topOptionsContainer}>
-      <div className={styles.suggestions}>
-        <button className={styles.actionButton}>{selectedSuggestion?.text}</button>
-        <div className={styles.playOrEditContainer}>
-          <button
-            onClick={() => {
-              if (selectedSuggestion) onSuggestionPlayClick(selectedSuggestion);
-            }}
-            className={styles.actionButton}
-          >
-            Play
-          </button>
-          <button onClick={() => setIsEditView(true)} className={styles.actionButton}>
-            Edit
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-
   const handleEditSuggestionOptionClick = (requested_change: string) => {
-    setIsEditView(false);
     if (!selectedSuggestion) return;
     onSuggestionEditClick({ selected_sentence: selectedSuggestion.text, requested_change });
     setSelectedSuggestion(null);
@@ -148,7 +151,15 @@ const ResponseDashboard: React.FC<Props> = ({
     return (
       <div className={styles.topOptionsContainer}>
         <div className={styles.suggestions}>
-          <button className={styles.actionButton}>{selectedSuggestion?.text}</button>
+          <Button
+            onClick={() => {
+              if (selectedSuggestion) onSuggestionPlayClick(selectedSuggestion);
+            }}
+            className={styles.suggestionButton}
+            size="large"
+          >
+            {selectedSuggestion?.text}
+          </Button>
           <div className={styles.editInputContainer}>
             <input
               type="text"
@@ -157,47 +168,40 @@ const ResponseDashboard: React.FC<Props> = ({
               value={editIntention}
               onChange={(e) => setEditIntention(e.target.value)}
             />
-            <button
+            <Button
+              appearance="primary"
               onClick={() => handleEditSuggestionOptionClick(editIntention)}
-              style={{ paddingLeft: '1rem', paddingRight: '1rem' }}
+              style={{ flexGrow: 0.5, paddingLeft: '1rem', paddingRight: '1rem' }}
             >
               Apply
-            </button>
+            </Button>
           </div>
           <div className={styles.fastEditOptions}>
-            <button
+            <Button
               onClick={() => {
                 handleEditSuggestionOptionClick('Confident');
               }}
               className={styles.actionButton}
             >
               Confident
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => {
                 handleEditSuggestionOptionClick('Funny');
               }}
               className={styles.actionButton}
             >
               Funny
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => {
                 handleEditSuggestionOptionClick('Sarcastic');
               }}
               className={styles.actionButton}
             >
               Sarcastic
-            </button>
+            </Button>
           </div>
-          <button
-            onClick={() => {
-              if (selectedSuggestion) onSuggestionPlayClick(selectedSuggestion);
-            }}
-            className={styles.actionButton}
-          >
-            Play
-          </button>
         </div>
       </div>
     );
@@ -207,31 +211,29 @@ const ResponseDashboard: React.FC<Props> = ({
     <div className={styles.dashboard}>
       {isSuggestionView ? (
         selectedSuggestion ? (
-          !isEditView ? (
-            <SelectedSuggestionView />
-          ) : (
-            <EditSuggestionView />
-          )
+          <EditSuggestionView />
         ) : (
           <SuggestionsView />
         )
       ) : (
         <HowToReplyView />
       )}
-      {!isEditView && (
+      {!selectedSuggestion && (
         <div className={styles.bottomOptionsContainer}>
           <Button onClick={handleClose} className={styles.navActionButtons}>
             Close
           </Button>
-          <div className={styles.keywordSection}>
-            <input
-              type="text"
-              value={keywords}
-              onChange={(e) => setKeywords(e.target.value)}
-              placeholder="Add Keyword"
-              className={styles.keywordInput}
-            />
-          </div>
+          {showKeywordField && (
+            <div className={styles.keywordSection}>
+              <input
+                type="text"
+                value={keywords}
+                onChange={(e) => setKeywords(e.target.value)}
+                placeholder="Add Keyword"
+                className={styles.keywordInput}
+              />
+            </div>
+          )}
         </div>
       )}
     </div>
