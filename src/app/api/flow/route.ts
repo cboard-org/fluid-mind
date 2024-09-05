@@ -12,9 +12,11 @@ export async function POST(req: Request) {
   }
   requestHeaders.append('Authorization', 'Bearer ' + apiKey);
 
-  requestHeaders.append('azureml-model-deployment', 'fluidmind-cyznv-1');
-  const url = 'https://fluidmind-cyznv.eastus2.inference.ml.azure.com/score';
-  const response = await fetch(url, {
+  
+  const deploy = process.env.AZURE_FLOW_DEPLOYMENT;
+  requestHeaders.append('azureml-model-deployment', deploy as string);
+  const url = process.env.AZURE_FLOW_ENDPOINT;
+  const response = await fetch(url as string, {
     method: 'POST',
     body: requestBody,
     headers: requestHeaders,
