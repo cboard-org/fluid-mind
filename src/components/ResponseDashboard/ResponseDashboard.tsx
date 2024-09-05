@@ -58,10 +58,6 @@ const ResponseDashboard: React.FC<Props> = ({
     // Logic to close the dashboard
   };
 
-  const handlePlay = () => {
-    // Logic to play
-  };
-
   const HowToReplyView = () => (
     <div className={styles.topOptionsContainer}>
       <div className={styles.toneSection}>
@@ -224,9 +220,9 @@ const ResponseDashboard: React.FC<Props> = ({
       )}
       {!isEditView && (
         <div className={styles.bottomOptionsContainer}>
-          <button onClick={handleClose} className={styles.actionButton}>
+          <Button onClick={handleClose} className={styles.navActionButtons}>
             Close
-          </button>
+          </Button>
           <div className={styles.keywordSection}>
             <input
               type="text"
@@ -236,9 +232,6 @@ const ResponseDashboard: React.FC<Props> = ({
               className={styles.keywordInput}
             />
           </div>
-          <button onClick={handlePlay} className={styles.actionButton}>
-            Play
-          </button>
         </div>
       )}
     </div>
