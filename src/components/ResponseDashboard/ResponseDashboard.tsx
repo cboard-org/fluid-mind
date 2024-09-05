@@ -69,12 +69,13 @@ const ResponseDashboard: React.FC<Props> = ({
           {tones.map((tone) => {
             if (tone === replyOptions.tone)
               return (
-                <Button appearance="primary" className={styles.toneButton} key={tone}>
+                <Button className={styles.toneButton} key={tone}>
                   {tone}
                 </Button>
               );
             return (
               <Button
+                appearance="transparent"
                 onClick={() => handleToneChange(tone)}
                 className={styles.toneButton}
                 key={tone}
@@ -105,13 +106,13 @@ const ResponseDashboard: React.FC<Props> = ({
     <div className={styles.topOptionsContainer}>
       <div className={styles.suggestions}>
         {suggestions.map((suggestion, index) => (
-          <button
+          <Button
             onClick={() => setSelectedSuggestion(suggestion)}
             key={suggestion?.id || index}
             className={`${styles.actionButton} ${styles.suggestionButton}`}
           >
             {suggestion?.text || '...'}
-          </button>
+          </Button>
         ))}
       </div>
     </div>

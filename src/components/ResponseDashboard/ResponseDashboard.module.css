@@ -25,6 +25,7 @@
   justify-content: center;
   align-items: center;
   padding: 10px;
+  border: solid 1px var(--colorNeutralStroke1);
   border-radius: 5px;
   height: 100%;
 }
@@ -90,6 +91,7 @@
 button.suggestionButton {
   flex-grow: 1;
   justify-content: start;
+  padding: 1rem;
 }
 
 .changeButton {

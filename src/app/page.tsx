@@ -3,7 +3,8 @@ import styles from './page.module.css';
 import SpeechRecognition from '@/src/components/SpeechRecognition/SpeechRecognition';
 import ResponseDashboard from '@/src/components/ResponseDashboard/ResponseDashboard';
 import { useState } from 'react';
-import { Button } from '@fluentui/react-components';
+import { Button, Label } from '@fluentui/react-components';
+import { SlideMicrophone32Regular } from '@fluentui/react-icons';
 import type {
   ReplyOptions,
   ReplyRequestBody,
@@ -141,10 +142,19 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.recognizedTextContainer}>
+        {!isListeningView && (
+          <Button
+            appearance="primary"
+            className={styles.listenButton}
+            onClick={() => setIsListeningView(true)}
+          >
+            Listen
+          </Button>
+        )}
         <div className={styles.recognizedText}>
-          <p>{recognizedText}</p>
+          <SlideMicrophone32Regular />
+          <Label size="large">{recognizedText}</Label>
         </div>
-        {!isListeningView && <Button onClick={() => setIsListeningView(true)}>Listen</Button>}
       </div>
       <div className={styles.controlContainer}>
         <SpeechRecognition

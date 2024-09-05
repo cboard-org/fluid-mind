@@ -11,16 +11,26 @@
   padding: 2rem;
   padding-bottom: 0;
   width: 100%;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.listenButton {
+  height: 100%;
 }
 
 .recognizedText {
-  text-align: center;
   width: 100%;
   padding: 1rem;
   border: 2px solid white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  grid-column: 2/-1;
 }
 
 .recognizedText p {
