@@ -13,6 +13,7 @@ import type {
 } from '@/src/commonTypes/replyOptions';
 import type { ReplySuggestion, ReplySuggestions } from '@/src/commonTypes/replySuggestions';
 import { speak } from '../textToSpeech/synthesizeSpeech';
+import { useTranslations } from 'next-intl';
 
 export default function Home() {
   const [isListeningView, setIsListeningView] = useState(true);
@@ -139,6 +140,8 @@ export default function Home() {
     changeToListening();
   };
 
+  const t = useTranslations('ReplyHome');
+
   return (
     <main className={styles.main}>
       <div className={styles.recognizedTextContainer}>
@@ -148,7 +151,7 @@ export default function Home() {
             className={styles.listenButton}
             onClick={() => setIsListeningView(true)}
           >
-            Listen
+            {t('ListenButton')}
           </Button>
         )}
         <div className={styles.recognizedText}>
