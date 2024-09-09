@@ -1,0 +1,23 @@
+{
+  "ReplyHome": {
+    "ListenButton": "Listen"
+  },
+  "SpeechRecognition": {
+    "StopListening": "Stop Listening",
+    "StartListening": "Start Listening"
+  },
+  "ReplyDashboard": {
+    "Tones": {
+      "Friendly": "Friendly",
+      "Professional": "Professional",
+      "Empathetic": "Empathetic",
+      "Sarcastic": "Sarcastic",
+      "Inquisitive": "Inquisitive"
+    },
+    "EditInput": "Make the sentence...",
+    "ApplyEditonButton": "Apply",
+    "EditOptions": { "Confident": "Confident", "Funny": "Funny", "Sarcastic": "Sarcastic" },
+    "CloseButton": "Close",
+    "KeywordInput": "add key words"
+  }
+}

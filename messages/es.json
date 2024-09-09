@@ -1,0 +1,19 @@
+{
+  "ReplyHome": {
+    "ListenButton": "Escuchar"
+  },
+  "SpeechRecognition": {
+    "StopListening": "Parar de escuchar",
+    "StartListening": "Empezar a escuchar"
+  },
+  "ReplyDashboard": {
+    "Tones": {
+      "Friendly": "Amistoso",
+      "Professional": "Profesional",
+      "Empathetic": "Empatico",
+      "Sarcastic": "Sarcastico",
+      "Inquisitive": "Inquisitivo"
+    },
+    "CloseButton": "Cerrar"
+  }
+}

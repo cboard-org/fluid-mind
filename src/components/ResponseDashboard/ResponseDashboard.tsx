@@ -4,6 +4,7 @@ import type { HowToReply, ReplyOptions, Tone } from '@/src/commonTypes/replyOpti
 import type { ReplySuggestions, ReplySuggestion } from '@/src/commonTypes/replySuggestions';
 import { Button, DrawerBody } from '@fluentui/react-components';
 import { CodeTextEditRegular } from '@fluentui/react-icons';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   howToReplySuggestions: ReplySuggestions | null[];
@@ -23,6 +24,8 @@ type Props = {
 
 const tones: Tone[] = ['Friendly', 'Professional', 'Empathetic', 'Sarcastic', 'Inquisitive'];
 type SelectedSuggestionType = null | ReplySuggestion;
+
+const editOptions = ['Confident', 'Funny', 'Sarcastic'];
 
 const ResponseDashboard: React.FC<Props> = ({
   howToReplySuggestions,
@@ -61,6 +64,8 @@ const ResponseDashboard: React.FC<Props> = ({
     // Logic to close the dashboard
   };
 
+  const translations = useTranslations('ReplyDashboard');
+
   const HowToReplyView = () => (
     <div className={styles.topOptionsContainer}>
       <div className={styles.toneSection}>
@@ -69,7 +74,7 @@ const ResponseDashboard: React.FC<Props> = ({
             if (tone === replyOptions.tone)
               return (
                 <Button className={styles.toneButton} key={tone}>
-                  {tone}
+                  {translations(`Tones.${tone}`)}
                 </Button>
               );
             return (
@@ -79,7 +84,7 @@ const ResponseDashboard: React.FC<Props> = ({
                 className={styles.toneButton}
                 key={tone}
               >
-                {tone}
+                {translations(`Tones.${tone}`)}
               </Button>
             );
           })}
@@ -164,7 +169,7 @@ const ResponseDashboard: React.FC<Props> = ({
             <input
               type="text"
               className={styles.keywordInput}
-              placeholder="Make the sentence..."
+              placeholder={translations('EditInput')}
               value={editIntention}
               onChange={(e) => setEditIntention(e.target.value)}
             />
@@ -173,34 +178,21 @@ const ResponseDashboard: React.FC<Props> = ({
               onClick={() => handleEditSuggestionOptionClick(editIntention)}
               style={{ flexGrow: 0.5, paddingLeft: '1rem', paddingRight: '1rem' }}
             >
-              Apply
+              {translations('Apply')}
             </Button>
           </div>
           <div className={styles.fastEditOptions}>
-            <Button
-              onClick={() => {
-                handleEditSuggestionOptionClick('Confident');
-              }}
-              className={styles.actionButton}
-            >
-              Confident
-            </Button>
-            <Button
-              onClick={() => {
-                handleEditSuggestionOptionClick('Funny');
-              }}
-              className={styles.actionButton}
-            >
-              Funny
-            </Button>
-            <Button
-              onClick={() => {
-                handleEditSuggestionOptionClick('Sarcastic');
-              }}
-              className={styles.actionButton}
-            >
-              Sarcastic
-            </Button>
+            {editOptions.map((option, index) => (
+              <Button
+                key={index}
+                onClick={() => {
+                  handleEditSuggestionOptionClick(translations(`EditOptions.${option}`));
+                }}
+                className={styles.actionButton}
+              >
+                {translations(`EditOptions.${option}`)}
+              </Button>
+            ))}
           </div>
         </div>
       </div>
@@ -221,7 +213,7 @@ const ResponseDashboard: React.FC<Props> = ({
       {!selectedSuggestion && (
         <div className={styles.bottomOptionsContainer}>
           <Button onClick={handleClose} className={styles.navActionButtons}>
-            Close
+            {translations('CloseButton')}
           </Button>
           {showKeywordField && (
             <div className={styles.keywordSection}>
@@ -229,7 +221,7 @@ const ResponseDashboard: React.FC<Props> = ({
                 type="text"
                 value={keywords}
                 onChange={(e) => setKeywords(e.target.value)}
-                placeholder="Add Keyword"
+                placeholder={translations('KeywordInput')}
                 className={styles.keywordInput}
               />
             </div>
