@@ -1,5 +1,9 @@
 {
   "ReplyHome": {
     "ListenButton": "Listen"
+  },
+  "SpeechRecognition": {
+    "StopListening": "Stop Listening",
+    "StartListening": "Start Listening"
   }
 }

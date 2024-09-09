@@ -4,6 +4,7 @@ import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
 import { Button } from '@fluentui/react-components';
 import MicAnimation from './MicAnimation';
 import styles from './SpeechRecognition.module.css';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   show: boolean;
@@ -107,13 +108,15 @@ export default function SpeechRecognition({ show, setRecognizedText, onRecognize
     }
   };
 
+  const translations = useTranslations('SpeechRecognition');
+
   if (!show) return;
 
   return (
     <div className={styles.container}>
       <MicAnimation isActive={isListening} />
       <Button onClick={handleListenButton} size="large">
-        {isListening ? 'Stop Listening' : 'Start Listening'}
+        {isListening ? translations('StopListening') : translations('StartListening')}
       </Button>
     </div>
   );
