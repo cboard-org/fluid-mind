@@ -12,7 +12,7 @@ import type {
   HowToReply,
 } from '@/src/commonTypes/replyOptions';
 import type { ReplySuggestion, ReplySuggestions } from '@/src/commonTypes/replySuggestions';
-import { speak } from '../textToSpeech/synthesizeSpeech';
+import { speak } from '@/textToSpeech/synthesizeSpeech';
 import { useTranslations } from 'next-intl';
 
 export default function Home() {

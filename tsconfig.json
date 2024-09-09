@@ -18,7 +18,8 @@
       }
     ],
     "paths": {
-      "@/src/*": ["./src/*"]
+      "@/src/*": ["./src/*"],
+      "@/textToSpeech/*": ["./src/textToSpeech/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
