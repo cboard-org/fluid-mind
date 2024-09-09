@@ -1,4 +1,9 @@
 {
+  "LocaleSwitcher": {
+    "en": "en",
+    "es": "es",
+    "label": "Language-Menu"
+  },
   "ReplyHome": {
     "ListenButton": "Listen"
   },
