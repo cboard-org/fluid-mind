@@ -1,5 +1,6 @@
 import { useLocale, useTranslations } from 'next-intl';
 import LocaleSwitcherSelect from './LocaleSwitcherSelect';
+import { APP_SUPPORTED_LANGUAGES } from './constants';
 
 export default function LocaleSwitcher() {
   const t = useTranslations('LocaleSwitcher');
@@ -8,16 +9,10 @@ export default function LocaleSwitcher() {
   return (
     <LocaleSwitcherSelect
       defaultValue={locale}
-      items={[
-        {
-          value: 'en',
-          label: t('en'),
-        },
-        {
-          value: 'es',
-          label: t('es'),
-        },
-      ]}
+      items={APP_SUPPORTED_LANGUAGES.map((lang) => ({
+        value: lang,
+        label: t(lang),
+      }))}
       label={t('label')}
     />
   );
