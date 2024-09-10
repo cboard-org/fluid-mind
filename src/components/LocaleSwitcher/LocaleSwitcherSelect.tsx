@@ -2,7 +2,6 @@
 
 import { useTransition } from 'react';
 import type { Locale } from '@/src/i18n/config';
-import { setUserLocale } from '@/src/services/locale';
 import {
   Button,
   Menu,
@@ -17,18 +16,24 @@ type Props = {
   defaultValue: string;
   items: Array<{ value: string; label: string }>;
   label: string;
+  onSetLocaleClick: (locale: Locale) => Promise<void>;
 };
 
-export default function LocaleSwitcherSelect({ defaultValue, items, label }: Props) {
+export default function LocaleSwitcherSelect({
+  defaultValue,
+  items,
+  label,
+  onSetLocaleClick,
+}: Props) {
   const [isPending, startTransition] = useTransition();
 
   function onChange(value: string) {
     const locale = value as Locale;
     startTransition(() => {
-      setUserLocale(locale);
+      onSetLocaleClick(locale);
     });
   }
-  console.log(items);
+
   return (
     <div className="relative">
       {/* This Component of FluentUI is causing us to disable the React Strict Mode that is not a good Idea 

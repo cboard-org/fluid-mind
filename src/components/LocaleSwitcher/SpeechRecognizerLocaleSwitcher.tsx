@@ -1,6 +1,7 @@
 import { useLocale, useTranslations } from 'next-intl';
 import LocaleSwitcherSelect from './LocaleSwitcherSelect';
 import { SUPPORTED_SPEECH_RECOGNITION_LOCALES } from '@/src/speechToText/supportedLocales';
+import { changeSpeechRecognizerLanguage } from '@/src/speechToText/speechToText';
 
 export default function SpeechRecognizerLocaleSwitcher() {
   const t = useTranslations('speechRecognizerLocaleSwitcher');
@@ -18,6 +19,7 @@ export default function SpeechRecognizerLocaleSwitcher() {
         label: language,
       }))}
       label={t('label')}
+      onSetLocaleClick={async (locale) => changeSpeechRecognizerLanguage(locale)}
     />
   );
 }

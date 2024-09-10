@@ -1,10 +1,20 @@
 import { useLocale, useTranslations } from 'next-intl';
 import LocaleSwitcherSelect from './LocaleSwitcherSelect';
-import { APP_SUPPORTED_LANGUAGES } from './constants';
+import { APP_SUPPORTED_LANGUAGES, getRecognizerAvailableLanguages } from './constants';
+import { setUserLocale } from '@/src/services/locale';
+import { Locale } from '@/src/i18n/config';
+import { changeSpeechRecognizerLanguage } from '@/src/speechToText/speechToText';
 
 export default function LocaleSwitcher() {
   const t = useTranslations('LocaleSwitcher');
   const locale = useLocale();
+
+  const handleSetUserLocale = async (settedLocale: Locale) => {
+    await setUserLocale(settedLocale);
+    const recognizerAvailableLanguages = getRecognizerAvailableLanguages(settedLocale);
+    const defaultRecognizerLocale = recognizerAvailableLanguages[0].locale;
+    changeSpeechRecognizerLanguage(defaultRecognizerLocale);
+  };
 
   return (
     <LocaleSwitcherSelect
@@ -14,6 +24,7 @@ export default function LocaleSwitcher() {
         label: t(lang),
       }))}
       label={t('label')}
+      onSetLocaleClick={handleSetUserLocale}
     />
   );
 }

@@ -6,7 +6,7 @@ export default getRequestConfig(async () => {
   // read from `cookies()`, `headers()`, etc.
   const locale = await getUserLocale();
   const shortLocale = locale.slice(0, 2);
-  console.log(shortLocale);
+
   return {
     locale,
     messages: (await import(`../../messages/${shortLocale}.json`)).default,
