@@ -1,6 +1,6 @@
 import { useLocale, useTranslations } from 'next-intl';
 import LocaleSwitcherSelect from './LocaleSwitcherSelect';
-import { APP_SUPPORTED_LANGUAGES, getRecognizerAvailableLanguages } from './constants';
+import { APP_SUPPORTED_LANGUAGES, getRecognizerAvailableLanguages } from '@/src/i18n/config';
 import { setUserLocale } from '@/src/services/locale';
 import { Locale } from '@/src/i18n/config';
 import { changeSpeechRecognizerLanguage } from '@/src/speechToText/speechToText';
