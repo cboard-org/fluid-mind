@@ -20,7 +20,7 @@ export default function Home() {
   const [recognizedText, setRecognizedText] = useState('');
   const [replyOptions, setReplyOptions] = useState<ReplyOptions>({
     tone: 'Friendly',
-    user_pref: `Im Hector and I have one 8-month old little girl. Im Biomedical engineer
+    user_pref: `Im Hector and I have one 11-month old little girl. Im Biomedical engineer
       and I live in Carlos Paz. `,
     selected_sentence: '',
     how_to_respond: null,
@@ -43,6 +43,7 @@ export default function Home() {
   );
 
   const handleOnRecognizeText = async (text: string) => {
+    makeFillerSound();
     setRecognizedText(text);
     setIsListeningView(false);
     const requestBody = {
@@ -73,6 +74,7 @@ export default function Home() {
   };
 
   const handleHowToReplyClick = async (how_to_respond: HowToReply, keywords: string) => {
+    
     const requestBody: ReplyRequestBody = {
       ...replyOptions,
       how_to_respond,
@@ -139,6 +141,15 @@ export default function Home() {
     );
     changeToListening();
   };
+
+  //Method to make filler sounds
+  const makeFillerSound = () => {
+    //Choose random filler sound from list
+    const fillerSounds = ['Okay...', 'Hmm, ', 'Sooo, ', 'Ahh, ', 'Hmm, right '];
+    const randomIndex = Math.floor(Math.random() * fillerSounds.length);
+    console.log(fillerSounds[randomIndex]);
+    speak(fillerSounds[randomIndex]);
+  }
 
   const t = useTranslations('ReplyHome');
 
