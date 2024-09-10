@@ -14,9 +14,9 @@ export default function SpeechRecognizerLocaleSwitcher() {
   return (
     <LocaleSwitcherSelect
       defaultValue={defaultRecognizerLocale}
-      items={recognizerAvailableLanguages.map(({ locale, language }) => ({
+      items={recognizerAvailableLanguages.map(({ locale, language, intlNameKey }) => ({
         value: locale,
-        label: language,
+        label: t(intlNameKey),
       }))}
       label={t('label')}
       onSetLocaleClick={async (locale) => changeSpeechRecognizerLanguage(locale)}

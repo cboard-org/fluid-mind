@@ -18,7 +18,7 @@ export default function LocaleSwitcher() {
 
   return (
     <LocaleSwitcherSelect
-      defaultValue={locale}
+      defaultValue={t(locale)}
       items={APP_SUPPORTED_LANGUAGES.map((lang) => ({
         value: lang,
         label: t(lang),

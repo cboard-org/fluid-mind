@@ -7,22 +7,22 @@ import { useTranslations } from 'next-intl';
 import SpeechRecognizerLocaleSwitcher from '@/src/components/LocaleSwitcher/SpeechRecognizerLocaleSwitcher';
 
 export default function Home() {
-  const translations = useTranslations('ReplyHome');
+  const translations = useTranslations('Home');
   return (
     <main className={styles.main}>
       <div className={styles.section}>
-        <Divider>LANGUAGE</Divider>
+        <Divider>{translations('Language')}</Divider>
         <div className={styles.labeledMenu}>
-          <Label>App:</Label>
+          <Label>{translations('App')}</Label>
           <LocaleSwitcher />
         </div>
         <div className={styles.labeledMenu}>
-          <Label>Speech Recognition:</Label>
+          <Label>{translations('SpeechRecognition')}</Label>
           <SpeechRecognizerLocaleSwitcher />
         </div>
       </div>
       <div className={styles.section}>
-        <Divider>APP MODES</Divider>
+        <Divider>{translations('Modes')}</Divider>
         <Link href={'/reply'}>
           <Button size="large">{translations('ListenButton')}</Button>
         </Link>
