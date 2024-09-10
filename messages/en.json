@@ -4,6 +4,9 @@
     "es": "es",
     "label": "Language-Menu"
   },
+  "speechRecognizerLocaleSwitcher": {
+    "label": "Speech-recognizer-language-Menu"
+  },
   "ReplyHome": {
     "ListenButton": "Listen"
   },
