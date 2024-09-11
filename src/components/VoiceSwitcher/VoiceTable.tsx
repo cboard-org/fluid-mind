@@ -19,6 +19,7 @@ type Props = {
 
 export default function VoiceTable({ voices, selectedVoiceName, onSelectVoice }: Props) {
   const t = useTranslations('VoiceSwitcher');
+  const localeTranslations = useTranslations('LocaleSwitcher');
 
   const columns = [
     { columnKey: 'name', label: 'Name' },
@@ -48,7 +49,7 @@ export default function VoiceTable({ voices, selectedVoiceName, onSelectVoice }:
               <TableCellLayout>{voice.localName}</TableCellLayout>
             </TableCell>
             <TableCell>
-              <TableCellLayout>{voice.localeName}</TableCellLayout>
+              <TableCellLayout>{localeTranslations(voice.locale)}</TableCellLayout>
             </TableCell>
             <TableCell>{t(voice.gender.toString())}</TableCell>
           </TableRow>
