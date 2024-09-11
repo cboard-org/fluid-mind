@@ -9,7 +9,6 @@ import {
   MenuList,
   MenuPopover,
   MenuTrigger,
-  Spinner,
 } from '@fluentui/react-components';
 
 type Props = {
@@ -41,7 +40,7 @@ export default function LocaleSwitcherSelect({
     */}
       <Menu>
         <MenuTrigger disableButtonEnhancement aria-label={label}>
-          <Button icon={isPending ? <Spinner /> : null}>{defaultValue}</Button>
+          <Button disabled={isPending}>{defaultValue}</Button>
         </MenuTrigger>
         <MenuPopover>
           <MenuList>

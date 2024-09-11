@@ -1,7 +1,7 @@
 {
   "LocaleSwitcher": {
-    "en": "Ingles",
-    "es": "Español",
+    "en-US": "Ingles",
+    "es-ES": "Español",
     "label": "Language-Menu"
   },
   "ReplyHome": {

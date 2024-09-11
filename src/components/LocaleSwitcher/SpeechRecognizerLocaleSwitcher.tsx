@@ -1,25 +1,55 @@
 import { useLocale, useTranslations } from 'next-intl';
 import LocaleSwitcherSelect from './LocaleSwitcherSelect';
 import { SUPPORTED_SPEECH_RECOGNITION_LOCALES } from '@/src/speechToText/supportedLocales';
-import { changeSpeechRecognizerLanguage } from '@/src/speechToText/speechToText';
+import {
+  changeSpeechRecognizerLanguage,
+  getSpeechRecognizerLanguage,
+} from '@/src/speechToText/speechToText';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 export default function SpeechRecognizerLocaleSwitcher() {
-  const t = useTranslations('speechRecognizerLocaleSwitcher');
+  const t = useTranslations('LocaleSwitcher');
   const appLocale = useLocale();
-  const recognizerAvailableLanguages = SUPPORTED_SPEECH_RECOGNITION_LOCALES.filter(
-    ({ locale }) => locale.slice(0, 2) === appLocale,
+
+  const sliceLocale = (locale: string) => {
+    return locale.slice(0, 2);
+  };
+  const recognizerAvailableLanguages = useMemo(
+    () =>
+      SUPPORTED_SPEECH_RECOGNITION_LOCALES.filter(
+        ({ locale }) => sliceLocale(locale) === sliceLocale(appLocale),
+      ),
+    [appLocale],
   );
 
-  const defaultRecognizerLocale = recognizerAvailableLanguages[0].language;
+  useMemo(() => {}, []);
+  const [defaultRecognizerLocale, setDefaultRecognizerLocale] = useState(
+    getSpeechRecognizerLanguage() ?? recognizerAvailableLanguages[0].locale,
+  );
+
+  const handleChangeSpeechRecognizerLanguage = useCallback(
+    (locale: string) => {
+      changeSpeechRecognizerLanguage(locale);
+      const newRecognizerLocale =
+        getSpeechRecognizerLanguage() ?? recognizerAvailableLanguages[0].locale;
+      setDefaultRecognizerLocale(newRecognizerLocale);
+    },
+    [recognizerAvailableLanguages],
+  );
+
+  useEffect(() => {
+    handleChangeSpeechRecognizerLanguage(appLocale);
+  }, [appLocale, handleChangeSpeechRecognizerLanguage]);
+
   return (
     <LocaleSwitcherSelect
-      defaultValue={defaultRecognizerLocale}
-      items={recognizerAvailableLanguages.map(({ locale, language, intlNameKey }) => ({
+      defaultValue={t(defaultRecognizerLocale)}
+      items={recognizerAvailableLanguages.map(({ locale }) => ({
         value: locale,
-        label: t(intlNameKey),
+        label: t(locale),
       }))}
       label={t('label')}
-      onSetLocaleClick={async (locale) => changeSpeechRecognizerLanguage(locale)}
+      onSetLocaleClick={async (locale) => handleChangeSpeechRecognizerLanguage(locale)}
     />
   );
 }

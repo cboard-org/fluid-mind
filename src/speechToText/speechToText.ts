@@ -19,6 +19,11 @@ export const changeSpeechRecognizerLanguage = (locale: string) => {
   speechConfig = newSpeechConfig;
 };
 
+export const getSpeechRecognizerLanguage = () => {
+  if (!speechConfig) return null;
+  return speechConfig.speechRecognitionLanguage;
+};
+
 const createOrGetSpeechConfig = () => {
   if (speechConfig) return speechConfig;
   return createSpeechConfig();
