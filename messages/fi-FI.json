@@ -150,11 +150,19 @@
     "Language": "Kieli",
     "App": "Sovellus:",
     "SpeechRecognition": "Puheentunnistus:",
+    "Speech": "Puhe",
+    "Voice": "Ääni:",
     "Modes": "Tilat"
   },
   "SpeechRecognition": {
     "StopListening": "Lopeta kuuntelu",
     "StartListening": "Aloita kuuntelu"
+  },
+  "VoiceSwitcher": {
+    "1": "feminiininen",
+    "2": "Mies",
+    "3": "Ei-binäärinen",
+    "voiceDemo": "Hei, tämä on minun ääneni"
   },
   "ReplyDashboard": {
     "Tones": {

@@ -150,11 +150,19 @@
     "Language": "زبان",
     "App": "App:",
     "SpeechRecognition": "تشخیص گفتار:",
+    "Speech": "سخنرانی",
+    "Voice": "صوتی:",
     "Modes": "حالت"
   },
   "SpeechRecognition": {
     "StopListening": "گوش دادن را متوقف کنید",
     "StartListening": "شروع به گوش دادن کنید"
+  },
+  "VoiceSwitcher": {
+    "1": "زنانه",
+    "2": "مرد",
+    "3": "غیر باینری",
+    "voiceDemo": "سلام این صدای من است"
   },
   "ReplyDashboard": {
     "Tones": {

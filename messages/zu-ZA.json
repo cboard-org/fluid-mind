@@ -150,11 +150,19 @@
     "Language": "crwdns58372:0crwdne58372:0",
     "App": "crwdns58374:0crwdne58374:0",
     "SpeechRecognition": "crwdns58376:0crwdne58376:0",
+    "Speech": "crwdns58694:0crwdne58694:0",
+    "Voice": "crwdns58696:0crwdne58696:0",
     "Modes": "crwdns58378:0crwdne58378:0"
   },
   "SpeechRecognition": {
     "StopListening": "crwdns58380:0crwdne58380:0",
     "StartListening": "crwdns58382:0crwdne58382:0"
+  },
+  "VoiceSwitcher": {
+    "1": "crwdns58706:0crwdne58706:0",
+    "2": "crwdns58700:0crwdne58700:0",
+    "3": "crwdns58702:0crwdne58702:0",
+    "voiceDemo": "crwdns58704:0crwdne58704:0"
   },
   "ReplyDashboard": {
     "Tones": {

@@ -150,11 +150,19 @@
     "Language": "زبان",
     "App": "ایپ:",
     "SpeechRecognition": "تقریر کی پہچان:",
+    "Speech": "تقریر",
+    "Voice": "آواز:",
     "Modes": "طریقوں"
   },
   "SpeechRecognition": {
     "StopListening": "سننا بند کرو",
     "StartListening": "سننا شروع کریں"
+  },
+  "VoiceSwitcher": {
+    "1": "عورت",
+    "2": "نر",
+    "3": "نان بائنری",
+    "voiceDemo": "ہیلو، یہ میری آواز ہے"
   },
   "ReplyDashboard": {
     "Tones": {

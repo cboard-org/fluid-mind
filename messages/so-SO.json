@@ -150,11 +150,19 @@
     "Language": "luuqada",
     "App": "App:",
     "SpeechRecognition": "Ictiraafka hadalka:",
+    "Speech": "Hadalka",
+    "Voice": "Haku:",
     "Modes": "Hababka"
   },
   "SpeechRecognition": {
     "StopListening": "Jooji Dhegaysiga",
     "StartListening": "Bilow Dhegaysiga"
+  },
+  "VoiceSwitcher": {
+    "1": "dumarm",
+    "2": "Qeebe",
+    "3": "NonBinary",
+    "voiceDemo": "Hello, tani waa codkeyga"
   },
   "ReplyDashboard": {
     "Tones": {

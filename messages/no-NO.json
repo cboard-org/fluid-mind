@@ -150,11 +150,19 @@
     "Language": "Språk",
     "App": "App:",
     "SpeechRecognition": "Talegjenkjenning:",
+    "Speech": "Tale",
+    "Voice": "Stemme:",
     "Modes": "Moduser"
   },
   "SpeechRecognition": {
     "StopListening": "Slutt å lytte",
     "StartListening": "Begynn å lytte"
+  },
+  "VoiceSwitcher": {
+    "1": "feminin",
+    "2": "Mannlig",
+    "3": "Ikke-binær",
+    "voiceDemo": "Hei, dette er stemmen min"
   },
   "ReplyDashboard": {
     "Tones": {

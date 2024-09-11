@@ -150,11 +150,19 @@
     "Language": "Dil",
     "App": "App:",
     "SpeechRecognition": "Konuşma tanıma:",
+    "Speech": "Konuşma",
+    "Voice": "Ses:",
     "Modes": "Modu"
   },
   "SpeechRecognition": {
     "StopListening": "Dinlemeyi Bırak",
     "StartListening": "Dinlemeye Başla"
+  },
+  "VoiceSwitcher": {
+    "1": "dişil",
+    "2": "Erkek",
+    "3": "İkili Olmayan",
+    "voiceDemo": "Merhaba, bu benim sesim"
   },
   "ReplyDashboard": {
     "Tones": {

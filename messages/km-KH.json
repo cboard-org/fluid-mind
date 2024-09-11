@@ -150,11 +150,19 @@
     "Language": "ភាសា",
     "App": "កម្មវិធី:",
     "SpeechRecognition": "ការទទួលស្គាល់ការនិយាយ៖",
+    "Speech": "សុន្ទរកថា",
+    "Voice": "សំឡេង:",
     "Modes": "របៀប"
   },
   "SpeechRecognition": {
     "StopListening": "ឈប់ស្តាប់",
     "StartListening": "ចាប់ផ្តើមស្តាប់"
+  },
+  "VoiceSwitcher": {
+    "1": "ស្រី",
+    "2": "ប្រុស",
+    "3": "មិនមែនគោលពីរ",
+    "voiceDemo": "ជំរាបសួរ, នេះជាសំឡេងរបស់ខ្ញុំ"
   },
   "ReplyDashboard": {
     "Tones": {

@@ -150,11 +150,19 @@
     "Language": "Jazyk",
     "App": "App:",
     "SpeechRecognition": "Rozpoznávání řeči:",
+    "Speech": "Projev",
+    "Voice": "Hlas:",
     "Modes": "Režimy"
   },
   "SpeechRecognition": {
     "StopListening": "Přestaňte poslouchat",
     "StartListening": "Začněte poslouchat"
+  },
+  "VoiceSwitcher": {
+    "1": "ženský",
+    "2": "Muž",
+    "3": "Nebinární",
+    "voiceDemo": "Dobrý den, toto je můj hlas"
   },
   "ReplyDashboard": {
     "Tones": {

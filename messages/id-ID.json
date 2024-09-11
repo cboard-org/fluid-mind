@@ -150,11 +150,19 @@
     "Language": "Bahasa",
     "App": "App:",
     "SpeechRecognition": "Pengenalan suara:",
+    "Speech": "Pidato",
+    "Voice": "Suara:",
     "Modes": "Mode"
   },
   "SpeechRecognition": {
     "StopListening": "Berhenti Mendengarkan",
     "StartListening": "Mulai Mendengarkan"
+  },
+  "VoiceSwitcher": {
+    "1": "feminin",
+    "2": "Laki-laki",
+    "3": "NonBiner",
+    "voiceDemo": "Halo, ini suaraku"
   },
   "ReplyDashboard": {
     "Tones": {

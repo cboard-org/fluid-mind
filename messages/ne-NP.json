@@ -150,11 +150,19 @@
     "Language": "भाषा[सम्पादन गर्ने]",
     "App": "अनुप्रयोग:",
     "SpeechRecognition": "वाक् पहिचान:",
+    "Speech": "भाषण",
+    "Voice": "आवाज:",
     "Modes": "मोडहरू"
   },
   "SpeechRecognition": {
     "StopListening": "सुन्न बन्द गर्नुहोस्",
     "StartListening": "सुन्न सुरु गर्नुहोस्"
+  },
+  "VoiceSwitcher": {
+    "1": "स्त्री",
+    "2": "पुरुष",
+    "3": "गैर बाइनरी",
+    "voiceDemo": "नमस्ते, यो मेरो आवाज हो"
   },
   "ReplyDashboard": {
     "Tones": {

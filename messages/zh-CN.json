@@ -150,11 +150,19 @@
     "Language": "语言",
     "App": "应用程序：",
     "SpeechRecognition": "语音识别：",
+    "Speech": "演讲",
+    "Voice": "声音：",
     "Modes": "模式"
   },
   "SpeechRecognition": {
     "StopListening": "停止聆听",
     "StartListening": "开始聆听"
+  },
+  "VoiceSwitcher": {
+    "1": "女性",
+    "2": "雄",
+    "3": "非二进制",
+    "voiceDemo": "你好，这是我的声音"
   },
   "ReplyDashboard": {
     "Tones": {

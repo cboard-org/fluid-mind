@@ -159,7 +159,7 @@
     "StartListening": "Start Listening"
   },
   "VoiceSwitcher": {
-    "1": "Female",
+    "1": "feminine",
     "2": "Male",
     "3": "NonBinary",
     "voiceDemo": "Hello, this is my voice"

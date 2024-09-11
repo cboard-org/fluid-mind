@@ -150,11 +150,19 @@
     "Language": "Γλώσσα",
     "App": "Εφαρμογή:",
     "SpeechRecognition": "Αναγνώριση ομιλίας:",
+    "Speech": "Ομιλία",
+    "Voice": "Φωνή:",
     "Modes": "Τρόπους"
   },
   "SpeechRecognition": {
     "StopListening": "Σταματήστε να ακούτε",
     "StartListening": "Ξεκινήστε να ακούτε"
+  },
+  "VoiceSwitcher": {
+    "1": "θηλυκός",
+    "2": "Αρσενικός",
+    "3": "Μη δυαδικό",
+    "voiceDemo": "Γεια σας, αυτή είναι η φωνή μου"
   },
   "ReplyDashboard": {
     "Tones": {

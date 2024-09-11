@@ -150,11 +150,19 @@
     "Language": "Nyelv",
     "App": "App:",
     "SpeechRecognition": "Beszédfelismerés:",
+    "Speech": "Beszéd",
+    "Voice": "Hang:",
     "Modes": "Módok"
   },
   "SpeechRecognition": {
     "StopListening": "Hallgatás leállítása",
     "StartListening": "Zenehallgatás indítása"
+  },
+  "VoiceSwitcher": {
+    "1": "nőnemű",
+    "2": "Férfi",
+    "3": "Nembináris",
+    "voiceDemo": "Helló, ez az én hangom"
   },
   "ReplyDashboard": {
     "Tones": {

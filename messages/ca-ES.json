@@ -150,11 +150,19 @@
     "Language": "Llengua",
     "App": "App:",
     "SpeechRecognition": "Reconeixement de veu:",
+    "Speech": "Discurs",
+    "Voice": "Veu:",
     "Modes": "Modes"
   },
   "SpeechRecognition": {
     "StopListening": "Deixa d'escoltar",
     "StartListening": "Comença a escoltar"
+  },
+  "VoiceSwitcher": {
+    "1": "femení",
+    "2": "Mascle",
+    "3": "No binari",
+    "voiceDemo": "Hola, aquesta és la meva veu"
   },
   "ReplyDashboard": {
     "Tones": {

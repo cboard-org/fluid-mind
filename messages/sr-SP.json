@@ -150,11 +150,19 @@
     "Language": "Језик",
     "App": "Апликацију:",
     "SpeechRecognition": "Препознавање говора:",
+    "Speech": "Говор",
+    "Voice": "Глас:",
     "Modes": "Режима"
   },
   "SpeechRecognition": {
     "StopListening": "Престани да слушаш",
     "StartListening": "Почните да слушате"
+  },
+  "VoiceSwitcher": {
+    "1": "Ћенске",
+    "2": "Муљкарац",
+    "3": "Небинарни",
+    "voiceDemo": "Здраво , ово је мој глас"
   },
   "ReplyDashboard": {
     "Tones": {

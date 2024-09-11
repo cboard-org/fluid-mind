@@ -150,11 +150,19 @@
     "Language": "Taal",
     "App": "App:",
     "SpeechRecognition": "Spraakherkenning:",
+    "Speech": "Spraak",
+    "Voice": "Stem:",
     "Modes": "Modi"
   },
   "SpeechRecognition": {
     "StopListening": "Stop met luisteren",
     "StartListening": "Begin met luisteren"
+  },
+  "VoiceSwitcher": {
+    "1": "vrouwelijk",
+    "2": "Mannelijk",
+    "3": "Niet-binair",
+    "voiceDemo": "Hallo, dit is mijn stem"
   },
   "ReplyDashboard": {
     "Tones": {

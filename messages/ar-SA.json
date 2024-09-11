@@ -150,11 +150,19 @@
     "Language": "اللغة",
     "App": "التطبيق:",
     "SpeechRecognition": "التعرف على الكلام:",
+    "Speech": "كلام",
+    "Voice": "صوت:",
     "Modes": "وسائط"
   },
   "SpeechRecognition": {
     "StopListening": "توقف عن الاستماع",
     "StartListening": "ابدأ الاستماع"
+  },
+  "VoiceSwitcher": {
+    "1": "أنثوي",
+    "2": "ذكر",
+    "3": "غير ثنائي",
+    "voiceDemo": "مرحبا، هذا صوتي"
   },
   "ReplyDashboard": {
     "Tones": {

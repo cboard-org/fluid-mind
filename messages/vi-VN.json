@@ -150,11 +150,19 @@
     "Language": "Ngôn ngữ",
     "App": "App:",
     "SpeechRecognition": "Nhận dạng giọng nói:",
+    "Speech": "Thoại",
+    "Voice": "Tiếng:",
     "Modes": "Chế độ"
   },
   "SpeechRecognition": {
     "StopListening": "Ngừng nghe",
     "StartListening": "Bắt đầu lắng nghe"
+  },
+  "VoiceSwitcher": {
+    "1": "giống cái",
+    "2": "Đực",
+    "3": "Phi nhị phân",
+    "voiceDemo": "Xin chào, đây là giọng nói của tôi"
   },
   "ReplyDashboard": {
     "Tones": {

@@ -150,11 +150,19 @@
     "Language": "ഭാഷ",
     "App": "ആപ്പ്:",
     "SpeechRecognition": "സംസാരം തിരിച്ചറിയൽ:",
+    "Speech": "പ്രസംഗം",
+    "Voice": "ശബ്ദം:",
     "Modes": "മോഡുകൾ"
   },
   "SpeechRecognition": {
     "StopListening": "കേൾക്കുന്നത് നിർത്തുക",
     "StartListening": "ശ്രദ്ധിക്കാൻ തുടങ്ങുക"
+  },
+  "VoiceSwitcher": {
+    "1": "feminine",
+    "2": "പുരുഷൻ",
+    "3": "നോൺബൈനറി",
+    "voiceDemo": "ഹലോ, ഇതെന്റെ ശബ്ദം"
   },
   "ReplyDashboard": {
     "Tones": {

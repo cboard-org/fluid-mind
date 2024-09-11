@@ -150,11 +150,19 @@
     "Language": "Język",
     "App": "App:",
     "SpeechRecognition": "Rozpoznawanie mowy:",
+    "Speech": "Przemówienie",
+    "Voice": "Głos:",
     "Modes": "Tryby"
   },
   "SpeechRecognition": {
     "StopListening": "Przestań słuchać",
     "StartListening": "Zacznij słuchać"
+  },
+  "VoiceSwitcher": {
+    "1": "kobiecy",
+    "2": "Mężczyzna",
+    "3": "Osoba niebinarna",
+    "voiceDemo": "Witam, to jest mój głos"
   },
   "ReplyDashboard": {
     "Tones": {

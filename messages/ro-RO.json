@@ -150,11 +150,19 @@
     "Language": "Limbă",
     "App": "App:",
     "SpeechRecognition": "Recunoașterea vorbirii:",
+    "Speech": "Vorbire",
+    "Voice": "Voce:",
     "Modes": "Moduri"
   },
   "SpeechRecognition": {
     "StopListening": "Nu mai ascultați",
     "StartListening": "Începeți să ascultați"
+  },
+  "VoiceSwitcher": {
+    "1": "feminin",
+    "2": "Mascul",
+    "3": "Nonbinar",
+    "voiceDemo": "Bună ziua, aceasta este vocea mea"
   },
   "ReplyDashboard": {
     "Tones": {

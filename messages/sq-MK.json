@@ -150,11 +150,19 @@
     "Language": "Gjuha",
     "App": "App:",
     "SpeechRecognition": "Njohja e fjalës:",
+    "Speech": "Fjalim",
+    "Voice": "Zëri:",
     "Modes": "Modet"
   },
   "SpeechRecognition": {
     "StopListening": "Ndalo së dëgjuari",
     "StartListening": "Fillo të dëgjosh"
+  },
+  "VoiceSwitcher": {
+    "1": "Femërore",
+    "2": "Mashkull",
+    "3": "Jobinary",
+    "voiceDemo": "Përshëndetje, ky është zëri im"
   },
   "ReplyDashboard": {
     "Tones": {

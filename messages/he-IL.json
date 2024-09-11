@@ -150,11 +150,19 @@
     "Language": "שפה",
     "App": "אפליקציה:",
     "SpeechRecognition": "זיהוי דיבור:",
+    "Speech": "דיבור",
+    "Voice": "קול:",
     "Modes": "מצבי"
   },
   "SpeechRecognition": {
     "StopListening": "הפסיקו להקשיב",
     "StartListening": "התחל להקשיב"
+  },
+  "VoiceSwitcher": {
+    "1": "נשית",
+    "2": "זכר",
+    "3": "א-בינארי",
+    "voiceDemo": "שלום, זה הקול שלי"
   },
   "ReplyDashboard": {
     "Tones": {

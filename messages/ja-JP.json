@@ -150,11 +150,19 @@
     "Language": "言語",
     "App": "アプリ：",
     "SpeechRecognition": "音声認識：",
+    "Speech": "演説",
+    "Voice": "声：",
     "Modes": "モード"
   },
   "SpeechRecognition": {
     "StopListening": "聞くのをやめる",
     "StartListening": "聴き始める"
+  },
+  "VoiceSwitcher": {
+    "1": "フェミニン",
+    "2": "男性",
+    "3": "ノンバイナリー",
+    "voiceDemo": "こんにちは、これが私の声です"
   },
   "ReplyDashboard": {
     "Tones": {

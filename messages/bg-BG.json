@@ -150,11 +150,19 @@
     "Language": "Език",
     "App": "Ап:",
     "SpeechRecognition": "Разпознаване на реч:",
+    "Speech": "Реч",
+    "Voice": "Глас:",
     "Modes": "Режими"
   },
   "SpeechRecognition": {
     "StopListening": "Спрете да слушате",
     "StartListening": "Започнете да слушате"
+  },
+  "VoiceSwitcher": {
+    "1": "женски",
+    "2": "Мъжки",
+    "3": "Небинарен",
+    "voiceDemo": "Здравейте, това е моят глас."
   },
   "ReplyDashboard": {
     "Tones": {

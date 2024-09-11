@@ -150,11 +150,19 @@
     "Language": "भाषा",
     "App": "ऐप:",
     "SpeechRecognition": "वाक्:",
+    "Speech": "भाषण",
+    "Voice": "आवाज़:",
     "Modes": "मोड"
   },
   "SpeechRecognition": {
     "StopListening": "सुनना बंद करो",
     "StartListening": "सुनना शुरू करें"
+  },
+  "VoiceSwitcher": {
+    "1": "स्त्री सम्बन्धी",
+    "2": "पुरुष",
+    "3": "नॉनबाइनरी",
+    "voiceDemo": "हैलो, यह मेरी आवाज है"
   },
   "ReplyDashboard": {
     "Tones": {

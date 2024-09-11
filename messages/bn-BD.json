@@ -150,11 +150,19 @@
     "Language": "ভাষা",
     "App": "অ্যাপ:",
     "SpeechRecognition": "স্পিচ রিকগনিশন:",
+    "Speech": "স্বর",
+    "Voice": "কণ্ঠ:",
     "Modes": "মোড"
   },
   "SpeechRecognition": {
     "StopListening": "শোনা বন্ধ করুন",
     "StartListening": "শুনতে শুরু করুন"
+  },
+  "VoiceSwitcher": {
+    "1": "স্ত্রীলিঙ্গ",
+    "2": "পুরুষ",
+    "3": "ননবাইনারি",
+    "voiceDemo": "হ্যালো, এটা আমার কন্ঠ"
   },
   "ReplyDashboard": {
     "Tones": {

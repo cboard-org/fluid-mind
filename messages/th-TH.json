@@ -150,11 +150,19 @@
     "Language": "ภาษา",
     "App": "แอพ:",
     "SpeechRecognition": "การรู้จําเสียง:",
+    "Speech": "การพูด",
+    "Voice": "เสียง:",
     "Modes": "โหมด"
   },
   "SpeechRecognition": {
     "StopListening": "หยุดฟัง",
     "StartListening": "เริ่มฟัง"
+  },
+  "VoiceSwitcher": {
+    "1": "ผู้หญิง",
+    "2": "ชาย",
+    "3": "ไม่ใช่ไบนารี",
+    "voiceDemo": "สวัสดีนี่คือเสียงของฉัน"
   },
   "ReplyDashboard": {
     "Tones": {

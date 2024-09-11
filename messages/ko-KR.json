@@ -150,11 +150,19 @@
     "Language": "언어",
     "App": "앱:",
     "SpeechRecognition": "음성 인식:",
+    "Speech": "연설",
+    "Voice": "목소리:",
     "Modes": "모드"
   },
   "SpeechRecognition": {
     "StopListening": "듣기를 멈추다",
     "StartListening": "듣기 시작"
+  },
+  "VoiceSwitcher": {
+    "1": "여성",
+    "2": "남성",
+    "3": "논바이너리",
+    "voiceDemo": "안녕하세요, 제 목소리입니다"
   },
   "ReplyDashboard": {
     "Tones": {

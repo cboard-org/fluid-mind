@@ -150,11 +150,19 @@
     "Language": "Idioma",
     "App": "Aplicação:",
     "SpeechRecognition": "Reconhecimento de fala:",
+    "Speech": "Discurso",
+    "Voice": "Voz:",
     "Modes": "Modos"
   },
   "SpeechRecognition": {
     "StopListening": "Pare de ouvir",
     "StartListening": "Comece a ouvir"
+  },
+  "VoiceSwitcher": {
+    "1": "feminino",
+    "2": "Macho",
+    "3": "Não-binário",
+    "voiceDemo": "Olá, esta é a minha voz"
   },
   "ReplyDashboard": {
     "Tones": {

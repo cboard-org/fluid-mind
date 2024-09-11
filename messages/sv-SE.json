@@ -150,11 +150,19 @@
     "Language": "Språk",
     "App": "App:",
     "SpeechRecognition": "Taligenkänning:",
+    "Speech": "Tal",
+    "Voice": "Röst:",
     "Modes": "Lägen"
   },
   "SpeechRecognition": {
     "StopListening": "Sluta lyssna",
     "StartListening": "Börja lyssna"
+  },
+  "VoiceSwitcher": {
+    "1": "kvinnlig",
+    "2": "Manlig",
+    "3": "Icke-binär",
+    "voiceDemo": "Hej, det här är min röst"
   },
   "ReplyDashboard": {
     "Tones": {

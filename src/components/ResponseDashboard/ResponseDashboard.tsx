@@ -175,7 +175,7 @@ const ResponseDashboard: React.FC<Props> = ({
               onClick={() => handleEditSuggestionOptionClick(editIntention)}
               style={{ flexGrow: 0.5, paddingLeft: '1rem', paddingRight: '1rem' }}
             >
-              {translations('Apply')}
+              {translations('ApplyEditonButton')}
             </Button>
           </div>
           <div className={styles.fastEditOptions}>

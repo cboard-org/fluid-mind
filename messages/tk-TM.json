@@ -150,11 +150,19 @@
     "Language": "Diller",
     "App": "Programma:",
     "SpeechRecognition": "Gepleşik tanamak:",
+    "Speech": "Söz",
+    "Voice": "Ses:",
     "Modes": "Mody"
   },
   "SpeechRecognition": {
     "StopListening": "Diňlemegi bes et",
     "StartListening": "Diňläp başla"
+  },
+  "VoiceSwitcher": {
+    "1": "aýal-oýnalyp",
+    "2": "Erkek adam",
+    "3": "__",
+    "voiceDemo": "Salam bu meniň sesim"
   },
   "ReplyDashboard": {
     "Tones": {
