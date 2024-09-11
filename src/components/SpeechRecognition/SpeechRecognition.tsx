@@ -92,7 +92,6 @@ export default function SpeechRecognition({ show, setRecognizedText, onRecognize
   const stopListening = async () => {
     if (recognizerRef.current) {
       recognizerRef.current.stopContinuousRecognitionAsync();
-      recognizerRef.current.close();
       recognizerRef.current = null;
     }
     setIsListening(false);

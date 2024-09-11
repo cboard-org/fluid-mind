@@ -5,6 +5,7 @@ import type { ReplySuggestions, ReplySuggestion } from '@/src/commonTypes/replyS
 import { Button, DrawerBody } from '@fluentui/react-components';
 import { CodeTextEditRegular } from '@fluentui/react-icons';
 import { useTranslations } from 'next-intl';
+import Link from 'next/link';
 
 type Props = {
   howToReplySuggestions: ReplySuggestions | null[];
@@ -58,10 +59,6 @@ const ResponseDashboard: React.FC<Props> = ({
     });
     onHowToReplyClick(how_to_respond, keywords);
     setIsSuggestionView(true);
-  };
-
-  const handleClose = () => {
-    // Logic to close the dashboard
   };
 
   const translations = useTranslations('ReplyDashboard');
@@ -212,9 +209,9 @@ const ResponseDashboard: React.FC<Props> = ({
       )}
       {!selectedSuggestion && (
         <div className={styles.bottomOptionsContainer}>
-          <Button onClick={handleClose} className={styles.navActionButtons}>
-            {translations('CloseButton')}
-          </Button>
+          <Link href={'/'}>
+            <Button className={styles.closeButton}>{translations('CloseButton')}</Button>
+          </Link>
           {showKeywordField && (
             <div className={styles.keywordSection}>
               <input
