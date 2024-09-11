@@ -5,6 +5,7 @@ import Link from 'next/link';
 import LocaleSwitcher from '@/src/components/LocaleSwitcher/LocaleSwitcher';
 import { useTranslations } from 'next-intl';
 import SpeechRecognizerLocaleSwitcher from '@/src/components/LocaleSwitcher/SpeechRecognizerLocaleSwitcher';
+import VoiceSwitcher from '../components/VoiceSwitcher/VoiceSwitcher';
 
 export default function Home() {
   const translations = useTranslations('Home');
@@ -21,7 +22,11 @@ export default function Home() {
           <SpeechRecognizerLocaleSwitcher />
         </div>
       </div>
-      <div className={styles.section}>
+      <Divider>{translations('Speech')}</Divider>
+      <div className={`${styles.section} ${styles.speechSection}`}>
+        <VoiceSwitcher />
+      </div>
+      <div className={`${styles.section} ${styles.lastSection}`}>
         <Divider>{translations('Modes')}</Divider>
         <Link href={'/reply'}>
           <Button size="large">{translations('ListenButton')}</Button>

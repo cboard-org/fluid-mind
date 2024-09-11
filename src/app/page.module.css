@@ -14,6 +14,17 @@
   align-items: center;
   width: 100%;
   gap: 2rem;
+  flex-grow: 1;
+}
+
+.speechSection {
+  flex-shrink: 1;
+  min-height: 0;
+  overflow: scroll;
+}
+
+.lastSection {
+  padding-bottom: 1rem;
 }
 
 .labeledMenu {

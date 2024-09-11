@@ -15,10 +15,6 @@ const initAzureSynthesizer = () => {
   );
   const audioConfig = sdk.AudioConfig.fromDefaultSpeakerOutput();
   azureSynthesizer = new SpeechSynthesizer(speechConfig, audioConfig);
-  azureSynthesizer.properties.setProperty(
-    'SpeechServiceConnection_SynthVoice',
-    'en-US-BrianNeural',
-  );
 };
 
 const speak = (text: string) => {
@@ -38,6 +34,28 @@ const speak = (text: string) => {
       },
     );
 };
+
+export const getVoicesList = async () => {
+  if (!azureSynthesizer) initAzureSynthesizer();
+  if (!azureSynthesizer) throw Error("Couldn't init Azure Synthesizer");
+  try {
+    const result = await azureSynthesizer.getVoicesAsync();
+    if (result.errorDetails) {
+      console.error('Error fetching voices: ', result.errorDetails);
+      throw Error(result.errorDetails);
+    }
+    return result.voices;
+  } catch (error) {
+    console.error('Error fetching voices: ', error);
+  }
+};
+
+export const setVoice = (shortName: sdk.VoiceInfo['shortName']) => {
+  if (!azureSynthesizer) initAzureSynthesizer();
+  if (!azureSynthesizer) throw Error("Couldn't init Azure Synthesizer");
+  azureSynthesizer.properties.setProperty('SpeechServiceConnection_SynthVoice', shortName);
+};
+
 initAzureSynthesizer();
 
 export { speak };

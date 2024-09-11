@@ -150,11 +150,19 @@
     "Language": "Language",
     "App": "App:",
     "SpeechRecognition": "Speech recognition:",
+    "Speech": "Speech",
+    "Voice": "Voice:",
     "Modes": "Modes"
   },
   "SpeechRecognition": {
     "StopListening": "Stop Listening",
     "StartListening": "Start Listening"
+  },
+  "VoiceSwitcher": {
+    "1": "Female",
+    "2": "Male",
+    "3": "NonBinary",
+    "voiceDemo": "Hello, this is my voice"
   },
   "ReplyDashboard": {
     "Tones": {

@@ -24,7 +24,7 @@ export default function SpeechRecognizerLocaleSwitcher() {
 
   useMemo(() => {}, []);
   const [defaultRecognizerLocale, setDefaultRecognizerLocale] = useState(
-    getSpeechRecognizerLanguage() ?? recognizerAvailableLanguages[0].locale,
+    getSpeechRecognizerLanguage() ?? recognizerAvailableLanguages[0]?.locale ?? 'en-US',
   );
 
   const handleChangeSpeechRecognizerLanguage = useCallback(
