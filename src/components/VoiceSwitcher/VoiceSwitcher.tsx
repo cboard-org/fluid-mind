@@ -31,7 +31,7 @@ export default function VoiceSwitcher() {
         );
 
         if (!localeVoices) return;
-        handleSelectVoice(localeVoices[0].name);
+        handleSelectVoice(localeVoices[0].shortName);
         const allLocaleVoices = [
           ...localeVoices,
           ...(compatibleVoices ?? []),
