@@ -140,7 +140,7 @@ export default function Home() {
     changeToListening();
   };
 
-  const t = useTranslations('ReplyHome');
+  const t = useTranslations('Home');
 
   return (
     <main className={styles.main}>
