@@ -10,7 +10,7 @@ import { startSpeechRecognizer } from '@/src/speechToText/speechToText';
 type Props = {
   show: boolean;
   setRecognizedText: (text: string) => void;
-  onRecognizeText: (text: string) => void;
+  onRecognizeText: ({ text }: { text: string }) => void;
 };
 
 export default function SpeechRecognition({ show, setRecognizedText, onRecognizeText }: Props) {
@@ -28,9 +28,7 @@ export default function SpeechRecognition({ show, setRecognizedText, onRecognize
 
     recognizer.recognized = (s, e) => {
       if (e.result.reason === sdk.ResultReason.RecognizedSpeech) {
-        console.log(`${show ? 'RECOGNIZED' : 'Ignored'}: ${e.result.text}`);
-        if (!show) return;
-        onRecognizeText(e.result.text);
+        onRecognizeText({ text: e.result.text });
         setIsListening(false);
         // if (recognizer) recognizer.stopContinuousRecognitionAsync();
       }
@@ -61,7 +59,7 @@ export default function SpeechRecognition({ show, setRecognizedText, onRecognize
         if (e.result.reason === sdk.ResultReason.RecognizedSpeech) {
           console.log(`RECOGNIZED: ${e.result.text}`);
           if (!show) return;
-          onRecognizeText(e.result.text);
+          onRecognizeText({ text: e.result.text });
           setIsListening(false);
         }
       };

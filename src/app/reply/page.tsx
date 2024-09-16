@@ -45,20 +45,29 @@ export default function Home() {
     nullRepliesSuggestions,
   );
 
-  const handleOnRecognizeText = async (text: string) => {
-    setRecognizedText(text);
-    setIsListeningView(false);
-    const requestBody = {
-      ...replyOptions,
-      sentence: text,
-      chat_history: [],
-      is_suggest: true,
+  const [isReplying, setIsReplying] = useState(false);
+
+  const handleOnRecognizeText = async ({ text = '' }: { text: string }) => {
+    const fetchWithSentence = async (sentence: string) => {
+      const requestBody = {
+        ...replyOptions,
+        sentence,
+        chat_history: [],
+        is_suggest: true,
+      };
+      setHowToReplySuggestions(nullHowToReplySuggestions);
+      const response = await fetchSuggestions(requestBody);
+      const answer = JSON.parse(response.answer);
+      const howToReplySuggestions = answer.replies;
+      setHowToReplySuggestions(howToReplySuggestions);
     };
-    setHowToReplySuggestions(nullHowToReplySuggestions);
-    const response = await fetchSuggestions(requestBody);
-    const answer = JSON.parse(response.answer);
-    const howToReplySuggestions = answer.replies;
-    setHowToReplySuggestions(howToReplySuggestions);
+    if (isReplying) return console.log(`ignored: ${text}`);
+    setRecognizedText((prevRecognition) => {
+      const sentence = isListeningView ? text : `${prevRecognition} ${text}`;
+      setIsListeningView(false);
+      fetchWithSentence(sentence);
+      return sentence;
+    });
   };
 
   const fetchSuggestions = async (requestBody: ReplyRequestBody) => {
@@ -76,6 +85,7 @@ export default function Home() {
   };
 
   const handleHowToReplyClick = async (how_to_respond: HowToReply, keywords: string) => {
+    setIsReplying(true);
     const requestBody: ReplyRequestBody = {
       ...replyOptions,
       how_to_respond,
@@ -126,6 +136,7 @@ export default function Home() {
   const changeToListening = () => {
     setRecognizedText('');
     // setRepliesSuggestions(nullRepliesSuggestions);
+    setIsReplying(false);
     setIsListeningView(true);
   };
 
@@ -149,11 +160,7 @@ export default function Home() {
     <main className={styles.main}>
       <div className={styles.recognizedTextContainer}>
         {!isListeningView && (
-          <Button
-            appearance="primary"
-            className={styles.listenButton}
-            onClick={() => setIsListeningView(true)}
-          >
+          <Button appearance="primary" className={styles.listenButton} onClick={changeToListening}>
             {t('ListenButton')}
           </Button>
         )}

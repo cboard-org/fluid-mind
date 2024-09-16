@@ -26,6 +26,7 @@ export type ReplyOptions = {
   how_to_respond: HowToReply;
   keywords: string;
   requested_change: string;
+  lang: string;
 } & ModelOptions;
 
 export type ReplyRequestBody = {
