@@ -47,7 +47,7 @@ export default function SpeechRecognition({ show, setRecognizedText, onRecognize
 
   const startListening = async () => {
     try {
-      const recognizer = startSpeechRecognizer();
+      const recognizer = await startSpeechRecognizer();
       recognizerRef.current = recognizer;
 
       recognizer.recognizing = (s, e) => {

@@ -1,7 +1,8 @@
 import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
+import { getUserSTTLocale, setUserSTTLocale } from '@/src/services/locale';
 
 let speechConfig: null | sdk.SpeechConfig;
-const createSpeechConfig = () => {
+const createSpeechConfig = async () => {
   if (!(process.env.NEXT_PUBLIC_AZURE_SPEECH_KEY && process.env.NEXT_PUBLIC_AZURE_SPEECH_REGION))
     throw Error('error during speech config');
 
@@ -9,13 +10,20 @@ const createSpeechConfig = () => {
     process.env.NEXT_PUBLIC_AZURE_SPEECH_KEY,
     process.env.NEXT_PUBLIC_AZURE_SPEECH_REGION,
   );
+  const userLocale = await getUserSTTLocale();
+  await changeSpeechRecognizerLanguage(userLocale);
   return speechConfig;
 };
 
-export const changeSpeechRecognizerLanguage = (locale: string) => {
-  if (speechConfig) speechConfig.speechRecognitionLanguage = locale;
-  const newSpeechConfig = createSpeechConfig();
+export const changeSpeechRecognizerLanguage = async (locale: string) => {
+  if (speechConfig) {
+    speechConfig.speechRecognitionLanguage = locale;
+    setUserSTTLocale(locale);
+    return;
+  }
+  const newSpeechConfig = await createSpeechConfig();
   newSpeechConfig.speechRecognitionLanguage = locale;
+  await setUserSTTLocale(locale);
   speechConfig = newSpeechConfig;
 };
 
@@ -24,14 +32,14 @@ export const getSpeechRecognizerLanguage = () => {
   return speechConfig.speechRecognitionLanguage;
 };
 
-const createOrGetSpeechConfig = () => {
+const createOrGetSpeechConfig = async () => {
   if (speechConfig) return speechConfig;
-  return createSpeechConfig();
+  return await createSpeechConfig();
 };
 
-export const startSpeechRecognizer = () => {
+export const startSpeechRecognizer = async () => {
   try {
-    const speechConfig = createOrGetSpeechConfig();
+    const speechConfig = await createOrGetSpeechConfig();
     const audioConfig = sdk.AudioConfig.fromDefaultMicrophoneInput();
     return new sdk.SpeechRecognizer(speechConfig, audioConfig);
   } catch (error) {

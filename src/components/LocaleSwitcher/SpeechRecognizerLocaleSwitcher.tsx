@@ -6,6 +6,7 @@ import {
   getSpeechRecognizerLanguage,
 } from '@/src/speechToText/speechToText';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { getUserSTTLocale } from '@/src/services/locale';
 
 export default function SpeechRecognizerLocaleSwitcher() {
   const t = useTranslations('LocaleSwitcher');
@@ -28,8 +29,8 @@ export default function SpeechRecognizerLocaleSwitcher() {
   );
 
   const handleChangeSpeechRecognizerLanguage = useCallback(
-    (locale: string) => {
-      changeSpeechRecognizerLanguage(locale);
+    async (locale: string) => {
+      await changeSpeechRecognizerLanguage(locale);
       const newRecognizerLocale =
         getSpeechRecognizerLanguage() ?? recognizerAvailableLanguages[0].locale;
       setDefaultRecognizerLocale(newRecognizerLocale);
@@ -38,7 +39,13 @@ export default function SpeechRecognizerLocaleSwitcher() {
   );
 
   useEffect(() => {
-    handleChangeSpeechRecognizerLanguage(appLocale);
+    const setSTTLocale = async () => {
+      const userLocale = await getUserSTTLocale();
+      if (userLocale.slice(0, 2) !== appLocale.slice(0, 2))
+        return handleChangeSpeechRecognizerLanguage(appLocale);
+      handleChangeSpeechRecognizerLanguage(userLocale);
+    };
+    setSTTLocale();
   }, [appLocale, handleChangeSpeechRecognizerLanguage]);
 
   return (
