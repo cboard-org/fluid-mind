@@ -13,15 +13,17 @@ import type {
 } from '@/src/commonTypes/replyOptions';
 import type { ReplySuggestion, ReplySuggestions } from '@/src/commonTypes/replySuggestions';
 import { speak } from '@/textToSpeech/synthesizeSpeech';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { LocaleSwitcher } from '@/src/../messages/en-US.json';
 
 export default function Home() {
   const [isListeningView, setIsListeningView] = useState(true);
   const [recognizedText, setRecognizedText] = useState('');
+  const appLocale = useLocale();
+  const language = LocaleSwitcher[appLocale as keyof typeof LocaleSwitcher];
   const [replyOptions, setReplyOptions] = useState<ReplyOptions>({
     tone: 'Friendly',
-    user_pref: `Im Hector and I have one 8-month old little girl. Im Biomedical engineer
-      and I live in Carlos Paz. `,
+    user_pref: `Soy Hector y tengo una niña de 11 meses. soy un ingeniero biomedico y vivo en carlos paz`,
     selected_sentence: '',
     how_to_respond: null,
     keywords: '',
@@ -29,6 +31,7 @@ export default function Home() {
     is_suggest: false,
     is_finish: false,
     requested_change: '',
+    lang: language || 'en-US',
   });
   const [chatHistory, setChatHistory] = useState<ChatHistory>([]);
 
