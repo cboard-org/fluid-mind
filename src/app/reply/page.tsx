@@ -14,7 +14,9 @@ import type {
 import type { ReplySuggestion, ReplySuggestions } from '@/src/commonTypes/replySuggestions';
 import { speak } from '@/textToSpeech/synthesizeSpeech';
 import { useLocale, useTranslations } from 'next-intl';
-import { LocaleSwitcher } from '@/src/../messages/en-US.json';
+import enUsMessages from '@/src/../messages/en-US.json';
+
+const LocaleSwitcher = enUsMessages.LocaleSwitcher;
 
 export default function Home() {
   const [isListeningView, setIsListeningView] = useState(true);
