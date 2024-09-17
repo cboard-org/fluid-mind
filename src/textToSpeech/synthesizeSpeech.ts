@@ -1,11 +1,12 @@
 import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
 import { SpeechSynthesizer } from 'microsoft-cognitiveservices-speech-sdk';
+import { getUserVoice } from '../services/locale';
 
 type AzureSynthesizerType = sdk.SpeechSynthesizer | null;
 
 let azureSynthesizer: AzureSynthesizerType = null;
 
-const initAzureSynthesizer = () => {
+export const initAzureSynthesizer = async () => {
   azureSynthesizer = null;
   if (!process.env.NEXT_PUBLIC_AZURE_SPEECH_KEY || !process.env.NEXT_PUBLIC_AZURE_SPEECH_REGION)
     return;
@@ -15,9 +16,13 @@ const initAzureSynthesizer = () => {
   );
   const audioConfig = sdk.AudioConfig.fromDefaultSpeakerOutput();
   azureSynthesizer = new SpeechSynthesizer(speechConfig, audioConfig);
+  const userVoice = await getUserVoice();
+  if (userVoice)
+    azureSynthesizer.properties.setProperty('SpeechServiceConnection_SynthVoice', userVoice);
 };
 
 const speak = (text: string) => {
+  console.log(azureSynthesizer);
   if (azureSynthesizer)
     azureSynthesizer.speakTextAsync(
       text,
@@ -36,7 +41,7 @@ const speak = (text: string) => {
 };
 
 export const getVoicesList = async () => {
-  if (!azureSynthesizer) initAzureSynthesizer();
+  if (!azureSynthesizer) await initAzureSynthesizer();
   if (!azureSynthesizer) throw Error("Couldn't init Azure Synthesizer");
   try {
     const result = await azureSynthesizer.getVoicesAsync();
@@ -55,7 +60,5 @@ export const setVoice = (shortName: sdk.VoiceInfo['shortName']) => {
   if (!azureSynthesizer) throw Error("Couldn't init Azure Synthesizer");
   azureSynthesizer.properties.setProperty('SpeechServiceConnection_SynthVoice', shortName);
 };
-
-initAzureSynthesizer();
 
 export { speak };

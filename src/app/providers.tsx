@@ -8,6 +8,7 @@ import {
   webDarkTheme,
   SSRProvider,
 } from '@fluentui/react-components';
+import { initAzureSynthesizer } from '../textToSpeech/synthesizeSpeech';
 
 const renderer = createDOMRenderer();
 
@@ -25,6 +26,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
+    initAzureSynthesizer();
     setHasMounted(true);
   }, []);
 

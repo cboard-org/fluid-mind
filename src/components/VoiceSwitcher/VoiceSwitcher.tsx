@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import type { VoiceInfo } from 'microsoft-cognitiveservices-speech-sdk';
 import { Spinner } from '@fluentui/react-components';
 import VoiceTable from './VoiceTable';
+import { getUserVoice, setUserVoice } from '@/src/services/locale';
 
 export default function VoiceSwitcher() {
   const t = useTranslations('VoiceSwitcher');
@@ -14,6 +15,7 @@ export default function VoiceSwitcher() {
   const handleSelectVoice = (shortName: VoiceInfo['shortName']) => {
     setVoice(shortName);
     setSelectedVoice(shortName);
+    setUserVoice(shortName);
   };
 
   useEffect(() => {
@@ -30,17 +32,20 @@ export default function VoiceSwitcher() {
           secondaryLocaleList?.includes(appLocale),
         );
 
-        if (!localeVoices) return;
-        handleSelectVoice(localeVoices[0].shortName);
+        if (!localeVoices && !compatibleVoices && !secondaryVoices) return;
         const allLocaleVoices = [
-          ...localeVoices,
+          ...(localeVoices ?? []),
           ...(compatibleVoices ?? []),
           ...(secondaryVoices ?? []),
         ];
         const uniqueVoiceList = allLocaleVoices.filter(
           (item, index, self) => self.indexOf(item) === index,
         );
+        const userVoice = await getUserVoice();
         setVoices(uniqueVoiceList);
+        if (userVoice && uniqueVoiceList.map(({ shortName }) => shortName).includes(userVoice))
+          return handleSelectVoice(userVoice);
+        if (!userVoice) return handleSelectVoice(uniqueVoiceList[0].shortName);
       } catch {
         console.error('error during fetch voices');
         //show try again button
