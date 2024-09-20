@@ -28,7 +28,7 @@ export default function Home() {
   const appLocale = useLocale();
   const language = LocaleSwitcher[appLocale as keyof typeof LocaleSwitcher];
   const [commonOptions, setCommonOptions] = useState<CommonBodyOptions>({
-    user_pref: `Soy Hector y tengo una niña de 11 meses. soy un ingeniero biomedico y vivo en carlos paz`,
+    user_pref: ``,
     lang: language || 'English (United States)',
     chat_history: [],
     tone: 'Friendly',
@@ -60,26 +60,28 @@ export default function Home() {
 
   const [isReplying, setIsReplying] = useState(false);
 
-  const handleOnRecognizeText = async ({ text = '' }: { text: string }) => {
-    const fetchWithSentence = async (sentence: string) => {
-      const requestBody = {
-        ...commonOptions,
-        ...replyOptions,
-        sentence,
-        chat_history: [],
-        is_suggest: true,
-      };
-      setHowToReplySuggestions(nullHowToReplySuggestions);
-      const response = await fetchSuggestions(requestBody);
-      const answer = JSON.parse(response.answer);
-      const howToReplySuggestions = answer.replies;
-      setHowToReplySuggestions(howToReplySuggestions);
+  const fetchWithSentence = async (sentence: string) => {
+    const requestBody = {
+      ...commonOptions,
+      ...replyOptions,
+      sentence,
+      chat_history: [],
+      is_suggest: true,
     };
+    setHowToReplySuggestions(nullHowToReplySuggestions);
+    const response = await fetchSuggestions(requestBody);
+    const answer = JSON.parse(response.answer);
+    const howToReplySuggestions = answer.replies;
+    setHowToReplySuggestions(howToReplySuggestions);
+  };
+  const handleOnRecognizeText = async ({ text = '' }: { text: string }) => {
     if (isReplying) return console.log(`ignored: ${text}`);
     setRecognizedText((prevRecognition) => {
-      const sentence = isListeningView ? text : `${prevRecognition} ${text}`;
-      setIsListeningView(false);
-      fetchWithSentence(sentence);
+      const sentence = `${prevRecognition} ${text}`;
+      if (!isUserComposing) {
+        setIsListeningView(false);
+        fetchWithSentence(sentence);
+      }
       return sentence;
     });
   };
@@ -150,7 +152,6 @@ export default function Home() {
   };
 
   const changeToListening = () => {
-    setRecognizedText('');
     // setRepliesSuggestions(nullRepliesSuggestions);
     setIsReplying(false);
     setIsListeningView(true);
@@ -169,6 +170,8 @@ export default function Home() {
     );
     setTalkSuggestions([null, null, null, null]);
     changeToListening();
+    setRecognizedText('');
+    setIsUserComposing(false);
   };
 
   const fetchTalkSuggestions = async (requestBody: TalkRequestBody) => {
@@ -206,7 +209,7 @@ export default function Home() {
     }));
   };
 
-  const [isSpeakView] = useState(false);
+  const [isUserComposing, setIsUserComposing] = useState(false);
   const [talkOptions] = useState<TalkOptions>({
     sentence: '', //Send an empty sentence if it is the first, send the last sentence if the user selects a sentence from the chat history.
   });
@@ -236,10 +239,15 @@ export default function Home() {
 
   const intentions = [
     { id: 1, text: 'Make a Statement' },
-    { id: 1, text: 'Ask a Question' },
-    { id: 1, text: 'Social Interaction' },
-    { id: 1, text: 'Make Plans' },
+    { id: 2, text: 'Ask a Question' },
+    { id: 3, text: 'Social Interaction' },
+    { id: 4, text: 'Make Plans' },
   ];
+
+  const changeToReply = () => {
+    setIsListeningView(false);
+    fetchWithSentence(recognizedText);
+  };
 
   const t = useTranslations('Home');
 
@@ -247,22 +255,39 @@ export default function Home() {
     <main className={styles.main}>
       <div className={styles.recognizedTextContainer}>
         {!isListeningView && (
-          <Button appearance="primary" className={styles.listenButton} onClick={changeToListening}>
-            {t('ListenButton')}
+          <Button
+            appearance="primary"
+            className={styles.listenButton}
+            onClick={() => {
+              changeToListening();
+              setIsUserComposing(true);
+            }}
+          >
+            {t('SpeakButton')}
           </Button>
         )}
+        {isListeningView && recognizedText.length > 0 && (
+          <Button
+            appearance="primary"
+            className={styles.listenButton}
+            onClick={() => {
+              changeToReply();
+            }}
+          >
+            {t('ReplyButton')}
+          </Button>
+        )}
+        <SpeechRecognition
+          show={isListeningView}
+          setRecognizedText={setRecognizedText}
+          onRecognizeText={handleOnRecognizeText}
+        />
         <div className={styles.recognizedText}>
           <SlideMicrophone32Regular />
           <Label size="large">{recognizedText}</Label>
         </div>
       </div>
       <div className={styles.controlContainer}>
-        <SpeechRecognition
-          show={isListeningView}
-          setRecognizedText={setRecognizedText}
-          onRecognizeText={handleOnRecognizeText}
-        />
-
         {!isListeningView && (
           <ResponseDashboard
             howToReplySuggestions={howToReplySuggestions}
@@ -275,7 +300,7 @@ export default function Home() {
             onSuggestionEditClick={handleSuggestionEditClick}
           />
         )}
-        {isSpeakView && (
+        {isListeningView && (
           <ResponseDashboard
             howToReplySuggestions={intentions}
             onSetHowTo={handleSetHowToReply}

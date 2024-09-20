@@ -62,6 +62,8 @@ const ResponseDashboard: React.FC<Props> = ({
   const handleSuggestionPlayClick = (suggestion: ReplySuggestion) => {
     onSuggestionPlayClick(suggestion);
     setIsSuggestionView(false);
+    setShowKeywordField(true);
+    setKeywords('');
   };
 
   const HowToReplyView = () => (

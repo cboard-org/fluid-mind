@@ -147,6 +147,8 @@
   },
   "Home": {
     "ListenButton": "Escuchar",
+    "ReplyButton": "Responder",
+    "SpeakButton": "Hablar",
     "Language": "Idioma",
     "App": "Aplicación:",
     "SpeechRecognition": "Reconocimiento de voz:",
