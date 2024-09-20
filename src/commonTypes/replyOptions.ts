@@ -19,17 +19,27 @@ type ModelOptions = {
   is_rag: boolean;
 };
 
-export type ReplyOptions = {
-  tone: Tone;
+export type CommonBodyOptions = {
   user_pref: string;
-  selected_sentence: string;
-  how_to_respond: HowToReply;
-  keywords: string;
-  requested_change: string;
   lang: string;
+  chat_history: ChatHistory;
+  tone: Tone;
+  keywords: string;
+  how_to_respond: HowToReply;
+};
+
+export type ReplyOptions = {
+  selected_sentence: string;
+  requested_change: string;
 } & ModelOptions;
 
 export type ReplyRequestBody = {
-  chat_history: ChatHistory;
   sentence: string;
-} & ReplyOptions;
+} & ReplyOptions &
+  CommonBodyOptions;
+
+export type TalkOptions = {
+  sentence: string; //Send an empty sentence if it is the first, send the last sentence if the user selects a sentence from the chat history.
+};
+
+export type TalkRequestBody = TalkOptions & CommonBodyOptions;

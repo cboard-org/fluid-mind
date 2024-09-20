@@ -6,10 +6,14 @@ import { useState } from 'react';
 import { Button, Label } from '@fluentui/react-components';
 import { SlideMicrophone32Regular } from '@fluentui/react-icons';
 import type {
+  CommonBodyOptions,
   ReplyOptions,
   ReplyRequestBody,
   ChatHistory,
   HowToReply,
+  TalkOptions,
+  Tone,
+  TalkRequestBody,
 } from '@/src/commonTypes/replyOptions';
 import type { ReplySuggestion, ReplySuggestions } from '@/src/commonTypes/replySuggestions';
 import { speak } from '@/textToSpeech/synthesizeSpeech';
@@ -23,17 +27,20 @@ export default function Home() {
   const [recognizedText, setRecognizedText] = useState('');
   const appLocale = useLocale();
   const language = LocaleSwitcher[appLocale as keyof typeof LocaleSwitcher];
-  const [replyOptions, setReplyOptions] = useState<ReplyOptions>({
-    tone: 'Friendly',
+  const [commonOptions, setCommonOptions] = useState<CommonBodyOptions>({
     user_pref: `Soy Hector y tengo una niña de 11 meses. soy un ingeniero biomedico y vivo en carlos paz`,
-    selected_sentence: '',
-    how_to_respond: null,
+    lang: language || 'English (United States)',
+    chat_history: [],
+    tone: 'Friendly',
     keywords: '',
+    how_to_respond: null,
+  });
+  const [replyOptions, setReplyOptions] = useState<ReplyOptions>({
+    selected_sentence: '',
     is_rag: false,
     is_suggest: false,
     is_finish: false,
     requested_change: '',
-    lang: language || 'en-US',
   });
   const [chatHistory, setChatHistory] = useState<ChatHistory>([]);
 
@@ -47,11 +54,16 @@ export default function Home() {
     nullRepliesSuggestions,
   );
 
+  const [talkSuggestions, setTalkSuggestions] = useState<ReplySuggestions | null[]>(
+    nullRepliesSuggestions,
+  );
+
   const [isReplying, setIsReplying] = useState(false);
 
   const handleOnRecognizeText = async ({ text = '' }: { text: string }) => {
     const fetchWithSentence = async (sentence: string) => {
       const requestBody = {
+        ...commonOptions,
         ...replyOptions,
         sentence,
         chat_history: [],
@@ -89,6 +101,7 @@ export default function Home() {
   const handleHowToReplyClick = async (how_to_respond: HowToReply, keywords: string) => {
     setIsReplying(true);
     const requestBody: ReplyRequestBody = {
+      ...commonOptions,
       ...replyOptions,
       how_to_respond,
       keywords,
@@ -118,6 +131,7 @@ export default function Home() {
     setReplyOptions((prevOptions) => ({ ...prevOptions, selected_sentence, requested_change }));
 
     const requestBody: ReplyRequestBody = {
+      ...commonOptions,
       ...replyOptions,
       sentence: recognizedText,
       selected_sentence,
@@ -153,8 +167,79 @@ export default function Home() {
         },
       ]),
     );
+    setTalkSuggestions([null, null, null, null]);
     changeToListening();
   };
+
+  const fetchTalkSuggestions = async (requestBody: TalkRequestBody) => {
+    setRepliesSuggestions(nullRepliesSuggestions);
+    const requestHeaders = new Headers({ 'Content-Type': 'application/json' });
+
+    const body: string = JSON.stringify(requestBody);
+
+    const response = await fetch('/api/talk', {
+      method: 'POST',
+      headers: requestHeaders,
+      body: body,
+    });
+    return await response.json();
+  };
+
+  const handleSetHowToReply = ({
+    how_to_respond,
+    keywords,
+  }: {
+    how_to_respond: CommonBodyOptions['how_to_respond'];
+    keywords: CommonBodyOptions['keywords'];
+  }) => {
+    setCommonOptions((replyOptions) => ({
+      ...replyOptions,
+      how_to_respond,
+      keywords,
+    }));
+  };
+
+  const handleToneChange = (tone: Tone) => {
+    setCommonOptions((replyOptions) => ({
+      ...replyOptions,
+      tone,
+    }));
+  };
+
+  const [isSpeakView] = useState(false);
+  const [talkOptions] = useState<TalkOptions>({
+    sentence: '', //Send an empty sentence if it is the first, send the last sentence if the user selects a sentence from the chat history.
+  });
+  const handleHowToTalkClick = async (how_to_respond: HowToReply, keywords: string) => {
+    setIsReplying(true);
+    const requestBody: TalkRequestBody = {
+      ...commonOptions,
+      ...talkOptions,
+      how_to_respond,
+      keywords,
+      sentence: '',
+      chat_history: chatHistory,
+    };
+
+    try {
+      const response = await fetchTalkSuggestions(requestBody);
+      console.log(response);
+      const answer = JSON.parse(response.answer);
+      console.log(answer);
+      const replies = answer.replies;
+      if (!replies) throw Error('empty suggestions returned');
+      setTalkSuggestions(replies);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const intentions = [
+    { id: 1, text: 'Make a Statement' },
+    { id: 1, text: 'Ask a Question' },
+    { id: 1, text: 'Social Interaction' },
+    { id: 1, text: 'Make Plans' },
+  ];
 
   const t = useTranslations('Home');
 
@@ -181,10 +266,23 @@ export default function Home() {
         {!isListeningView && (
           <ResponseDashboard
             howToReplySuggestions={howToReplySuggestions}
-            setReplyOptions={setReplyOptions}
-            replyOptions={replyOptions}
+            onSetHowTo={handleSetHowToReply}
+            selectedTone={commonOptions.tone}
+            onToneChange={handleToneChange}
             onHowToReplyClick={handleHowToReplyClick}
             suggestions={repliesSuggestions}
+            onSuggestionPlayClick={handleSuggestionPlayClick}
+            onSuggestionEditClick={handleSuggestionEditClick}
+          />
+        )}
+        {isSpeakView && (
+          <ResponseDashboard
+            howToReplySuggestions={intentions}
+            onSetHowTo={handleSetHowToReply}
+            selectedTone={commonOptions.tone}
+            onToneChange={handleToneChange}
+            onHowToReplyClick={handleHowToTalkClick}
+            suggestions={talkSuggestions}
             onSuggestionPlayClick={handleSuggestionPlayClick}
             onSuggestionEditClick={handleSuggestionEditClick}
           />

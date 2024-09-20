@@ -1,6 +1,6 @@
-import React, { type Dispatch, type SetStateAction, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './ResponseDashboard.module.css';
-import type { HowToReply, ReplyOptions, Tone } from '@/src/commonTypes/replyOptions';
+import type { CommonBodyOptions, HowToReply, Tone } from '@/src/commonTypes/replyOptions';
 import type { ReplySuggestions, ReplySuggestion } from '@/src/commonTypes/replySuggestions';
 import { Button, DrawerBody } from '@fluentui/react-components';
 import { CodeTextEditRegular } from '@fluentui/react-icons';
@@ -9,8 +9,14 @@ import Link from 'next/link';
 
 type Props = {
   howToReplySuggestions: ReplySuggestions | null[];
-  setReplyOptions: Dispatch<SetStateAction<ReplyOptions>>;
-  replyOptions: ReplyOptions;
+  onSetHowTo: ({
+    how_to_respond,
+    keywords,
+  }: {
+    how_to_respond: CommonBodyOptions['how_to_respond'];
+    keywords: CommonBodyOptions['keywords'];
+  }) => void;
+  selectedTone: Tone;
   onHowToReplyClick: (howToReply: HowToReply, keywords: string) => void;
   suggestions: ReplySuggestions | null[];
   onSuggestionPlayClick: (suggestion: ReplySuggestion) => void;
@@ -21,6 +27,7 @@ type Props = {
     selected_sentence: string;
     requested_change: string;
   }) => void;
+  onToneChange: (tone: Tone) => void;
 };
 
 const tones: Tone[] = ['Friendly', 'Professional', 'Empathetic', 'Sarcastic', 'Inquisitive'];
@@ -30,45 +37,39 @@ const editOptions = ['Confident', 'Funny', 'Sarcastic'];
 
 const ResponseDashboard: React.FC<Props> = ({
   howToReplySuggestions,
-  setReplyOptions,
-  replyOptions,
+  selectedTone,
   onHowToReplyClick,
   suggestions,
   onSuggestionPlayClick,
   onSuggestionEditClick,
+  onSetHowTo,
+  onToneChange,
 }: Props) => {
   const [isSuggestionView, setIsSuggestionView] = useState(false);
   const [selectedSuggestion, setSelectedSuggestion] = useState<SelectedSuggestionType>(null);
   const [keywords, setKeywords] = useState('');
 
-  const handleToneChange = (tone: Tone) => {
-    setReplyOptions((currentValue) => {
-      return { ...currentValue, tone };
-    });
-  };
-
   const [showKeywordField, setShowKeywordField] = useState(true);
   const handleSetHowToReply = (how_to_respond: string) => {
     setShowKeywordField(false);
-    setReplyOptions((replyOptions) => {
-      return {
-        ...replyOptions,
-        how_to_respond,
-        keywords,
-      };
-    });
+    onSetHowTo({ how_to_respond, keywords });
     onHowToReplyClick(how_to_respond, keywords);
     setIsSuggestionView(true);
   };
 
   const translations = useTranslations('ReplyDashboard');
 
+  const handleSuggestionPlayClick = (suggestion: ReplySuggestion) => {
+    onSuggestionPlayClick(suggestion);
+    setIsSuggestionView(false);
+  };
+
   const HowToReplyView = () => (
     <div className={styles.topOptionsContainer}>
       <div className={styles.toneSection}>
         <DrawerBody className={styles.toneValue}>
           {tones.map((tone) => {
-            if (tone === replyOptions.tone)
+            if (tone === selectedTone)
               return (
                 <Button className={styles.toneButton} key={tone}>
                   {translations(`Tones.${tone}`)}
@@ -77,7 +78,7 @@ const ResponseDashboard: React.FC<Props> = ({
             return (
               <Button
                 appearance="transparent"
-                onClick={() => handleToneChange(tone)}
+                onClick={() => onToneChange(tone)}
                 className={styles.toneButton}
                 key={tone}
               >
@@ -128,8 +129,7 @@ const ResponseDashboard: React.FC<Props> = ({
           <Button
             onClick={() => {
               if (!suggestion) return;
-              setSelectedSuggestion(suggestion);
-              onSuggestionPlayClick(suggestion);
+              handleSuggestionPlayClick(suggestion);
             }}
             key={suggestion?.id || index}
             className={`${styles.actionButton} ${styles.suggestionButton}`}
@@ -155,7 +155,7 @@ const ResponseDashboard: React.FC<Props> = ({
         <div className={styles.suggestions}>
           <Button
             onClick={() => {
-              if (selectedSuggestion) onSuggestionPlayClick(selectedSuggestion);
+              if (selectedSuggestion) handleSuggestionPlayClick(selectedSuggestion);
             }}
             className={styles.suggestionButton}
             size="large"
