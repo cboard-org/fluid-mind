@@ -11,7 +11,6 @@ import type {
   ReplyRequestBody,
   ChatHistory,
   HowToReply,
-  TalkOptions,
   Tone,
   TalkRequestBody,
 } from '@/src/commonTypes/replyOptions';
@@ -210,17 +209,13 @@ export default function Home() {
   };
 
   const [isUserComposing, setIsUserComposing] = useState(false);
-  const [talkOptions] = useState<TalkOptions>({
-    sentence: '', //Send an empty sentence if it is the first, send the last sentence if the user selects a sentence from the chat history.
-  });
   const handleHowToTalkClick = async (how_to_respond: HowToReply, keywords: string) => {
     setIsReplying(true);
     const requestBody: TalkRequestBody = {
       ...commonOptions,
-      ...talkOptions,
       how_to_respond,
       keywords,
-      sentence: '',
+      sentence: recognizedText,
       chat_history: chatHistory,
     };
 
