@@ -22,7 +22,7 @@ import enUsMessages from '@/src/../messages/en-US.json';
 const LocaleSwitcher = enUsMessages.LocaleSwitcher;
 
 export default function Home() {
-  const [isListeningView, setIsListeningView] = useState(true);
+  const [isTalkView, setIsTalkView] = useState(true);
   const [recognizedText, setRecognizedText] = useState('');
   const appLocale = useLocale();
   const language = LocaleSwitcher[appLocale as keyof typeof LocaleSwitcher];
@@ -78,7 +78,7 @@ export default function Home() {
     setRecognizedText((prevRecognition) => {
       const sentence = `${prevRecognition} ${text}`;
       if (!isUserComposing) {
-        setIsListeningView(false);
+        setIsTalkView(false);
         fetchWithSentence(sentence);
       }
       return sentence;
@@ -155,7 +155,7 @@ export default function Home() {
   const changeToListening = () => {
     // setRepliesSuggestions(nullRepliesSuggestions);
     setIsReplying(false);
-    setIsListeningView(true);
+    setIsTalkView(true);
   };
 
   const handleSuggestionPlayClick = (suggestion: ReplySuggestion) => {
@@ -235,7 +235,7 @@ export default function Home() {
   };
 
   const changeToReply = () => {
-    setIsListeningView(false);
+    setIsTalkView(false);
     fetchWithSentence(recognizedText);
   };
 
@@ -251,7 +251,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.recognizedTextContainer}>
-        {!isListeningView && (
+        {!isTalkView && (
           <Button
             appearance="primary"
             className={styles.listenButton}
@@ -263,7 +263,7 @@ export default function Home() {
             {t('SpeakButton')}
           </Button>
         )}
-        {isListeningView && recognizedText.length > 0 && (
+        {isTalkView && recognizedText.length > 0 && (
           <Button
             appearance="primary"
             className={styles.listenButton}
@@ -275,7 +275,7 @@ export default function Home() {
           </Button>
         )}
         <SpeechRecognition
-          show={isListeningView}
+          show={isTalkView}
           setRecognizedText={setRecognizedText}
           onRecognizeText={handleOnRecognizeText}
         />
@@ -285,7 +285,7 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.controlContainer}>
-        {!isListeningView && (
+        {!isTalkView && (
           <ResponseDashboard
             howToReplySuggestions={howToReplySuggestions}
             onSetHowTo={handleSetHowToReply}
@@ -297,7 +297,7 @@ export default function Home() {
             onSuggestionEditClick={handleSuggestionEditClick}
           />
         )}
-        {isListeningView && (
+        {isTalkView && (
           <ResponseDashboard
             howToReplySuggestions={intentions}
             onSetHowTo={handleSetHowToReply}
