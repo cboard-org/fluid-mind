@@ -234,19 +234,19 @@ export default function Home() {
     }
   };
 
-  const intentions = [
-    { id: 1, text: 'Make a Statement' },
-    { id: 2, text: 'Ask a Question' },
-    { id: 3, text: 'Social Interaction' },
-    { id: 4, text: 'Make Plans' },
-  ];
-
   const changeToReply = () => {
     setIsListeningView(false);
     fetchWithSentence(recognizedText);
   };
 
-  const t = useTranslations('Home');
+  const t = useTranslations('Communicator');
+
+  const intentions = [
+    { id: 1, text: t('MakeStatement') },
+    { id: 2, text: t('AskQuestion') },
+    { id: 3, text: t('SocialInteraction') },
+    { id: 4, text: t('MakePlans') },
+  ];
 
   return (
     <main className={styles.main}>
