@@ -18,8 +18,11 @@ import type { ReplySuggestion, ReplySuggestions } from '@/src/commonTypes/replyS
 import { speak } from '@/textToSpeech/synthesizeSpeech';
 import { useLocale, useTranslations } from 'next-intl';
 import enUsMessages from '@/src/../messages/en-US.json';
+import { WordPerMinuteCalculator } from '@/src/components/Helpers/wordsPerMinuteCalculator';
 
 const LocaleSwitcher = enUsMessages.LocaleSwitcher;
+
+const wpmCalculator = new WordPerMinuteCalculator();
 
 export default function Home() {
   const [isListeningView, setIsListeningView] = useState(true);
@@ -59,6 +62,7 @@ export default function Home() {
 
   const [isReplying, setIsReplying] = useState(false);
 
+  //Fetches reply suggestions for a given sentence using ASM
   const fetchWithSentence = async (sentence: string) => {
     const requestBody = {
       ...commonOptions,
@@ -73,7 +77,9 @@ export default function Home() {
     const howToReplySuggestions = answer.replies;
     setHowToReplySuggestions(howToReplySuggestions);
   };
+  //Get text from speech recognition
   const handleOnRecognizeText = async ({ text = '' }: { text: string }) => {
+    wpmCalculator.startTimer();
     if (isReplying) return console.log(`ignored: ${text}`);
     setRecognizedText((prevRecognition) => {
       const sentence = `${prevRecognition} ${text}`;
@@ -99,6 +105,7 @@ export default function Home() {
     return await response.json();
   };
 
+  //Fetches final response for a given sentence using RAG
   const handleHowToReplyClick = async (how_to_respond: HowToReply, keywords: string) => {
     setIsReplying(true);
     const requestBody: ReplyRequestBody = {
@@ -121,7 +128,7 @@ export default function Home() {
       console.error(error);
     }
   };
-
+  //Fetches edited sentence using Edit 
   const handleSuggestionEditClick = async ({
     selected_sentence,
     requested_change,
@@ -158,6 +165,9 @@ export default function Home() {
 
   const handleSuggestionPlayClick = (suggestion: ReplySuggestion) => {
     console.log(`SPEAK: ${suggestion.text}`);
+    wpmCalculator.finishTimer();
+    console.log(`WPM: ${wpmCalculator.calculateWpm(suggestion.text)}`);
+
     speak(suggestion.text);
     setChatHistory((prevChatHistory) =>
       prevChatHistory.concat([
