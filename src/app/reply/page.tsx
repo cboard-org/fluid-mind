@@ -140,11 +140,13 @@ export default function Home() {
       chat_history: chatHistory,
       is_finish: true,
     };
-
+    setTalkSuggestions(nullRepliesSuggestions);
+    setRepliesSuggestions(nullRepliesSuggestions);
     try {
       const response = await fetchSuggestions(requestBody);
       const changed = JSON.parse(response.changed);
       setRepliesSuggestions(changed.replies);
+      setTalkSuggestions(changed.replies);
     } catch (error) {
       console.error(error);
     }
