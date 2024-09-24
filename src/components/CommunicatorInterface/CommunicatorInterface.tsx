@@ -64,7 +64,7 @@ const CommunicatorInterface: React.FC<Props> = ({
           {tones.map((tone) => {
             if (tone === selectedTone)
               return (
-                <Button className={styles.toneButton} key={tone}>
+                <Button className={styles.toneOption} key={tone}>
                   {translations(`Tones.${tone}`)}
                 </Button>
               );
@@ -72,7 +72,7 @@ const CommunicatorInterface: React.FC<Props> = ({
               <Button
                 appearance="transparent"
                 onClick={() => onToneChange(tone)}
-                className={styles.toneButton}
+                className={styles.toneOption}
                 key={tone}
               >
                 {translations(`Tones.${tone}`)}
