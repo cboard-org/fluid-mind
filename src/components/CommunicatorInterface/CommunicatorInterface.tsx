@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import styles from './CommunicatorInterface.module.css';
-import type { HowToReply, Tone } from '@/src/commonTypes/replyOptions';
-import type { ReplySuggestions, ReplySuggestion } from '@/src/commonTypes/replySuggestions';
+import type { HowToReply, Tone } from '@/src/commonTypes/CommunicatorModelsOptions';
+import type { Suggestions, Suggestion } from '@/src/commonTypes/suggestions';
 import { Button, DrawerBody } from '@fluentui/react-components';
 import { CodeTextEditRegular } from '@fluentui/react-icons';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
 type Props = {
-  howToSuggestions: ReplySuggestions | null[];
+  howToSuggestions: Suggestions | null[];
   selectedTone: Tone;
   onHowToClick: (howToReply: HowToReply) => void;
-  suggestions: ReplySuggestions | null[];
-  onSuggestionPlayClick: (suggestion: ReplySuggestion) => void;
+  suggestions: Suggestions | null[];
+  onSuggestionPlayClick: (suggestion: Suggestion) => void;
   onSuggestionEditClick: ({
     selected_sentence,
     requested_change,
@@ -25,7 +25,7 @@ type Props = {
 };
 
 const tones: Tone[] = ['Friendly', 'Professional', 'Empathetic', 'Sarcastic', 'Inquisitive'];
-type SelectedSuggestionType = null | ReplySuggestion;
+type SelectedSuggestionType = null | Suggestion;
 
 const editOptions = ['Confident', 'Funny', 'Sarcastic'];
 
@@ -51,7 +51,7 @@ const CommunicatorInterface: React.FC<Props> = ({
 
   const translations = useTranslations('ReplyDashboard');
 
-  const handleSuggestionPlayClick = (suggestion: ReplySuggestion) => {
+  const handleSuggestionPlayClick = (suggestion: Suggestion) => {
     onSuggestionPlayClick(suggestion);
     setIsSuggestionView(false);
     setShowKeywordField(true);

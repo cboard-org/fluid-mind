@@ -13,8 +13,8 @@ import type {
   HowToReply,
   Tone,
   SpeakRequestBody,
-} from '@/src/commonTypes/replyOptions';
-import type { ReplySuggestion, ReplySuggestions } from '@/src/commonTypes/replySuggestions';
+} from '@/src/commonTypes/CommunicatorModelsOptions';
+import type { Suggestion, Suggestions } from '@/src/commonTypes/suggestions';
 import { speak } from '@/textToSpeech/synthesizeSpeech';
 import { useLocale, useTranslations } from 'next-intl';
 import enUsMessages from '@/src/../messages/en-US.json';
@@ -45,16 +45,16 @@ export default function Home() {
   const [chatHistory, setChatHistory] = useState<ChatHistory>([]);
 
   const nullHowToReplySuggestions = [null, null, null, null];
-  const [howToReplySuggestions, setHowToReplySuggestions] = useState<ReplySuggestions | null[]>(
+  const [howToReplySuggestions, setHowToReplySuggestions] = useState<Suggestions | null[]>(
     nullHowToReplySuggestions,
   );
 
   const nullRepliesSuggestions = [null, null, null, null];
-  const [repliesSuggestions, setRepliesSuggestions] = useState<ReplySuggestions | null[]>(
+  const [repliesSuggestions, setRepliesSuggestions] = useState<Suggestions | null[]>(
     nullRepliesSuggestions,
   );
 
-  const [speakSuggestions, setSpeakSuggestions] = useState<ReplySuggestions | null[]>(
+  const [speakSuggestions, setSpeakSuggestions] = useState<Suggestions | null[]>(
     nullRepliesSuggestions,
   );
 
@@ -162,7 +162,7 @@ export default function Home() {
     setIsSpeakView(true);
   };
 
-  const handleSuggestionPlayClick = (suggestion: ReplySuggestion) => {
+  const handleSuggestionPlayClick = (suggestion: Suggestion) => {
     console.log(`SPEAK: ${suggestion.text}`);
     speak(suggestion.text);
     setChatHistory((prevChatHistory) =>
