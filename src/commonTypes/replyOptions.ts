@@ -38,8 +38,8 @@ export type ReplyRequestBody = {
 } & ReplyOptions &
   CommonBodyOptions;
 
-export type TalkOptions = {
+export type SpeakOptions = {
   sentence: string; //Send an empty sentence if it is the first, send the last sentence if the user selects a sentence from the chat history.
 };
 
-export type TalkRequestBody = TalkOptions & CommonBodyOptions;
+export type SpeakRequestBody = SpeakOptions & CommonBodyOptions;

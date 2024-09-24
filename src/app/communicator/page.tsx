@@ -12,7 +12,7 @@ import type {
   ChatHistory,
   HowToReply,
   Tone,
-  TalkRequestBody,
+  SpeakRequestBody,
 } from '@/src/commonTypes/replyOptions';
 import type { ReplySuggestion, ReplySuggestions } from '@/src/commonTypes/replySuggestions';
 import { speak } from '@/textToSpeech/synthesizeSpeech';
@@ -23,7 +23,7 @@ import KeywordsField from '@/src/components/KeywordsField/keywordsField';
 const LocaleSwitcher = enUsMessages.LocaleSwitcher;
 
 export default function Home() {
-  const [isTalkView, setIsTalkView] = useState(true);
+  const [isSpeakView, setIsSpeakView] = useState(true);
   const [recognizedText, setRecognizedText] = useState('');
   const appLocale = useLocale();
   const language = LocaleSwitcher[appLocale as keyof typeof LocaleSwitcher];
@@ -54,7 +54,7 @@ export default function Home() {
     nullRepliesSuggestions,
   );
 
-  const [talkSuggestions, setTalkSuggestions] = useState<ReplySuggestions | null[]>(
+  const [speakSuggestions, setSpeakSuggestions] = useState<ReplySuggestions | null[]>(
     nullRepliesSuggestions,
   );
 
@@ -79,7 +79,7 @@ export default function Home() {
     setRecognizedText((prevRecognition) => {
       const sentence = `${prevRecognition} ${text}`;
       if (!isUserComposing) {
-        setIsTalkView(false);
+        setIsSpeakView(false);
         fetchWithSentence(sentence);
       }
       return sentence;
@@ -144,13 +144,13 @@ export default function Home() {
       chat_history: chatHistory,
       is_finish: true,
     };
-    setTalkSuggestions(nullRepliesSuggestions);
+    setSpeakSuggestions(nullRepliesSuggestions);
     setRepliesSuggestions(nullRepliesSuggestions);
     try {
       const response = await fetchSuggestions(requestBody);
       const changed = JSON.parse(response.changed);
       setRepliesSuggestions(changed.replies);
-      setTalkSuggestions(changed.replies);
+      setSpeakSuggestions(changed.replies);
     } catch (error) {
       console.error(error);
     }
@@ -159,7 +159,7 @@ export default function Home() {
   const changeToListening = () => {
     // setRepliesSuggestions(nullRepliesSuggestions);
     setIsReplying(false);
-    setIsTalkView(true);
+    setIsSpeakView(true);
   };
 
   const handleSuggestionPlayClick = (suggestion: ReplySuggestion) => {
@@ -173,14 +173,14 @@ export default function Home() {
         },
       ]),
     );
-    setTalkSuggestions([null, null, null, null]);
+    setSpeakSuggestions([null, null, null, null]);
     changeToListening();
     setRecognizedText('');
     handleKeywordsChange('');
     setIsUserComposing(false);
   };
 
-  const fetchTalkSuggestions = async (requestBody: TalkRequestBody) => {
+  const fetchSpeakSuggestions = async (requestBody: SpeakRequestBody) => {
     setRepliesSuggestions(nullRepliesSuggestions);
     const requestHeaders = new Headers({ 'Content-Type': 'application/json' });
 
@@ -209,9 +209,9 @@ export default function Home() {
   };
 
   const [isUserComposing, setIsUserComposing] = useState(false);
-  const handleHowToTalkClick = async (how_to_respond: HowToReply) => {
+  const handleHowToSpeakClick = async (how_to_respond: HowToReply) => {
     setIsReplying(true);
-    const requestBody: TalkRequestBody = {
+    const requestBody: SpeakRequestBody = {
       ...commonOptions,
       how_to_respond,
       sentence: recognizedText,
@@ -219,20 +219,20 @@ export default function Home() {
     };
 
     try {
-      const response = await fetchTalkSuggestions(requestBody);
+      const response = await fetchSpeakSuggestions(requestBody);
       console.log(response);
       const answer = JSON.parse(response.answer);
       console.log(answer);
       const replies = answer.replies;
       if (!replies) throw Error('empty suggestions returned');
-      setTalkSuggestions(replies);
+      setSpeakSuggestions(replies);
     } catch (error) {
       console.error(error);
     }
   };
 
   const changeToReply = () => {
-    setIsTalkView(false);
+    setIsSpeakView(false);
     fetchWithSentence(recognizedText);
   };
 
@@ -251,7 +251,7 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.recognizedTextContainer}>
-        {!isTalkView && (
+        {!isSpeakView && (
           <Button
             appearance="primary"
             className={styles.listenButton}
@@ -263,7 +263,7 @@ export default function Home() {
             {t('SpeakButton')}
           </Button>
         )}
-        {isTalkView && recognizedText.length > 0 && (
+        {isSpeakView && recognizedText.length > 0 && (
           <Button
             appearance="primary"
             className={styles.listenButton}
@@ -275,7 +275,7 @@ export default function Home() {
           </Button>
         )}
         <SpeechRecognition
-          show={isTalkView}
+          show={isSpeakView}
           setRecognizedText={setRecognizedText}
           onRecognizeText={handleOnRecognizeText}
         />
@@ -285,7 +285,7 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.controlContainer}>
-        {!isTalkView && (
+        {!isSpeakView && (
           <CommunicatorInterface
             howToSuggestions={howToReplySuggestions}
             selectedTone={commonOptions.tone}
@@ -297,13 +297,13 @@ export default function Home() {
             keywordsField={keywordsField}
           />
         )}
-        {isTalkView && (
+        {isSpeakView && (
           <CommunicatorInterface
             howToSuggestions={intentions}
             selectedTone={commonOptions.tone}
             onToneChange={handleToneChange}
-            onHowToClick={handleHowToTalkClick}
-            suggestions={talkSuggestions}
+            onHowToClick={handleHowToSpeakClick}
+            suggestions={speakSuggestions}
             onSuggestionPlayClick={handleSuggestionPlayClick}
             onSuggestionEditClick={handleSuggestionEditClick}
             keywordsField={keywordsField}
