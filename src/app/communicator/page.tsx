@@ -239,10 +239,20 @@ export default function Home() {
   const t = useTranslations('communicator');
 
   const intentions = [
-    { id: 1, text: 'Make a statement', translation: t('SpeakIntentions.MakeStatement') },
-    { id: 2, text: 'ask a question', translation: t('SpeakIntentions.AskQuestion') },
-    { id: 3, text: 'social interaction', translation: t('SpeakIntentions.SocialInteraction') },
-    { id: 4, text: 'make plans', translation: t('SpeakIntentions.MakePlans') },
+    {
+      id: 1,
+      text: 'Make a statement',
+      translation: t('SpeakIntentions.MakeStatement'),
+      emoji: '💬',
+    },
+    { id: 2, text: 'Ask a question', translation: t('SpeakIntentions.AskQuestion'), emoji: '❓' },
+    {
+      id: 3,
+      text: 'Social interaction',
+      translation: t('SpeakIntentions.SocialInteraction'),
+      emoji: '🤝',
+    },
+    { id: 4, text: 'Make plans', translation: t('SpeakIntentions.MakePlans'), emoji: '🗓️' },
   ];
   const keywordsField = (
     <KeywordsField keywords={commonOptions.keywords} setKeywords={handleKeywordsChange} />
