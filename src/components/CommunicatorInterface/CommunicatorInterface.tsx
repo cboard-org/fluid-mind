@@ -90,7 +90,7 @@ const CommunicatorInterface: React.FC<Props> = ({
             }}
             className={`${styles.actionButton} ${styles.suggestionButton}`}
           >
-            {suggestion?.text || '...'}
+            {suggestion?.translation || suggestion?.text || '...'}
           </Button>
         ))}
       </div>
