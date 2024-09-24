@@ -156,7 +156,7 @@ export default function Home() {
     }
   };
 
-  const changeToListening = () => {
+  const changeToSpeakView = () => {
     // setRepliesSuggestions(nullRepliesSuggestions);
     setIsReplying(false);
     setIsSpeakView(true);
@@ -174,7 +174,7 @@ export default function Home() {
       ]),
     );
     setSpeakSuggestions([null, null, null, null]);
-    changeToListening();
+    changeToSpeakView();
     setRecognizedText('');
     handleKeywordsChange('');
     setIsUserComposing(false);
@@ -256,7 +256,7 @@ export default function Home() {
             appearance="primary"
             className={styles.listenButton}
             onClick={() => {
-              changeToListening();
+              changeToSpeakView();
               setIsUserComposing(true);
             }}
           >
