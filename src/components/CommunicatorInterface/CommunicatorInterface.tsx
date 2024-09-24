@@ -91,7 +91,7 @@ const CommunicatorInterface: React.FC<Props> = ({
             className={`${styles.actionButton} ${styles.suggestionButton}`}
           >
             <span className={styles.spanEmoji}>{suggestion?.emoji || ''}</span>
-            {suggestion?.text || '...'}
+            {suggestion?.translation || suggestion?.text || '...'}
           </Button>
         ))}
       </div>
