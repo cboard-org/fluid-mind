@@ -243,13 +243,13 @@ export default function Home() {
     fetchWithSentence(recognizedText);
   };
 
-  const t = useTranslations('Communicator');
+  const t = useTranslations('communicator');
 
   const intentions = [
-    { id: 1, text: t('MakeStatement') },
-    { id: 2, text: t('AskQuestion') },
-    { id: 3, text: t('SocialInteraction') },
-    { id: 4, text: t('MakePlans') },
+    { id: 1, text: t('SpeakIntentions.MakeStatement') },
+    { id: 2, text: t('SpeakIntentions.AskQuestion') },
+    { id: 3, text: t('SpeakIntentions.SocialInteraction') },
+    { id: 4, text: t('SpeakIntentions.MakePlans') },
   ];
   const keywordsField = (
     <KeywordsField keywords={commonOptions.keywords} setKeywords={handleKeywordsChange} />
