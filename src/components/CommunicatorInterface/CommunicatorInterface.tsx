@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './CommunicatorInterface.module.css';
-import type { CommonBodyOptions, HowToReply, Tone } from '@/src/commonTypes/replyOptions';
+import type { HowToReply, Tone } from '@/src/commonTypes/replyOptions';
 import type { ReplySuggestions, ReplySuggestion } from '@/src/commonTypes/replySuggestions';
 import { Button, DrawerBody } from '@fluentui/react-components';
 import { CodeTextEditRegular } from '@fluentui/react-icons';
@@ -8,10 +8,9 @@ import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
 type Props = {
-  howToReplySuggestions: ReplySuggestions | null[];
-  onSetHowTo: ({ how_to_respond }: { how_to_respond: CommonBodyOptions['how_to_respond'] }) => void;
+  howToSuggestions: ReplySuggestions | null[];
   selectedTone: Tone;
-  onHowToReplyClick: (howToReply: HowToReply) => void;
+  onHowToClick: (howToReply: HowToReply) => void;
   suggestions: ReplySuggestions | null[];
   onSuggestionPlayClick: (suggestion: ReplySuggestion) => void;
   onSuggestionEditClick: ({
@@ -31,13 +30,12 @@ type SelectedSuggestionType = null | ReplySuggestion;
 const editOptions = ['Confident', 'Funny', 'Sarcastic'];
 
 const CommunicatorInterface: React.FC<Props> = ({
-  howToReplySuggestions,
+  howToSuggestions,
   selectedTone,
-  onHowToReplyClick,
+  onHowToClick,
   suggestions,
   onSuggestionPlayClick,
   onSuggestionEditClick,
-  onSetHowTo,
   onToneChange,
   keywordsField,
 }: Props) => {
@@ -47,8 +45,7 @@ const CommunicatorInterface: React.FC<Props> = ({
   const [showKeywordField, setShowKeywordField] = useState(true);
   const handleSetHowToReply = (how_to_respond: string) => {
     setShowKeywordField(false);
-    onSetHowTo({ how_to_respond });
-    onHowToReplyClick(how_to_respond);
+    onHowToClick(how_to_respond);
     setIsSuggestionView(true);
   };
 
@@ -85,7 +82,7 @@ const CommunicatorInterface: React.FC<Props> = ({
         </DrawerBody>
       </div>
       <div className={styles.mainOptionsContainer}>
-        {howToReplySuggestions.map((suggestion, index) => (
+        {howToSuggestions.map((suggestion, index) => (
           <Button
             key={suggestion?.id || index}
             onClick={() => {

@@ -102,6 +102,10 @@ export default function Home() {
 
   const handleHowToReplyClick = async (how_to_respond: HowToReply) => {
     setIsReplying(true);
+    setCommonOptions((replyOptions) => ({
+      ...replyOptions,
+      how_to_respond,
+    }));
     const requestBody: ReplyRequestBody = {
       ...commonOptions,
       ...replyOptions,
@@ -188,17 +192,6 @@ export default function Home() {
       body: body,
     });
     return await response.json();
-  };
-
-  const handleSetHowToReply = ({
-    how_to_respond,
-  }: {
-    how_to_respond: CommonBodyOptions['how_to_respond'];
-  }) => {
-    setCommonOptions((replyOptions) => ({
-      ...replyOptions,
-      how_to_respond,
-    }));
   };
 
   const handleToneChange = (tone: Tone) => {
@@ -294,11 +287,10 @@ export default function Home() {
       <div className={styles.controlContainer}>
         {!isTalkView && (
           <CommunicatorInterface
-            howToReplySuggestions={howToReplySuggestions}
-            onSetHowTo={handleSetHowToReply}
+            howToSuggestions={howToReplySuggestions}
             selectedTone={commonOptions.tone}
             onToneChange={handleToneChange}
-            onHowToReplyClick={handleHowToReplyClick}
+            onHowToClick={handleHowToReplyClick}
             suggestions={repliesSuggestions}
             onSuggestionPlayClick={handleSuggestionPlayClick}
             onSuggestionEditClick={handleSuggestionEditClick}
@@ -307,11 +299,10 @@ export default function Home() {
         )}
         {isTalkView && (
           <CommunicatorInterface
-            howToReplySuggestions={intentions}
-            onSetHowTo={handleSetHowToReply}
+            howToSuggestions={intentions}
             selectedTone={commonOptions.tone}
             onToneChange={handleToneChange}
-            onHowToReplyClick={handleHowToTalkClick}
+            onHowToClick={handleHowToTalkClick}
             suggestions={talkSuggestions}
             onSuggestionPlayClick={handleSuggestionPlayClick}
             onSuggestionEditClick={handleSuggestionEditClick}
