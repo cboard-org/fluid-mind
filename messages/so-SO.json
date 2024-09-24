@@ -154,6 +154,16 @@
     "Voice": "Haku:",
     "Modes": "Hababka"
   },
+  "communicator": {
+    "ReplyButton": "Jawaabta",
+    "SpeakButton": "hadal",
+    "SpeakIntentions": {
+      "MakeStatement": "Samee Bayaan",
+      "AskQuestion": "Weydii Su'aal",
+      "SocialInteraction": "isdhexgalka bulshada",
+      "MakePlans": "Samee Qorshayaasha"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "Jooji Dhegaysiga",
     "StartListening": "Bilow Dhegaysiga"

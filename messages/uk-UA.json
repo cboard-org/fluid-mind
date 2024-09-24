@@ -154,6 +154,16 @@
     "Voice": "Голос:",
     "Modes": "Режими"
   },
+  "communicator": {
+    "ReplyButton": "Відповідь",
+    "SpeakButton": "Говорити",
+    "SpeakIntentions": {
+      "MakeStatement": "Заявіть про себе",
+      "AskQuestion": "Задати питання",
+      "SocialInteraction": "Соціальна взаємодія",
+      "MakePlans": "Будуйте плани"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "Перестаньте слухати",
     "StartListening": "Почніть слухати"

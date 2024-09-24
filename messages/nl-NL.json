@@ -154,6 +154,16 @@
     "Voice": "Stem:",
     "Modes": "Modi"
   },
+  "communicator": {
+    "ReplyButton": "Antwoord",
+    "SpeakButton": "Spreken",
+    "SpeakIntentions": {
+      "MakeStatement": "Maak een statement",
+      "AskQuestion": "Stel een vraag",
+      "SocialInteraction": "Sociale interactie",
+      "MakePlans": "Plannen maken"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "Stop met luisteren",
     "StartListening": "Begin met luisteren"

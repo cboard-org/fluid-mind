@@ -154,6 +154,16 @@
     "Voice": "សំឡេង:",
     "Modes": "របៀប"
   },
+  "communicator": {
+    "ReplyButton": "ឆ្លើយតប",
+    "SpeakButton": "និយាយ",
+    "SpeakIntentions": {
+      "MakeStatement": "ធ្វើសេចក្តីថ្លែងការណ៍",
+      "AskQuestion": "សួរសំណួរ",
+      "SocialInteraction": "អន្តរកម្មសង្គម",
+      "MakePlans": "រៀបចំផែនការ"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "ឈប់ស្តាប់",
     "StartListening": "ចាប់ផ្តើមស្តាប់"

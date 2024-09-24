@@ -154,6 +154,16 @@
     "Voice": "आवाज:",
     "Modes": "मोडहरू"
   },
+  "communicator": {
+    "ReplyButton": "जवाफ दिनुहोस्",
+    "SpeakButton": "बोलो",
+    "SpeakIntentions": {
+      "MakeStatement": "कथन बनाउनुहोस्",
+      "AskQuestion": "एउटा प्रश्न सोध्नुहोस्",
+      "SocialInteraction": "सामाजिक अन्तरक्रिया",
+      "MakePlans": "योजना बनाउनुहोस्"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "सुन्न बन्द गर्नुहोस्",
     "StartListening": "सुन्न सुरु गर्नुहोस्"

@@ -154,6 +154,16 @@
     "Voice": "صوت:",
     "Modes": "وسائط"
   },
+  "communicator": {
+    "ReplyButton": "أجاب",
+    "SpeakButton": "تحدث",
+    "SpeakIntentions": {
+      "MakeStatement": "أدلي ببيان",
+      "AskQuestion": "اطرح سؤالا",
+      "SocialInteraction": "التفاعل الاجتماعي",
+      "MakePlans": "ضع خططا"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "توقف عن الاستماع",
     "StartListening": "ابدأ الاستماع"

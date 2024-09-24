@@ -154,6 +154,16 @@
     "Voice": "Glas:",
     "Modes": "Modove"
   },
+  "communicator": {
+    "ReplyButton": "Odgovor",
+    "SpeakButton": "Govoriti",
+    "SpeakIntentions": {
+      "MakeStatement": "Dajte izjavu",
+      "AskQuestion": "Pitati pitanje",
+      "SocialInteraction": "Društvena interakcija",
+      "MakePlans": "Napravite planove"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "Prestanite slušati",
     "StartListening": "Počnite slušati"

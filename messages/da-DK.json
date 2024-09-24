@@ -154,6 +154,16 @@
     "Voice": "Stemme:",
     "Modes": "Tilstande"
   },
+  "communicator": {
+    "ReplyButton": "Svar",
+    "SpeakButton": "Tale",
+    "SpeakIntentions": {
+      "MakeStatement": "Gør et statement",
+      "AskQuestion": "Stil et spørgsmål",
+      "SocialInteraction": "Social interaktion",
+      "MakePlans": "Læg planer"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "Stop med at lytte",
     "StartListening": "Begynd at lytte"

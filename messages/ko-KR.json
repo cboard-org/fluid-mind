@@ -154,6 +154,16 @@
     "Voice": "목소리:",
     "Modes": "모드"
   },
+  "communicator": {
+    "ReplyButton": "회답",
+    "SpeakButton": "말하다",
+    "SpeakIntentions": {
+      "MakeStatement": "성명을 발표하십시오",
+      "AskQuestion": "질문하기",
+      "SocialInteraction": "사회적 상호 작용",
+      "MakePlans": "계획을 세운다"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "듣기를 멈추다",
     "StartListening": "듣기 시작"

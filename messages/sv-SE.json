@@ -154,6 +154,16 @@
     "Voice": "Röst:",
     "Modes": "Lägen"
   },
+  "communicator": {
+    "ReplyButton": "Svar",
+    "SpeakButton": "Tala",
+    "SpeakIntentions": {
+      "MakeStatement": "Gör ett uttalande",
+      "AskQuestion": "Ställ en fråga",
+      "SocialInteraction": "Socialt samspel",
+      "MakePlans": "Gör upp planer"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "Sluta lyssna",
     "StartListening": "Börja lyssna"

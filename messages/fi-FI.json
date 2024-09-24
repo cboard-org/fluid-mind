@@ -154,6 +154,16 @@
     "Voice": "Ääni:",
     "Modes": "Tilat"
   },
+  "communicator": {
+    "ReplyButton": "Vastaus",
+    "SpeakButton": "Puhua",
+    "SpeakIntentions": {
+      "MakeStatement": "Tee lausunto",
+      "AskQuestion": "Esitä kysymys",
+      "SocialInteraction": "Sosiaalinen vuorovaikutus",
+      "MakePlans": "Tee suunnitelmia"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "Lopeta kuuntelu",
     "StartListening": "Aloita kuuntelu"

@@ -154,6 +154,16 @@
     "Voice": "Глас:",
     "Modes": "Режима"
   },
+  "communicator": {
+    "ReplyButton": "Одговор",
+    "SpeakButton": "Говори",
+    "SpeakIntentions": {
+      "MakeStatement": "Дајте изјаву",
+      "AskQuestion": "Питати питање",
+      "SocialInteraction": "Друштвена интеракција",
+      "MakePlans": "Направите планове"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "Престани да слушаш",
     "StartListening": "Почните да слушате"

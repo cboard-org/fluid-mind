@@ -154,6 +154,16 @@
     "Voice": "Głos:",
     "Modes": "Tryby"
   },
+  "communicator": {
+    "ReplyButton": "Odpowiedź",
+    "SpeakButton": "Mówić",
+    "SpeakIntentions": {
+      "MakeStatement": "Wyraź siebie",
+      "AskQuestion": "Zadaj pytanie",
+      "SocialInteraction": "Interakcja społeczna",
+      "MakePlans": "Rób plany"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "Przestań słuchać",
     "StartListening": "Zacznij słuchać"

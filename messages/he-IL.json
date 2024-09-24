@@ -154,6 +154,16 @@
     "Voice": "קול:",
     "Modes": "מצבי"
   },
+  "communicator": {
+    "ReplyButton": "ענה",
+    "SpeakButton": "לדבר",
+    "SpeakIntentions": {
+      "MakeStatement": "צור הצהרה",
+      "AskQuestion": "שאל שאלה",
+      "SocialInteraction": "אינטראקציה חברתית",
+      "MakePlans": "הכינו תוכניות"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "הפסיקו להקשיב",
     "StartListening": "התחל להקשיב"

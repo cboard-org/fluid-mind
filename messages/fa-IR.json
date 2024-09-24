@@ -154,6 +154,16 @@
     "Voice": "صوتی:",
     "Modes": "حالت"
   },
+  "communicator": {
+    "ReplyButton": "پاسخ",
+    "SpeakButton": "صحبت",
+    "SpeakIntentions": {
+      "MakeStatement": "بیانیه بدهید",
+      "AskQuestion": "یک سوال بپرسید",
+      "SocialInteraction": "تعامل اجتماعی",
+      "MakePlans": "برنامه ریزی کنید"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "گوش دادن را متوقف کنید",
     "StartListening": "شروع به گوش دادن کنید"

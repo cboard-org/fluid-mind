@@ -154,6 +154,16 @@
     "Voice": "crwdns58696:0crwdne58696:0",
     "Modes": "crwdns58378:0crwdne58378:0"
   },
+  "communicator": {
+    "ReplyButton": "crwdns58772:0crwdne58772:0",
+    "SpeakButton": "crwdns58774:0crwdne58774:0",
+    "SpeakIntentions": {
+      "MakeStatement": "crwdns58776:0crwdne58776:0",
+      "AskQuestion": "crwdns58778:0crwdne58778:0",
+      "SocialInteraction": "crwdns58780:0crwdne58780:0",
+      "MakePlans": "crwdns58782:0crwdne58782:0"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "crwdns58380:0crwdne58380:0",
     "StartListening": "crwdns58382:0crwdne58382:0"

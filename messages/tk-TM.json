@@ -154,6 +154,16 @@
     "Voice": "Ses:",
     "Modes": "Mody"
   },
+  "communicator": {
+    "ReplyButton": "Jogap Ber",
+    "SpeakButton": "Sözle",
+    "SpeakIntentions": {
+      "MakeStatement": "Bildiriş ediň",
+      "AskQuestion": "Sorag beriň",
+      "SocialInteraction": "Sosial özara gatnaşyklar",
+      "MakePlans": "Planlaşdyryň"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "Diňlemegi bes et",
     "StartListening": "Diňläp başla"

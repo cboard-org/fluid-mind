@@ -147,14 +147,22 @@
   },
   "Home": {
     "ListenButton": "Escuchar",
-    "ReplyButton": "Responder",
-    "SpeakButton": "Hablar",
     "Language": "Idioma",
     "App": "Aplicación:",
     "SpeechRecognition": "Reconocimiento de voz:",
     "Speech": "Discurso",
     "Voice": "Voz:",
     "Modes": "Modos"
+  },
+  "communicator": {
+    "ReplyButton": "Respuesta",
+    "SpeakButton": "Hablar",
+    "SpeakIntentions": {
+      "MakeStatement": "Hacer una declaración",
+      "AskQuestion": "Hacer una pregunta",
+      "SocialInteraction": "Interacción social",
+      "MakePlans": "Hacer planes"
+    }
   },
   "SpeechRecognition": {
     "StopListening": "Deja de escuchar",
