@@ -154,6 +154,16 @@
     "Voice": "কণ্ঠ:",
     "Modes": "মোড"
   },
+  "communicator": {
+    "ReplyButton": "উত্তর",
+    "SpeakButton": "কথা বলুন",
+    "SpeakIntentions": {
+      "MakeStatement": "একটি বিবৃতি দিন",
+      "AskQuestion": "একটি প্রশ্ন জিজ্ঞাসা করুন",
+      "SocialInteraction": "সামাজিক মিথস্ক্রিয়া",
+      "MakePlans": "পরিকল্পনা করুন"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "শোনা বন্ধ করুন",
     "StartListening": "শুনতে শুরু করুন"

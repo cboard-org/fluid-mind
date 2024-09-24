@@ -154,6 +154,16 @@
     "Voice": "Stemme:",
     "Modes": "Moduser"
   },
+  "communicator": {
+    "ReplyButton": "Svare",
+    "SpeakButton": "Snakke",
+    "SpeakIntentions": {
+      "MakeStatement": "Gjør en uttalelse",
+      "AskQuestion": "Spør et spørsmål",
+      "SocialInteraction": "Sosial interaksjon",
+      "MakePlans": "Lag planer"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "Slutt å lytte",
     "StartListening": "Begynn å lytte"

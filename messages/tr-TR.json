@@ -154,6 +154,16 @@
     "Voice": "Ses:",
     "Modes": "Modu"
   },
+  "communicator": {
+    "ReplyButton": "Yanıt",
+    "SpeakButton": "Konuşmak",
+    "SpeakIntentions": {
+      "MakeStatement": "Bir Açıklama Yapın",
+      "AskQuestion": "Bir soru sor",
+      "SocialInteraction": "Sosyal Etkileşim",
+      "MakePlans": "Planlar Yapın"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "Dinlemeyi Bırak",
     "StartListening": "Dinlemeye Başla"

@@ -154,6 +154,16 @@
     "Voice": "声：",
     "Modes": "モード"
   },
+  "communicator": {
+    "ReplyButton": "答える",
+    "SpeakButton": "話す",
+    "SpeakIntentions": {
+      "MakeStatement": "主張する",
+      "AskQuestion": "質問する",
+      "SocialInteraction": "ソーシャルインタラクション",
+      "MakePlans": "計画を立てる"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "聞くのをやめる",
     "StartListening": "聴き始める"

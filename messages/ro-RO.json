@@ -154,6 +154,16 @@
     "Voice": "Voce:",
     "Modes": "Moduri"
   },
+  "communicator": {
+    "ReplyButton": "Răspunde",
+    "SpeakButton": "Vorbi",
+    "SpeakIntentions": {
+      "MakeStatement": "Faceți o declarație",
+      "AskQuestion": "Pune o întrebare",
+      "SocialInteraction": "Interacțiune socială",
+      "MakePlans": "Faceți planuri"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "Nu mai ascultați",
     "StartListening": "Începeți să ascultați"

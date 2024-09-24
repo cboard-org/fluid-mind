@@ -154,6 +154,16 @@
     "Voice": "Hang:",
     "Modes": "Módok"
   },
+  "communicator": {
+    "ReplyButton": "Válasz",
+    "SpeakButton": "Beszél",
+    "SpeakIntentions": {
+      "MakeStatement": "Tegyen nyilatkozatot",
+      "AskQuestion": "Kérdés feltevése",
+      "SocialInteraction": "Társadalmi interakció",
+      "MakePlans": "Készítsen terveket"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "Hallgatás leállítása",
     "StartListening": "Zenehallgatás indítása"

@@ -154,6 +154,16 @@
     "Voice": "声音：",
     "Modes": "模式"
   },
+  "communicator": {
+    "ReplyButton": "答",
+    "SpeakButton": "说",
+    "SpeakIntentions": {
+      "MakeStatement": "发表声明",
+      "AskQuestion": "提出问题",
+      "SocialInteraction": "社交互动",
+      "MakePlans": "措"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "停止聆听",
     "StartListening": "开始聆听"

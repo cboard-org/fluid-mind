@@ -28,7 +28,7 @@ export default function Home() {
       </div>
       <div className={`${styles.section} ${styles.lastSection}`}>
         <Divider>{translations('Modes')}</Divider>
-        <Link href={'/reply'}>
+        <Link href={'/communicator'}>
           <Button size="large">{translations('ListenButton')}</Button>
         </Link>
       </div>

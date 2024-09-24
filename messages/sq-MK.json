@@ -154,6 +154,16 @@
     "Voice": "Zëri:",
     "Modes": "Modet"
   },
+  "communicator": {
+    "ReplyButton": "Përgjigje",
+    "SpeakButton": "Fol",
+    "SpeakIntentions": {
+      "MakeStatement": "Bëj një deklaratë",
+      "AskQuestion": "Bëj një pyetje",
+      "SocialInteraction": "Bashkëveprimi social",
+      "MakePlans": "Bëj plane"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "Ndalo së dëgjuari",
     "StartListening": "Fillo të dëgjosh"

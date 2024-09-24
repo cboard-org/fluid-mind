@@ -154,6 +154,16 @@
     "Voice": "Hlas:",
     "Modes": "Režimy"
   },
+  "communicator": {
+    "ReplyButton": "Odpoveď",
+    "SpeakButton": "Hovoriť",
+    "SpeakIntentions": {
+      "MakeStatement": "Urobte vyhlásenie",
+      "AskQuestion": "Opýtať sa otázku",
+      "SocialInteraction": "Sociálna interakcia",
+      "MakePlans": "Urobte si plány"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "Prestať počúvať",
     "StartListening": "Začnite počúvať"

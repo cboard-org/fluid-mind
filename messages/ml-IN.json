@@ -154,6 +154,16 @@
     "Voice": "ശബ്ദം:",
     "Modes": "മോഡുകൾ"
   },
+  "communicator": {
+    "ReplyButton": "മറുപടി",
+    "SpeakButton": "സംസാരിക്കുക",
+    "SpeakIntentions": {
+      "MakeStatement": "ഒരു പ്രസ്താവന നടത്തുക",
+      "AskQuestion": "ഒരു ചോദ്യം ചോദിക്കുക",
+      "SocialInteraction": "സാമൂഹിക ഇടപെടൽ",
+      "MakePlans": "പദ്ധതികൾ തയ്യാറാക്കുക"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "കേൾക്കുന്നത് നിർത്തുക",
     "StartListening": "ശ്രദ്ധിക്കാൻ തുടങ്ങുക"

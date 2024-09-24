@@ -154,6 +154,16 @@
     "Voice": "Suara:",
     "Modes": "Mode"
   },
+  "communicator": {
+    "ReplyButton": "Jawab",
+    "SpeakButton": "Berbicara",
+    "SpeakIntentions": {
+      "MakeStatement": "Membuat Pernyataan",
+      "AskQuestion": "Ajukan Pertanyaan",
+      "SocialInteraction": "Interaksi Sosial",
+      "MakePlans": "Buat Rencana"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "Berhenti Mendengarkan",
     "StartListening": "Mulai Mendengarkan"

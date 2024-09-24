@@ -2,8 +2,6 @@
 import { useEffect, useRef, useState } from 'react';
 import * as sdk from 'microsoft-cognitiveservices-speech-sdk';
 import { Button } from '@fluentui/react-components';
-import MicAnimation from './MicAnimation';
-import styles from './SpeechRecognition.module.css';
 import { useTranslations } from 'next-intl';
 import { startSpeechRecognizer } from '@/src/speechToText/speechToText';
 
@@ -21,10 +19,10 @@ export default function SpeechRecognition({ show, setRecognizedText, onRecognize
     const recognizer = recognizerRef.current;
     if (!recognizer) return;
     setIsListening(true);
-    recognizer.recognizing = (s, e) => {
-      if (!show) return;
-      setRecognizedText(e.result.text);
-    };
+    // recognizer.recognizing = (s, e) => {
+    //   if (!show) return;
+    //   //setRecognizedText(e.result.text);
+    // };
 
     recognizer.recognized = (s, e) => {
       if (e.result.reason === sdk.ResultReason.RecognizedSpeech) {
@@ -50,10 +48,10 @@ export default function SpeechRecognition({ show, setRecognizedText, onRecognize
       const recognizer = await startSpeechRecognizer();
       recognizerRef.current = recognizer;
 
-      recognizer.recognizing = (s, e) => {
-        if (!show) return;
-        setRecognizedText(e.result.text);
-      };
+      // recognizer.recognizing = (s, e) => {
+      //   if (!show) return;
+      //   setRecognizedText(e.result.text);
+      // };
 
       recognizer.recognized = (s, e) => {
         if (e.result.reason === sdk.ResultReason.RecognizedSpeech) {
@@ -107,12 +105,10 @@ export default function SpeechRecognition({ show, setRecognizedText, onRecognize
 
   if (!show) return;
 
+  if (isListening) return null;
   return (
-    <div className={styles.container}>
-      <MicAnimation isActive={isListening} />
-      <Button onClick={handleListenButton} size="large">
-        {isListening ? translations('StopListening') : translations('StartListening')}
-      </Button>
-    </div>
+    <Button onClick={handleListenButton} size="large">
+      {isListening ? translations('StopListening') : translations('StartListening')}
+    </Button>
   );
 }

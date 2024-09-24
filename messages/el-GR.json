@@ -154,6 +154,16 @@
     "Voice": "Φωνή:",
     "Modes": "Τρόπους"
   },
+  "communicator": {
+    "ReplyButton": "Απάντηση",
+    "SpeakButton": "Μιλώ",
+    "SpeakIntentions": {
+      "MakeStatement": "Κάντε μια δήλωση",
+      "AskQuestion": "Κάντε μια ερώτηση",
+      "SocialInteraction": "Κοινωνική αλληλεπίδραση",
+      "MakePlans": "Κάντε σχέδια"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "Σταματήστε να ακούτε",
     "StartListening": "Ξεκινήστε να ακούτε"

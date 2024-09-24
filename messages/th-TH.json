@@ -154,6 +154,16 @@
     "Voice": "เสียง:",
     "Modes": "โหมด"
   },
+  "communicator": {
+    "ReplyButton": "ตอบ",
+    "SpeakButton": "พูด",
+    "SpeakIntentions": {
+      "MakeStatement": "สร้างคําชี้แจง",
+      "AskQuestion": "ถามคําถาม",
+      "SocialInteraction": "ปฏิสัมพันธ์ทางสังคม",
+      "MakePlans": "วางแผน"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "หยุดฟัง",
     "StartListening": "เริ่มฟัง"

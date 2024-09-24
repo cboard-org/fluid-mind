@@ -154,6 +154,16 @@
     "Voice": "آواز:",
     "Modes": "طریقوں"
   },
+  "communicator": {
+    "ReplyButton": "جواب",
+    "SpeakButton": "بولنا",
+    "SpeakIntentions": {
+      "MakeStatement": "ایک بیان دیں",
+      "AskQuestion": "ایک سوال پوچھیں",
+      "SocialInteraction": "سماجی تعامل",
+      "MakePlans": "منصوبہ بندی کریں"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "سننا بند کرو",
     "StartListening": "سننا شروع کریں"

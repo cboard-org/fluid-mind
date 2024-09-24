@@ -1,6 +1,6 @@
-import React, { type Dispatch, type SetStateAction, useState } from 'react';
-import styles from './ResponseDashboard.module.css';
-import type { HowToReply, ReplyOptions, Tone } from '@/src/commonTypes/replyOptions';
+import React, { useState } from 'react';
+import styles from './CommunicatorInterface.module.css';
+import type { HowToReply, Tone } from '@/src/commonTypes/replyOptions';
 import type { ReplySuggestions, ReplySuggestion } from '@/src/commonTypes/replySuggestions';
 import { Button, DrawerBody } from '@fluentui/react-components';
 import { CodeTextEditRegular } from '@fluentui/react-icons';
@@ -8,10 +8,9 @@ import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
 type Props = {
-  howToReplySuggestions: ReplySuggestions | null[];
-  setReplyOptions: Dispatch<SetStateAction<ReplyOptions>>;
-  replyOptions: ReplyOptions;
-  onHowToReplyClick: (howToReply: HowToReply, keywords: string) => void;
+  howToSuggestions: ReplySuggestions | null[];
+  selectedTone: Tone;
+  onHowToClick: (howToReply: HowToReply) => void;
   suggestions: ReplySuggestions | null[];
   onSuggestionPlayClick: (suggestion: ReplySuggestion) => void;
   onSuggestionEditClick: ({
@@ -21,6 +20,8 @@ type Props = {
     selected_sentence: string;
     requested_change: string;
   }) => void;
+  onToneChange: (tone: Tone) => void;
+  keywordsField: React.ReactNode;
 };
 
 const tones: Tone[] = ['Friendly', 'Professional', 'Empathetic', 'Sarcastic', 'Inquisitive'];
@@ -28,57 +29,50 @@ type SelectedSuggestionType = null | ReplySuggestion;
 
 const editOptions = ['Confident', 'Funny', 'Sarcastic'];
 
-const ResponseDashboard: React.FC<Props> = ({
-  howToReplySuggestions,
-  setReplyOptions,
-  replyOptions,
-  onHowToReplyClick,
+const CommunicatorInterface: React.FC<Props> = ({
+  howToSuggestions,
+  selectedTone,
+  onHowToClick,
   suggestions,
   onSuggestionPlayClick,
   onSuggestionEditClick,
+  onToneChange,
+  keywordsField,
 }: Props) => {
   const [isSuggestionView, setIsSuggestionView] = useState(false);
   const [selectedSuggestion, setSelectedSuggestion] = useState<SelectedSuggestionType>(null);
-  const [keywords, setKeywords] = useState('');
-
-  const handleToneChange = (tone: Tone) => {
-    setReplyOptions((currentValue) => {
-      return { ...currentValue, tone };
-    });
-  };
 
   const [showKeywordField, setShowKeywordField] = useState(true);
   const handleSetHowToReply = (how_to_respond: string) => {
     setShowKeywordField(false);
-    setReplyOptions((replyOptions) => {
-      return {
-        ...replyOptions,
-        how_to_respond,
-        keywords,
-      };
-    });
-    onHowToReplyClick(how_to_respond, keywords);
+    onHowToClick(how_to_respond);
     setIsSuggestionView(true);
   };
 
   const translations = useTranslations('ReplyDashboard');
+
+  const handleSuggestionPlayClick = (suggestion: ReplySuggestion) => {
+    onSuggestionPlayClick(suggestion);
+    setIsSuggestionView(false);
+    setShowKeywordField(true);
+  };
 
   const HowToReplyView = () => (
     <div className={styles.topOptionsContainer}>
       <div className={styles.toneSection}>
         <DrawerBody className={styles.toneValue}>
           {tones.map((tone) => {
-            if (tone === replyOptions.tone)
+            if (tone === selectedTone)
               return (
-                <Button className={styles.toneButton} key={tone}>
+                <Button className={styles.toneOption} key={tone}>
                   {translations(`Tones.${tone}`)}
                 </Button>
               );
             return (
               <Button
                 appearance="transparent"
-                onClick={() => handleToneChange(tone)}
-                className={styles.toneButton}
+                onClick={() => onToneChange(tone)}
+                className={styles.toneOption}
                 key={tone}
               >
                 {translations(`Tones.${tone}`)}
@@ -88,7 +82,7 @@ const ResponseDashboard: React.FC<Props> = ({
         </DrawerBody>
       </div>
       <div className={styles.mainOptionsContainer}>
-        {howToReplySuggestions.map((suggestion, index) => (
+        {howToSuggestions.map((suggestion, index) => (
           <Button
             key={suggestion?.id || index}
             onClick={() => {
@@ -128,13 +122,12 @@ const ResponseDashboard: React.FC<Props> = ({
           <Button
             onClick={() => {
               if (!suggestion) return;
-              setSelectedSuggestion(suggestion);
-              onSuggestionPlayClick(suggestion);
+              handleSuggestionPlayClick(suggestion);
             }}
             key={suggestion?.id || index}
             className={`${styles.actionButton} ${styles.suggestionButton}`}
           >
-            {suggestion?.text || '...'}
+            {suggestion?.translation || suggestion?.text || '...'}
           </Button>
         ))}
       </div>
@@ -155,7 +148,7 @@ const ResponseDashboard: React.FC<Props> = ({
         <div className={styles.suggestions}>
           <Button
             onClick={() => {
-              if (selectedSuggestion) onSuggestionPlayClick(selectedSuggestion);
+              if (selectedSuggestion) handleSuggestionPlayClick(selectedSuggestion);
             }}
             className={styles.suggestionButton}
             size="large"
@@ -212,21 +205,11 @@ const ResponseDashboard: React.FC<Props> = ({
           <Link href={'/'}>
             <Button className={styles.closeButton}>{translations('CloseButton')}</Button>
           </Link>
-          {showKeywordField && (
-            <div className={styles.keywordSection}>
-              <input
-                type="text"
-                value={keywords}
-                onChange={(e) => setKeywords(e.target.value)}
-                placeholder={translations('KeywordInput')}
-                className={styles.keywordInput}
-              />
-            </div>
-          )}
+          {showKeywordField && <div className={styles.keywordSection}>{keywordsField}</div>}
         </div>
       )}
     </div>
   );
 };
 
-export default ResponseDashboard;
+export default CommunicatorInterface;

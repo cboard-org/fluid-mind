@@ -154,6 +154,16 @@
     "Voice": "Voz:",
     "Modes": "Modos"
   },
+  "communicator": {
+    "ReplyButton": "Respuesta",
+    "SpeakButton": "Hablar",
+    "SpeakIntentions": {
+      "MakeStatement": "Hacer una declaración",
+      "AskQuestion": "Hacer una pregunta",
+      "SocialInteraction": "Interacción social",
+      "MakePlans": "Hacer planes"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "Deja de escuchar",
     "StartListening": "Empieza a escuchar"

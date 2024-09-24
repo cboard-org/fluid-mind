@@ -154,6 +154,16 @@
     "Voice": "Tiếng:",
     "Modes": "Chế độ"
   },
+  "communicator": {
+    "ReplyButton": "Trả lời",
+    "SpeakButton": "Nói",
+    "SpeakIntentions": {
+      "MakeStatement": "Đưa ra tuyên bố",
+      "AskQuestion": "Đặt câu hỏi",
+      "SocialInteraction": "Tương tác xã hội",
+      "MakePlans": "Lập kế hoạch"
+    }
+  },
   "SpeechRecognition": {
     "StopListening": "Ngừng nghe",
     "StartListening": "Bắt đầu lắng nghe"
