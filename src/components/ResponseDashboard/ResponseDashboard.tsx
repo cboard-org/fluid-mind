@@ -9,15 +9,9 @@ import Link from 'next/link';
 
 type Props = {
   howToReplySuggestions: ReplySuggestions | null[];
-  onSetHowTo: ({
-    how_to_respond,
-    keywords,
-  }: {
-    how_to_respond: CommonBodyOptions['how_to_respond'];
-    keywords: CommonBodyOptions['keywords'];
-  }) => void;
+  onSetHowTo: ({ how_to_respond }: { how_to_respond: CommonBodyOptions['how_to_respond'] }) => void;
   selectedTone: Tone;
-  onHowToReplyClick: (howToReply: HowToReply, keywords: string) => void;
+  onHowToReplyClick: (howToReply: HowToReply) => void;
   suggestions: ReplySuggestions | null[];
   onSuggestionPlayClick: (suggestion: ReplySuggestion) => void;
   onSuggestionEditClick: ({
@@ -28,6 +22,7 @@ type Props = {
     requested_change: string;
   }) => void;
   onToneChange: (tone: Tone) => void;
+  keywordsField: React.ReactNode;
 };
 
 const tones: Tone[] = ['Friendly', 'Professional', 'Empathetic', 'Sarcastic', 'Inquisitive'];
@@ -44,16 +39,16 @@ const ResponseDashboard: React.FC<Props> = ({
   onSuggestionEditClick,
   onSetHowTo,
   onToneChange,
+  keywordsField,
 }: Props) => {
   const [isSuggestionView, setIsSuggestionView] = useState(false);
   const [selectedSuggestion, setSelectedSuggestion] = useState<SelectedSuggestionType>(null);
-  const [keywords, setKeywords] = useState('');
 
   const [showKeywordField, setShowKeywordField] = useState(true);
   const handleSetHowToReply = (how_to_respond: string) => {
     setShowKeywordField(false);
-    onSetHowTo({ how_to_respond, keywords });
-    onHowToReplyClick(how_to_respond, keywords);
+    onSetHowTo({ how_to_respond });
+    onHowToReplyClick(how_to_respond);
     setIsSuggestionView(true);
   };
 
@@ -63,7 +58,6 @@ const ResponseDashboard: React.FC<Props> = ({
     onSuggestionPlayClick(suggestion);
     setIsSuggestionView(false);
     setShowKeywordField(true);
-    setKeywords('');
   };
 
   const HowToReplyView = () => (
@@ -214,17 +208,7 @@ const ResponseDashboard: React.FC<Props> = ({
           <Link href={'/'}>
             <Button className={styles.closeButton}>{translations('CloseButton')}</Button>
           </Link>
-          {showKeywordField && (
-            <div className={styles.keywordSection}>
-              <input
-                type="text"
-                value={keywords}
-                onChange={(e) => setKeywords(e.target.value)}
-                placeholder={translations('KeywordInput')}
-                className={styles.keywordInput}
-              />
-            </div>
-          )}
+          {showKeywordField && <div className={styles.keywordSection}>{keywordsField}</div>}
         </div>
       )}
     </div>

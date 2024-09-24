@@ -18,6 +18,7 @@ import type { ReplySuggestion, ReplySuggestions } from '@/src/commonTypes/replyS
 import { speak } from '@/textToSpeech/synthesizeSpeech';
 import { useLocale, useTranslations } from 'next-intl';
 import enUsMessages from '@/src/../messages/en-US.json';
+import KeywordsField from '@/src/components/KeywordsField/keywordsField';
 
 const LocaleSwitcher = enUsMessages.LocaleSwitcher;
 
@@ -99,13 +100,12 @@ export default function Home() {
     return await response.json();
   };
 
-  const handleHowToReplyClick = async (how_to_respond: HowToReply, keywords: string) => {
+  const handleHowToReplyClick = async (how_to_respond: HowToReply) => {
     setIsReplying(true);
     const requestBody: ReplyRequestBody = {
       ...commonOptions,
       ...replyOptions,
       how_to_respond,
-      keywords,
       sentence: recognizedText,
       chat_history: chatHistory,
       is_rag: true,
@@ -172,6 +172,7 @@ export default function Home() {
     setTalkSuggestions([null, null, null, null]);
     changeToListening();
     setRecognizedText('');
+    handleKeywordsChange('');
     setIsUserComposing(false);
   };
 
@@ -191,15 +192,12 @@ export default function Home() {
 
   const handleSetHowToReply = ({
     how_to_respond,
-    keywords,
   }: {
     how_to_respond: CommonBodyOptions['how_to_respond'];
-    keywords: CommonBodyOptions['keywords'];
   }) => {
     setCommonOptions((replyOptions) => ({
       ...replyOptions,
       how_to_respond,
-      keywords,
     }));
   };
 
@@ -210,13 +208,19 @@ export default function Home() {
     }));
   };
 
+  const handleKeywordsChange = (keywords: string) => {
+    setCommonOptions((replyOptions) => ({
+      ...replyOptions,
+      keywords,
+    }));
+  };
+
   const [isUserComposing, setIsUserComposing] = useState(false);
-  const handleHowToTalkClick = async (how_to_respond: HowToReply, keywords: string) => {
+  const handleHowToTalkClick = async (how_to_respond: HowToReply) => {
     setIsReplying(true);
     const requestBody: TalkRequestBody = {
       ...commonOptions,
       how_to_respond,
-      keywords,
       sentence: recognizedText,
       chat_history: chatHistory,
     };
@@ -247,6 +251,9 @@ export default function Home() {
     { id: 3, text: t('SocialInteraction') },
     { id: 4, text: t('MakePlans') },
   ];
+  const keywordsField = (
+    <KeywordsField keywords={commonOptions.keywords} setKeywords={handleKeywordsChange} />
+  );
 
   return (
     <main className={styles.main}>
@@ -295,6 +302,7 @@ export default function Home() {
             suggestions={repliesSuggestions}
             onSuggestionPlayClick={handleSuggestionPlayClick}
             onSuggestionEditClick={handleSuggestionEditClick}
+            keywordsField={keywordsField}
           />
         )}
         {isTalkView && (
@@ -307,6 +315,7 @@ export default function Home() {
             suggestions={talkSuggestions}
             onSuggestionPlayClick={handleSuggestionPlayClick}
             onSuggestionEditClick={handleSuggestionEditClick}
+            keywordsField={keywordsField}
           />
         )}
       </div>
