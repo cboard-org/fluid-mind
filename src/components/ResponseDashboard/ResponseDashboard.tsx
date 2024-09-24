@@ -130,7 +130,7 @@ const ResponseDashboard: React.FC<Props> = ({
             key={suggestion?.id || index}
             className={`${styles.actionButton} ${styles.suggestionButton}`}
           >
-            {suggestion?.text || '...'}
+            {suggestion?.translation || suggestion?.text || '...'}
           </Button>
         ))}
       </div>
