@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './ResponseDashboard.module.css';
+import styles from './CommunicatorInterface.module.css';
 import type { CommonBodyOptions, HowToReply, Tone } from '@/src/commonTypes/replyOptions';
 import type { ReplySuggestions, ReplySuggestion } from '@/src/commonTypes/replySuggestions';
 import { Button, DrawerBody } from '@fluentui/react-components';
@@ -30,7 +30,7 @@ type SelectedSuggestionType = null | ReplySuggestion;
 
 const editOptions = ['Confident', 'Funny', 'Sarcastic'];
 
-const ResponseDashboard: React.FC<Props> = ({
+const CommunicatorInterface: React.FC<Props> = ({
   howToReplySuggestions,
   selectedTone,
   onHowToReplyClick,
@@ -215,4 +215,4 @@ const ResponseDashboard: React.FC<Props> = ({
   );
 };
 
-export default ResponseDashboard;
+export default CommunicatorInterface;

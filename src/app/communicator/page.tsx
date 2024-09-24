@@ -1,7 +1,7 @@
 'use client';
 import styles from './page.module.css';
 import SpeechRecognition from '@/src/components/SpeechRecognition/SpeechRecognition';
-import ResponseDashboard from '@/src/components/ResponseDashboard/ResponseDashboard';
+import CommunicatorInterface from '@/src/components/CommunicatorInterface/CommunicatorInterface';
 import { useState } from 'react';
 import { Button, Label } from '@fluentui/react-components';
 import { SlideMicrophone32Regular } from '@fluentui/react-icons';
@@ -293,7 +293,7 @@ export default function Home() {
       </div>
       <div className={styles.controlContainer}>
         {!isTalkView && (
-          <ResponseDashboard
+          <CommunicatorInterface
             howToReplySuggestions={howToReplySuggestions}
             onSetHowTo={handleSetHowToReply}
             selectedTone={commonOptions.tone}
@@ -306,7 +306,7 @@ export default function Home() {
           />
         )}
         {isTalkView && (
-          <ResponseDashboard
+          <CommunicatorInterface
             howToReplySuggestions={intentions}
             onSetHowTo={handleSetHowToReply}
             selectedTone={commonOptions.tone}
