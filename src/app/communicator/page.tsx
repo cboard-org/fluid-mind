@@ -13,7 +13,7 @@ import type {
   HowToReply,
   Tone,
   SpeakRequestBody,
-} from '@/src/commonTypes/CommunicatorModelsOptions';
+} from '@/src/commonTypes/communicatorModelsOptions';
 import type { Suggestion, Suggestions } from '@/src/commonTypes/suggestions';
 import { speak } from '@/textToSpeech/synthesizeSpeech';
 import { useLocale, useTranslations } from 'next-intl';
