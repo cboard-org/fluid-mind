@@ -19,8 +19,11 @@ import { speak } from '@/textToSpeech/synthesizeSpeech';
 import { useLocale, useTranslations } from 'next-intl';
 import enUsMessages from '@/src/../messages/en-US.json';
 import KeywordsField from '@/src/components/KeywordsField/keywordsField';
+import { createWpmCalculator } from '@/src/utils/wordPerMinuteCalculator';
 
 const LocaleSwitcher = enUsMessages.LocaleSwitcher;
+
+let wpmCalculator = createWpmCalculator();
 
 export default function Home() {
   const [isSpeakView, setIsSpeakView] = useState(true);
@@ -75,6 +78,7 @@ export default function Home() {
     setHowToReplySuggestions(howToReplySuggestions);
   };
   const handleOnRecognizeText = async ({ text = '' }: { text: string }) => {
+    wpmCalculator = wpmCalculator.start();
     if (isReplying) return console.log(`ignored: ${text}`);
     setRecognizedText((prevRecognition) => {
       const sentence = `${prevRecognition} ${text}`;
@@ -164,6 +168,10 @@ export default function Home() {
 
   const handleSuggestionPlayClick = (suggestion: Suggestion) => {
     console.log(`SPEAK: ${suggestion.text}`);
+    wpmCalculator = wpmCalculator.finish();  // returns a new instance with the finish time
+    const wpm = wpmCalculator.calculateWpm(suggestion.text);
+    console.log(`WPM: ${wpm}`);
+    console.log(`Average WPM: ${wpmCalculator.calculateAvearageWpm()}`);
     speak(suggestion.text);
     setChatHistory((prevChatHistory) =>
       prevChatHistory.concat([
