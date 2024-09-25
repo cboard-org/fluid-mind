@@ -57,6 +57,14 @@ const CommunicatorInterface: React.FC<Props> = ({
     setShowKeywordField(true);
   };
 
+  const handleShortReplyPlayClick = (suggestion: Suggestion) => {
+    if (!suggestion.short) return;
+    const updatedSuggestion = { ...suggestion, text: suggestion.short };
+    onSuggestionPlayClick(updatedSuggestion);
+    setIsSuggestionView(false);
+    setShowKeywordField(true);
+  };
+
   const HowToReplyView = () => (
     <div className={styles.topOptionsContainer}>
       <div className={styles.toneSection}>
@@ -96,7 +104,7 @@ const CommunicatorInterface: React.FC<Props> = ({
             {suggestion?.short && (
               <Button
                 onClick={() => {
-                  // handleSuggestionPlayClick(suggestion.short);
+                  handleShortReplyPlayClick(suggestion);
                 }}
                 className={`${styles.actionButton} ${styles.suggestionButton}`}
               >
