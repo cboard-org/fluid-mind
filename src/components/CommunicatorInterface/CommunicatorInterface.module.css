@@ -92,6 +92,8 @@ button.suggestionButton {
   flex-grow: 1;
   justify-content: start;
   padding: 1rem;
+  font-size: 1.1rem;
+  font-weight: lighter;
 }
 
 button.editSuggestionButton {
@@ -178,4 +180,9 @@ button.editSuggestionButton {
 .closeButton {
   height: 100%;
   width: 100%;
+}
+
+.spanEmoji {
+  font-size: 1.5rem;
+  padding-right: 0.5rem;
 }
