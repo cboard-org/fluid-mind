@@ -83,16 +83,27 @@ const CommunicatorInterface: React.FC<Props> = ({
       </div>
       <div className={styles.mainOptionsContainer}>
         {howToSuggestions.map((suggestion, index) => (
-          <Button
-            key={suggestion?.id || index}
-            onClick={() => {
-              if (suggestion?.text) handleSetHowToReply(suggestion?.text);
-            }}
-            className={`${styles.actionButton} ${styles.suggestionButton}`}
-          >
-            <span className={styles.spanEmoji}>{suggestion?.emoji || ''}</span>
-            {suggestion?.translation || suggestion?.text || '...'}
-          </Button>
+          <div key={suggestion?.id || index} className={`${styles.howToSuggestionContainer}`}>
+            <Button
+              onClick={() => {
+                if (suggestion?.text) handleSetHowToReply(suggestion?.text);
+              }}
+              className={`${styles.actionButton} ${styles.suggestionButton}`}
+            >
+              <span className={styles.spanEmoji}>{suggestion?.emoji || ''}</span>
+              {suggestion?.translation || suggestion?.text || '...'}
+            </Button>
+            {suggestion?.short && (
+              <Button
+                onClick={() => {
+                  // handleSuggestionPlayClick(suggestion.short);
+                }}
+                className={`${styles.actionButton} ${styles.suggestionButton}`}
+              >
+                {suggestion?.short}
+              </Button>
+            )}
+          </div>
         ))}
       </div>
     </div>
