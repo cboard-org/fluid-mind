@@ -30,7 +30,13 @@ export default function Home() {
   const appLocale = useLocale();
   const language = LocaleSwitcher[appLocale as keyof typeof LocaleSwitcher];
   const [commonOptions, setCommonOptions] = useState<CommonBodyOptions>({
-    user_pref: ``,
+    user_pref: `Alex Johnson, born July 12, 1985, is an American software engineer residing in Austin, Texas. Raised in Seattle, his parents are Michael, a retired teacher, and Laura, a freelance graphic designer. He has one sister, Emily, a veterinarian in Portland. Alex is married to Rachel, an elementary school teacher, and they have two children: Oliver (2014) and Lily (2017). 
+
+Alex holds a Computer Science degree from the University of Washington (2007) and works as a Senior Software Engineer in Austin, specializing in machine learning and UX design. He previously worked at a Seattle startup before relocating in 2012. 
+
+He enjoys hiking, playing guitar, cooking, and traveling. Notable trips include Europe (2018), South America (2021), and Japan (2023). He’s also a rock climber and volunteers in tech education for kids. 
+
+Alex is highly organized at home, with designated spaces for essentials like work documents, kitchen items, and kids' toys. He has Type 1 Diabetes, using an insulin pump and continuous glucose monitor for management, maintaining an active lifestyle despite his condition. `,
     lang: language || 'English (United States)',
     chat_history: [],
     tone: 'Friendly',
@@ -167,6 +173,8 @@ export default function Home() {
     console.log(`SPEAK: ${suggestion.text}`);
     wpmCalculator.finishTimer();
     console.log(`WPM: ${wpmCalculator.calculateWpm(suggestion.text)}`);
+    //Log average
+    console.log(`Average WPM: ${wpmCalculator.calculateAverageWpm()}`);
 
     speak(suggestion.text);
     setChatHistory((prevChatHistory) =>
