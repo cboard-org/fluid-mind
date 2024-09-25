@@ -88,6 +88,12 @@
   transition: background-color 0.3s;
 }
 
+.howToSuggestionContainer {
+  flex-grow: 1;
+  display: flex;
+  gap: 1rem;
+}
+
 button.suggestionButton {
   flex-grow: 1;
   justify-content: start;

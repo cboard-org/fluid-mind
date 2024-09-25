@@ -57,6 +57,14 @@ const CommunicatorInterface: React.FC<Props> = ({
     setShowKeywordField(true);
   };
 
+  const handleShortReplyPlayClick = (suggestion: Suggestion) => {
+    if (!suggestion.short) return;
+    const updatedSuggestion = { ...suggestion, text: suggestion.short };
+    onSuggestionPlayClick(updatedSuggestion);
+    setIsSuggestionView(false);
+    setShowKeywordField(true);
+  };
+
   const HowToReplyView = () => (
     <div className={styles.topOptionsContainer}>
       <div className={styles.toneSection}>
@@ -83,16 +91,27 @@ const CommunicatorInterface: React.FC<Props> = ({
       </div>
       <div className={styles.mainOptionsContainer}>
         {howToSuggestions.map((suggestion, index) => (
-          <Button
-            key={suggestion?.id || index}
-            onClick={() => {
-              if (suggestion?.text) handleSetHowToReply(suggestion?.text);
-            }}
-            className={`${styles.actionButton} ${styles.suggestionButton}`}
-          >
-            <span className={styles.spanEmoji}>{suggestion?.emoji || ''}</span>
-            {suggestion?.translation || suggestion?.text || '...'}
-          </Button>
+          <div key={suggestion?.id || index} className={`${styles.howToSuggestionContainer}`}>
+            <Button
+              onClick={() => {
+                if (suggestion?.text) handleSetHowToReply(suggestion?.text);
+              }}
+              className={`${styles.actionButton} ${styles.suggestionButton}`}
+            >
+              <span className={styles.spanEmoji}>{suggestion?.emoji || ''}</span>
+              {suggestion?.translation || suggestion?.text || '...'}
+            </Button>
+            {suggestion?.short && (
+              <Button
+                onClick={() => {
+                  handleShortReplyPlayClick(suggestion);
+                }}
+                className={`${styles.actionButton} ${styles.suggestionButton}`}
+              >
+                {suggestion?.short}
+              </Button>
+            )}
+          </div>
         ))}
       </div>
     </div>
