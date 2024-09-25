@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './CommunicatorInterface.module.css';
-import type { HowToReply, Tone } from '@/src/commonTypes/CommunicatorModelsOptions';
+import type { HowToReply, Tone } from '@/src/commonTypes/communicatorModelsOptions';
 import type { Suggestions, Suggestion } from '@/src/commonTypes/suggestions';
 import { Button, DrawerBody } from '@fluentui/react-components';
 import { CodeTextEditRegular } from '@fluentui/react-icons';
