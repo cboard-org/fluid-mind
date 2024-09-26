@@ -12,24 +12,22 @@ export function createWpmCalculator(
 ): Timer {
   const start = (): Timer => {
     const newStartTime = new Date().getTime();
-    return createWpmCalculator(newStartTime, finishTime); // return new instance with updated startTime
+    return createWpmCalculator(newStartTime, finishTime);
   };
 
   const finish = (): Timer => {
     const newFinishTime = new Date().getTime();
-    return createWpmCalculator(startTime, newFinishTime); // return new instance with updated finishTime
+    return createWpmCalculator(startTime, newFinishTime);
   };
 
   const calculateWpm = (text: string): number => {
     if (startTime === null || finishTime === null) {
       console.log('ERROR: Timer not started or finished');
       return 0;
-      //throw new Error("Timer not started or finished");
     }
     if (!text.trim()) {
       console.log('ERROR: Text is empty');
       return 0;
-      //throw new Error('ERROR with text');
     }
 
     const numWords = text.trim().split(/\s+/).length;
