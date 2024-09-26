@@ -2,7 +2,7 @@
 import styles from './page.module.css';
 import SpeechRecognition from '@/src/components/SpeechRecognition/SpeechRecognition';
 import CommunicatorInterface from '@/src/components/CommunicatorInterface/CommunicatorInterface';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Button, Label } from '@fluentui/react-components';
 import { SlideMicrophone32Regular } from '@fluentui/react-icons';
 import type {
@@ -70,6 +70,7 @@ export default function Home() {
     };
     setHowToReplySuggestions(nullHowToReplySuggestions);
     const response = await fetchSuggestions(requestBody);
+    if (!response) return;
     const answer = JSON.parse(response.answer);
     const howToReplySuggestions = answer.replies;
     setHowToReplySuggestions(howToReplySuggestions);
@@ -86,18 +87,33 @@ export default function Home() {
     });
   };
 
+  const abortControllerRef = useRef<AbortController | null>(null);
+
   const fetchSuggestions = async (requestBody: ReplyRequestBody) => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    abortControllerRef.current = new AbortController();
+    const signal = abortControllerRef.current.signal;
     setRepliesSuggestions(nullRepliesSuggestions);
     const requestHeaders = new Headers({ 'Content-Type': 'application/json' });
 
     const body: string = JSON.stringify(requestBody);
 
-    const response = await fetch('/api/flow', {
-      method: 'POST',
-      headers: requestHeaders,
-      body: body,
-    });
-    return await response.json();
+    try {
+      const response = await fetch('/api/flow', {
+        method: 'POST',
+        headers: requestHeaders,
+        body: body,
+        signal,
+      });
+      return await response.json();
+    } catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') {
+        return null;
+      }
+      throw error;
+    }
   };
 
   const handleHowToReplyClick = async (how_to_respond: HowToReply) => {
@@ -117,6 +133,7 @@ export default function Home() {
 
     try {
       const response = await fetchSuggestions(requestBody);
+      if (!response) return;
       const answer = JSON.parse(response.replies);
       const replies = answer.replies;
       if (!replies) throw Error('empty suggestions returned');
@@ -148,6 +165,7 @@ export default function Home() {
     setRepliesSuggestions(nullRepliesSuggestions);
     try {
       const response = await fetchSuggestions(requestBody);
+      if (!response) return;
       const changed = JSON.parse(response.changed);
       setRepliesSuggestions(changed.replies);
       setSpeakSuggestions(changed.replies);
