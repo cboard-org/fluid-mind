@@ -27,11 +27,9 @@ export async function getUserSTTLocale() {
 }
 
 export async function setUserVoice(voiceShortName: string) {
-  console.log('set', voiceShortName);
   cookies().set(TTS_VOICE_COOKIE_NAME, voiceShortName);
 }
 
 export async function getUserVoice() {
-  console.log(cookies().get(TTS_VOICE_COOKIE_NAME)?.value);
   return cookies().get(TTS_VOICE_COOKIE_NAME)?.value || null;
 }

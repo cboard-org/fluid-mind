@@ -22,7 +22,6 @@ export const initAzureSynthesizer = async () => {
 };
 
 const speak = (text: string) => {
-  console.log(azureSynthesizer);
   if (azureSynthesizer)
     azureSynthesizer.speakTextAsync(
       text,

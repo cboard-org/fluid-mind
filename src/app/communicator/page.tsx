@@ -220,9 +220,7 @@ export default function Home() {
 
     try {
       const response = await fetchSpeakSuggestions(requestBody);
-      console.log(response);
       const answer = JSON.parse(response.answer);
-      console.log(answer);
       const replies = answer.replies;
       if (!replies) throw Error('empty suggestions returned');
       setSpeakSuggestions(replies);
