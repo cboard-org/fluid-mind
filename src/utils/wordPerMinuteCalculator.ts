@@ -11,12 +11,12 @@ export function createWpmCalculator(
   finishTime: number | null = null,
 ): Timer {
   const start = (): Timer => {
-    const newStartTime = new Date().getTime();
+    const newStartTime = performance.now();
     return createWpmCalculator(newStartTime, finishTime);
   };
 
   const finish = (): Timer => {
-    const newFinishTime = new Date().getTime();
+    const newFinishTime = performance.now();
     return createWpmCalculator(startTime, newFinishTime);
   };
 
