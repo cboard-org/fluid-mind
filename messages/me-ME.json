@@ -189,7 +189,7 @@
       "Funny": "Funny",
       "Sarcastic": "Sarcastic"
     },
-    "CloseButton": "Close",
+    "BackButton": "Back",
     "KeywordInput": "add key words"
   }
 }
