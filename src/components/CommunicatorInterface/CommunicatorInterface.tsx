@@ -5,7 +5,6 @@ import type { Suggestions, Suggestion } from '@/src/commonTypes/suggestions';
 import { Button, DrawerBody } from '@fluentui/react-components';
 import { CodeTextEditRegular } from '@fluentui/react-icons';
 import { useTranslations } from 'next-intl';
-import Link from 'next/link';
 
 type Props = {
   howToSuggestions: Suggestions | null[];
@@ -22,6 +21,7 @@ type Props = {
   }) => void;
   onToneChange: (tone: Tone) => void;
   keywordsField: React.ReactNode;
+  backToInitialView: () => void;
 };
 
 const tones: Tone[] = ['Friendly', 'Professional', 'Empathetic', 'Sarcastic', 'Inquisitive'];
@@ -38,6 +38,7 @@ const CommunicatorInterface: React.FC<Props> = ({
   onSuggestionEditClick,
   onToneChange,
   keywordsField,
+  backToInitialView,
 }: Props) => {
   const [isSuggestionView, setIsSuggestionView] = useState(false);
   const [selectedSuggestion, setSelectedSuggestion] = useState<SelectedSuggestionType>(null);
@@ -209,6 +210,12 @@ const CommunicatorInterface: React.FC<Props> = ({
     );
   };
 
+  const handleBackCLick = () => {
+    setShowKeywordField(true);
+    setIsSuggestionView(false);
+    backToInitialView();
+  };
+
   return (
     <div className={styles.dashboard}>
       {isSuggestionView ? (
@@ -222,9 +229,9 @@ const CommunicatorInterface: React.FC<Props> = ({
       )}
       {!selectedSuggestion && (
         <div className={styles.bottomOptionsContainer}>
-          <Link href={'/'}>
-            <Button className={styles.closeButton}>{translations('CloseButton')}</Button>
-          </Link>
+          <Button onClick={handleBackCLick} className={styles.closeButton}>
+            {translations('BackButton')}
+          </Button>
           {showKeywordField && <div className={styles.keywordSection}>{keywordsField}</div>}
         </div>
       )}

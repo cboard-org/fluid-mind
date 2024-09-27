@@ -174,8 +174,17 @@ export default function Home() {
     }
   };
 
+  const backToInitialView = () => {
+    setIsSpeakView(true);
+    setIsReplying(false);
+    setIsUserComposing(false);
+    setSpeakSuggestions(nullRepliesSuggestions);
+    setRepliesSuggestions(nullRepliesSuggestions);
+  };
+
   const changeToSpeakView = () => {
-    // setRepliesSuggestions(nullRepliesSuggestions);
+    setSpeakSuggestions(nullRepliesSuggestions);
+    setRepliesSuggestions(nullRepliesSuggestions);
     setIsReplying(false);
     setIsSpeakView(true);
   };
@@ -191,7 +200,6 @@ export default function Home() {
         },
       ]),
     );
-    setSpeakSuggestions([null, null, null, null]);
     changeToSpeakView();
     setRecognizedText('');
     handleKeywordsChange('');
@@ -321,6 +329,7 @@ export default function Home() {
             onSuggestionPlayClick={handleSuggestionPlayClick}
             onSuggestionEditClick={handleSuggestionEditClick}
             keywordsField={keywordsField}
+            backToInitialView={backToInitialView}
           />
         )}
         {isSpeakView && (
@@ -333,6 +342,7 @@ export default function Home() {
             onSuggestionPlayClick={handleSuggestionPlayClick}
             onSuggestionEditClick={handleSuggestionEditClick}
             keywordsField={keywordsField}
+            backToInitialView={backToInitialView}
           />
         )}
       </div>
