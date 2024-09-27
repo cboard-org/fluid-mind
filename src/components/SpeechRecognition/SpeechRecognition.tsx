@@ -27,7 +27,6 @@ export default function SpeechRecognition({ show, setRecognizedText, onRecognize
     recognizer.recognized = (s, e) => {
       if (e.result.reason === sdk.ResultReason.RecognizedSpeech) {
         onRecognizeText({ text: e.result.text });
-        setIsListening(false);
         // if (recognizer) recognizer.stopContinuousRecognitionAsync();
       }
     };
