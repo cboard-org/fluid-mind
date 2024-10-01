@@ -99,7 +99,7 @@ button.suggestionButton {
   justify-content: start;
   padding: 1rem;
   font-size: 1.1rem;
-  font-weight: lighter;
+  font-weight: 400;
 }
 
 button.editSuggestionButton {
