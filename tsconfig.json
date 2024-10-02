@@ -19,7 +19,9 @@
     ],
     "paths": {
       "@/src/*": ["./src/*"],
-      "@/textToSpeech/*": ["./src/textToSpeech/*"]
+      "@/textToSpeech/*": ["./src/textToSpeech/*"],
+      "@/lib/*": ["./src/lib/*"],
+      "@/models/*": ["./src/dataBase/models/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

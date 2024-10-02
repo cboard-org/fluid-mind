@@ -17,7 +17,9 @@
     "jsonwebtoken": "^9.0.2",
     "microsoft-cognitiveservices-speech-sdk": "^1.40.0",
     "mongodb": "^6.9.0",
+    "mongoose": "^8.7.0",
     "next": "14.2.5",
+    "next-auth": "^4.24.8",
     "next-intl": "^3.19.1",
     "react": "^18",
     "react-dom": "^18"
