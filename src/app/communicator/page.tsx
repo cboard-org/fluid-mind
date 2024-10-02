@@ -31,10 +31,10 @@ export default function Home() {
   const appLocale = useLocale();
   const language = LocaleSwitcher[appLocale as keyof typeof LocaleSwitcher];
   const [commonOptions, setCommonOptions] = useState<CommonBodyOptions>({
-    user_pref: ``,
-    lang: language || 'English (United States)',
+    user_pref: ``, // Add here the user biography
+    lang: language || 'English (United States)',  
     chat_history: [],
-    tone: 'Friendly',
+    tone: 'Friendly', //Set the default tone
     keywords: '',
     how_to_respond: null,
   });
@@ -76,8 +76,21 @@ export default function Home() {
     if (!response) return;
     const answer = JSON.parse(response.answer);
     const howToReplySuggestions = answer.replies;
+    howToReplySuggestions.forEach((item: { text: string, short: string }) => {
+      item.text = item.text.replace(/[\p{Extended_Pictographic}\u2600-\u26FF]/gu, ''); //TODO fix this warning
+      item.short = item.short.replace(/[\p{Extended_Pictographic}\u2600-\u26FF]/gu, ''); //TODO fix this warning
+    });
     setHowToReplySuggestions(howToReplySuggestions);
   };
+
+  /**
+ * Handles the event when text is recognized.
+ * If the user is currently replying, ignores the recognized text.
+ * Updates the recognized text by appending the new text to the previous recognition.
+ *
+ * @param {Object} params - The event parameters.
+ * @param {string} params.text - The recognized text.
+ */
   const handleOnRecognizeText = async ({ text = '' }: { text: string }) => {
     wpmCalculator = wpmCalculator.start();
     if (isReplying) return console.log(`ignored: ${text}`);
@@ -120,6 +133,13 @@ export default function Home() {
     }
   };
 
+  /**
+ * Handles the click event to show how to reply suggestions.
+ * Sends a request to the server to fetch new suggestions based on the how to respond value.
+ * Updates the replies suggestions with the new suggestions from the server.
+ *
+ * @param {HowToReply} how_to_respond - The selected how to respond value.
+ */
   const handleHowToReplyClick = async (how_to_respond: HowToReply) => {
     setIsReplying(true);
     setCommonOptions((replyOptions) => ({
@@ -147,6 +167,15 @@ export default function Home() {
     }
   };
 
+  /**
+ * Handles the edit click event on a suggestion.
+ * Sends a request to the server to fetch new suggestions based on the edited sentence.
+ * Updates the replies and speak suggestions with the new suggestions from the server.
+ *
+ * @param {Object} params - The event parameters.
+ * @param {string} params.selected_sentence - The sentence to be edited.
+ * @param {string} params.requested_change - The requested change to the sentence.
+ */
   const handleSuggestionEditClick = async ({
     selected_sentence,
     requested_change,
@@ -192,7 +221,14 @@ export default function Home() {
     setIsReplying(false);
     setIsSpeakView(true);
   };
-
+  /**
+ * This function is called when a suggestion is played.
+ * Logs the WPM and average WPM to the console.
+ * It speaks the suggestion text using the speak function.
+ * It updates the chat history with the suggestion text.
+ *
+ * @param {Suggestion} suggestion - The suggestion to be played.
+ */
   const handleSuggestionPlayClick = (suggestion: Suggestion) => {
     console.log(`SPEAK: ${suggestion.text}`);
     wpmCalculator = wpmCalculator.finish();  // returns a new instance with the finish time
