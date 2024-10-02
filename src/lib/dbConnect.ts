@@ -1,33 +1,64 @@
-import type { MongoClientOptions } from 'mongodb';
-import { MongoClient } from 'mongodb';
+import type _mongoose from 'mongoose';
+import { connect } from 'mongoose';
 
-if (!process.env.MONGODB_URI) {
-  throw new Error('Please add your Mongo URI to .env.local');
+declare global {
+  // This must be a var and not a let / const
+  //eslint-disable-next-line
+  var mongoose: {
+    promise: ReturnType<typeof connect> | null;
+    conn: typeof _mongoose | null;
+  };
 }
 
-const uri: string = process.env.MONGODB_URI;
-const options: MongoClientOptions = {};
+const MONGO_URL = process.env.MONGO_URL;
 
-interface GlobalWithMongo extends Global {
-  _mongoClientPromise?: Promise<MongoClient>;
+if (!MONGO_URL || MONGO_URL.length === 0) {
+  //TODO commented line to prevent build error
+  //throw new Error('Please add your MongoDB URI to .env.local');
 }
 
-declare const global: GlobalWithMongo;
+/**
+ * Global is used here to maintain a cached connection across hot reloads
+ * in development. This prevents connections from growing exponentially
+ * during API Route usage.
+ */
 
-const client: MongoClient = new MongoClient(uri, options);
+let cached = global.mongoose;
 
-const clientPromise: Promise<MongoClient> = ((): Promise<MongoClient> => {
-  if (process.env.NODE_ENV === 'development') {
-    if (!global._mongoClientPromise) {
-      console.log('Creating new MongoDB connection');
-      global._mongoClientPromise = client.connect();
-    } else {
-      console.log('Reusing existing MongoDB connection');
-    }
-    return global._mongoClientPromise;
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
+
+async function dbConnect() {
+  if (cached.conn) {
+    console.log('🚀 Using cached connection');
+    return cached.conn;
   }
-  console.log('Creating new MongoDB connection (production mode)');
-  return client.connect();
-})();
 
-export default clientPromise;
+  if (!cached.promise) {
+    const opts = {
+      bufferCommands: false,
+    };
+
+    cached.promise = connect(MONGO_URL!, opts)
+      .then((mongoose) => {
+        console.log('✅ New connection established');
+        return mongoose;
+      })
+      .catch((error) => {
+        console.error('❌ Connection to database failed');
+        throw error;
+      });
+  }
+
+  try {
+    cached.conn = await cached.promise;
+  } catch (e) {
+    cached.promise = null;
+    throw e;
+  }
+
+  return cached.conn;
+}
+
+export default dbConnect;
