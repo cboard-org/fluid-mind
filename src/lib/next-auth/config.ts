@@ -2,7 +2,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { compare } from 'bcryptjs';
 import dbConnect from '@/src/lib/dbConnect';
 import User from '@/src/dataBase/models/User';
-import { AuthOptions } from 'next-auth';
+import type { AuthOptions } from 'next-auth';
 
 const config = {
   providers: [
