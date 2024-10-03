@@ -6,11 +6,18 @@ import LocaleSwitcher from '@/src/components/LocaleSwitcher/LocaleSwitcher';
 import { useTranslations } from 'next-intl';
 import SpeechRecognizerLocaleSwitcher from '@/src/components/LocaleSwitcher/SpeechRecognizerLocaleSwitcher';
 import VoiceSwitcher from '../components/VoiceSwitcher/VoiceSwitcher';
+import { signOut } from 'next-auth/react';
 
 export default function Home() {
   const translations = useTranslations('Home');
   return (
     <main className={styles.main}>
+      <div className={styles.section}>
+        <Divider>user</Divider>
+        <Button onClick={() => signOut({ callbackUrl: 'http://localhost:3000/foo' })} size="large">
+          Logout
+        </Button>
+      </div>
       <div className={styles.section}>
         <Divider>{translations('Language')}</Divider>
         <div className={styles.labeledMenu}>

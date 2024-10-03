@@ -51,6 +51,7 @@ const config = {
   pages: {
     signIn: '/login',
     error: '/login', // Error code passed in query string as ?error=
+    signOut: '/login',
   },
 } satisfies AuthOptions;
 
