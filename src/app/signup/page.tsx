@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Input, Label } from '@fluentui/react-components';
 import { useRouter } from 'next/navigation';
 import styles from './page.module.css';
@@ -10,49 +10,80 @@ const SignupPage: React.FC = () => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [repeatPassword, setRepeatPassword] = useState<string>('');
-  const [passwordError, setPasswordError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
+  const validateForm = useCallback(() => {
+    setError(null);
+    if (!username) {
+      setError('username is required.');
+    }
+
+    if (!email) {
+      setError('Email is required.');
+    }
+    if (email && !/\S+@\S+\.\S+/.test(email)) {
+      setError('Email is invalid.');
+    }
+
+    if (!password) {
+      setError('Password is required.');
+    }
+    if (password && password.length < 6) {
+      setError('Password must be at least 6 characters long.');
+    }
+    if (password && password !== repeatPassword) {
+      setError('Passwords do not match.');
+    }
+  }, [username, email, password, repeatPassword]);
+
+  useEffect(() => {
+    validateForm();
+  }, [username, email, password, validateForm]);
+
   const handleSignup = async () => {
     if (password !== repeatPassword) {
-      setPasswordError('Passwords do not match');
+      setError('Passwords do not match');
       return;
     }
     try {
       setIsLoading(true);
-      const { body, status } = await fetch('/api/auth/signup', {
+      const response = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, username, password }),
       });
-      if (status !== 201) throw Error('error');
+      const { status, body } = response;
+
+      if (status === 409) throw Error('User or email already exists');
+      if (status !== 201) throw Error('error creating user');
       if (!body) throw Error('empty response');
       setIsLoading(false);
       router.push('/login');
     } catch (error) {
       console.log('error', error);
       setIsLoading(false);
+      if (error instanceof Error) return setError(error.message);
+      return setError('Something went wrong');
     }
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
     if (e.target.value !== repeatPassword) {
-      setPasswordError('Passwords do not match');
-    } else {
-      setPasswordError(null);
+      return setError('Passwords do not match');
     }
   };
 
   const handleRepeatPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRepeatPassword(e.target.value);
     if (password !== e.target.value) {
-      setPasswordError('Passwords do not match');
+      setError('Passwords do not match');
     } else {
-      setPasswordError(null);
+      setError(null);
     }
   };
 
@@ -94,7 +125,6 @@ const SignupPage: React.FC = () => {
             value={password}
             onChange={handlePasswordChange}
           />
-          {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
         </div>
         <div className={styles.fieldContainer}>
           <Label htmlFor="repeatPassword">Repeat Password</Label>
@@ -106,11 +136,12 @@ const SignupPage: React.FC = () => {
             onChange={handleRepeatPasswordChange}
           />
         </div>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
         <div className={styles.buttonGroup}>
           <Button
             appearance="primary"
             onClick={handleSignup}
-            disabled={passwordError !== null || password === '' || email === '' || isLoading}
+            disabled={error !== null || password === '' || email === '' || isLoading}
           >
             Signup
           </Button>
