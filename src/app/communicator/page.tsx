@@ -75,14 +75,17 @@ export default function Home() {
     const response = await fetchSuggestions(requestBody);
     if (!response) return;
     const answer = JSON.parse(response.answer);
+    const removeEmojis = (text: string) =>
+      text.replace(/[\p{Extended_Pictographic}\u2600-\u26FF]/gu, '');
     const howToReplySuggestions = answer.replies.map(
       ({ text, short }: { text: string; short: string }) => {
         return {
-          text: text.replace(/[\p{Extended_Pictographic}\u2600-\u26FF]/gu, ''),
-          short: short.replace(/[\p{Extended_Pictographic}\u2600-\u26FF]/gu, ''),
+          text: removeEmojis(text),
+          short: removeEmojis(short),
         };
       },
     );
+
     setHowToReplySuggestions(howToReplySuggestions);
   };
 
