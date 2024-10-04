@@ -75,11 +75,14 @@ export default function Home() {
     const response = await fetchSuggestions(requestBody);
     if (!response) return;
     const answer = JSON.parse(response.answer);
-    const howToReplySuggestions = answer.replies;
-    howToReplySuggestions.forEach((item: { text: string, short: string }) => {
-      item.text = item.text.replace(/[\p{Extended_Pictographic}\u2600-\u26FF]/gu, ''); //TODO fix this warning
-      item.short = item.short.replace(/[\p{Extended_Pictographic}\u2600-\u26FF]/gu, ''); //TODO fix this warning
-    });
+    const howToReplySuggestions = answer.replies.map(
+      ({ text, short }: { text: string; short: string }) => {
+        return {
+          text: text.replace(/[\p{Extended_Pictographic}\u2600-\u26FF]/gu, ''),
+          short: short.replace(/[\p{Extended_Pictographic}\u2600-\u26FF]/gu, ''),
+        };
+      },
+    );
     setHowToReplySuggestions(howToReplySuggestions);
   };
 
