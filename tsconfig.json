@@ -22,7 +22,7 @@
       "@/textToSpeech/*": ["./src/textToSpeech/*"],
       "@/lib/*": ["./src/lib/*"],
       "@/models/*": ["./src/dataBase/models/*"]
-    }
+    },
     "target": "es6"
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
