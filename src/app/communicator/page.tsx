@@ -78,10 +78,11 @@ export default function Home() {
     const removeEmojis = (text: string) =>
       text.replace(/[\p{Extended_Pictographic}\u2600-\u26FF]/gu, '');
     const howToReplySuggestions = answer.replies.map(
-      ({ text, short }: { text: string; short: string }) => {
+      ({ text, short, emoji }: { text: string; short: string; emoji: string }) => {
         return {
           text: removeEmojis(text),
           short: removeEmojis(short),
+          emoji,
         };
       },
     );
