@@ -21,7 +21,7 @@
       "@/src/*": ["./src/*"],
       "@/textToSpeech/*": ["./src/textToSpeech/*"],
       "@/lib/*": ["./src/lib/*"],
-      "@/models/*": ["./src/dataBase/models/*"]
+      "@/databaseModels/*": ["./src/dataBase/models/*"]
     },
     "target": "es6"
   },
