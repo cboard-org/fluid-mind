@@ -1,8 +1,6 @@
-import type { ObjectId } from 'mongodb';
 import { Schema, model, models } from 'mongoose';
 
 type User = {
-  _id: ObjectId;
   username: string;
   email: string;
   password: string;

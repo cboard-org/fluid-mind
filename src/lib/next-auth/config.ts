@@ -1,7 +1,7 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { compare } from 'bcryptjs';
 import dbConnect from '@/src/lib/dbConnect';
-import User from '@/src/dataBase/models/User';
+import User from '@/databaseModels/user/UserModel';
 import type { AuthOptions } from 'next-auth';
 
 const config = {
@@ -47,6 +47,20 @@ const config = {
   ],
   session: {
     strategy: 'jwt',
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token) {
+        session.user.id = token.id;
+      }
+      return session;
+    },
   },
   pages: {
     signIn: '/login',
