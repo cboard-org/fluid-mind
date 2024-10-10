@@ -1,9 +1,16 @@
 import { Schema, model, models } from 'mongoose';
 
-type User = {
+export type UserSettings = {
+  appLocale: string;
+  sttLocale: string;
+  ttsVoice: string;
+};
+
+export type User = {
   username: string;
   email: string;
   password: string;
+  settings: UserSettings;
 };
 
 const UserSchema = new Schema<User>(
@@ -19,6 +26,9 @@ const UserSchema = new Schema<User>(
     password: {
       type: String,
       required: [true, 'Please provide a password'],
+    },
+    settings: {
+      type: Object,
     },
   },
   { timestamps: true },
