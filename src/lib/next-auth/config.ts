@@ -26,8 +26,6 @@ const config = {
           if (!user) {
             return null;
           }
-          console.log('user', user);
-          console.log('password', password);
           const isMatch = await compare(password, user.password);
           if (!isMatch) {
             return null;
